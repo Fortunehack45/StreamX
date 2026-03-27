@@ -38,7 +38,7 @@ export function Layout() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             onClick={() => setIsMusicBarVisible(true)}
-            className="fixed bottom-[72px] left-0 right-0 md:hidden h-16 bg-white/5 backdrop-blur-3xl border-t border-white/10 px-4 flex items-center justify-between z-40 shadow-2xl cursor-pointer active:bg-white/10 transition-colors"
+            className="fixed bottom-[96px] left-0 right-0 md:bottom-6 md:left-auto md:right-6 md:w-80 h-16 bg-white/5 backdrop-blur-3xl border-t md:border border-white/10 md:rounded-2xl px-4 flex items-center justify-between z-40 shadow-2xl cursor-pointer hover:bg-white/10 transition-colors"
           >
             <div className="flex items-center gap-3 overflow-hidden">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center animate-[spin_12s_linear_infinite] shrink-0 shadow-lg relative overflow-hidden">
@@ -50,7 +50,7 @@ export function Layout() {
                 <span className="text-neutral-400 text-[10px] truncate">M83</span>
               </div>
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 md:gap-6">
               <button className="p-2 hover:bg-white/10 rounded-full transition-colors">
                 <Play size={20} className="text-white fill-white" />
               </button>
