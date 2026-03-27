@@ -48,7 +48,7 @@ export function Movies() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-4 md:p-12 pt-24 md:pt-32 font-sans pb-48 md:pb-24">
+    <div className="min-h-screen bg-[#050505] text-white p-4 md:p-12 pt-28 md:pt-40 font-sans pb-48 md:pb-24">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

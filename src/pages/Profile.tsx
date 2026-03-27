@@ -11,7 +11,7 @@ export function Profile() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-6 md:p-12 pt-28 md:pt-32 pb-48 md:pb-32 relative overflow-hidden">
+    <div className="min-h-screen bg-[#050505] text-white p-6 md:p-12 pt-28 md:pt-40 pb-48 md:pb-32 relative overflow-hidden">
       {/* Background Glows */}
       <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] bg-blue-600/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-purple-600/5 rounded-full blur-[150px] pointer-events-none" />

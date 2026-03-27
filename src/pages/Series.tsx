@@ -44,7 +44,7 @@ export function Series() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/40 to-transparent" />
         </div>
         
-        <div className="relative p-6 md:p-16 pt-32 md:pt-48 pb-20 md:pb-32 z-10">
+        <div className="relative p-6 md:p-16 pt-28 md:pt-40 pb-20 md:pb-32 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}

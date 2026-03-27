@@ -67,7 +67,7 @@ export function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
         </div>
         
-        <div className="relative p-6 md:p-20 pt-32 md:pt-48 pb-20 md:pb-32 z-10">
+        <div className="relative p-6 md:p-20 pt-28 md:pt-40 pb-20 md:pb-32 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
