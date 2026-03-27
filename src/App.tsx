@@ -12,6 +12,8 @@ import { Series } from "./pages/Series";
 import { SeriesDetails } from "./pages/SeriesDetails";
 import { Audio } from "./pages/Audio";
 import { Podcasts } from "./pages/Podcasts";
+import { PodcastDetails } from "./pages/PodcastDetails";
+import { MusicDetails } from "./pages/MusicDetails";
 import { SearchPage } from "./pages/Search";
 import { Downloader } from "./pages/Downloader";
 import { Profile } from "./pages/Profile";
@@ -27,7 +29,9 @@ export default function App() {
           <Route path="series" element={<Series />} />
           <Route path="series/:id" element={<SeriesDetails />} />
           <Route path="audio" element={<Audio />} />
+          <Route path="audio/:id" element={<MusicDetails />} />
           <Route path="podcasts" element={<Podcasts />} />
+          <Route path="podcasts/:id" element={<PodcastDetails />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="downloader" element={<Downloader />} />
           <Route path="profile" element={<Profile />} />

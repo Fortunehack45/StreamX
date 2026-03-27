@@ -76,11 +76,11 @@ export function MovieDetails() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
         
-        <Link to="/movies" className="absolute top-8 left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
+        <Link to="/movies" className="absolute top-24 left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
           <ChevronLeft size={24} />
         </Link>
 
-        <div className="absolute bottom-0 left-0 p-8 md:p-20 w-full z-10">
+        <div className="absolute inset-0 p-8 md:p-20 pt-32 md:pt-48 flex flex-col justify-start z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -93,7 +93,7 @@ export function MovieDetails() {
               <span className="text-white/60 font-black text-sm uppercase tracking-widest">{movie.year}</span>
             </div>
 
-            <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter mb-10 leading-[0.8] uppercase">{movie.title}</h1>
+            <h1 className="text-6xl md:text-[8rem] font-black tracking-tighter mb-10 leading-[0.8] uppercase">{movie.title}</h1>
             
             <div className="flex flex-wrap items-center gap-6 mb-12">
               <button className="flex items-center gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">

@@ -42,12 +42,12 @@ export function Series() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/40 to-transparent" />
         
-        <div className="absolute bottom-0 left-0 w-full p-6 md:p-16 flex flex-col justify-end z-10">
+        <div className="absolute inset-0 p-6 md:p-16 pt-32 md:pt-48 flex flex-col justify-start z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-4xl"
+            className="max-w-5xl"
           >
             <div className="flex items-center gap-3 mb-4 md:mb-6">
               <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-black bg-white px-3 py-1 rounded-sm">New Season</span>

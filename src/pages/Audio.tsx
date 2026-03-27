@@ -37,7 +37,7 @@ export function Audio() {
       <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-indigo-900/20 to-transparent pointer-events-none" />
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-fuchsia-900/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
 
-      <div className="px-4 md:px-12 pt-4 md:pt-8 relative z-10">
+      <div className="px-4 md:px-12 pt-24 md:pt-32 relative z-10">
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

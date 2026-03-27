@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Film, Tv, Music, Mic, Download } from "lucide-react";
+import { Home, Film, Tv, Music, Mic, Download, X } from "lucide-react";
 import { cn } from "../lib/utils";
+import { motion, AnimatePresence } from "motion/react";
+import { useState } from "react";
 
 const navItems = [
   { name: "Home", path: "/", icon: Home },
@@ -12,18 +14,21 @@ const navItems = [
 ];
 
 export function Sidebar() {
+  const [showPremiumBanner, setShowPremiumBanner] = useState(true);
   const location = useLocation();
 
   return (
-    <aside className="hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 bg-black/95 backdrop-blur-2xl border-r border-white/10 z-40">
-      <div className="h-20 flex items-center justify-between px-8 shrink-0">
-        <span className="text-white font-black text-2xl tracking-tighter">
-          STREAMX<span className="text-red-500">.</span>
-        </span>
+    <aside className="hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 bg-[#050505] border-r border-white/5 z-40">
+      <div className="h-24 flex items-center px-8 shrink-0">
+        <Link to="/" className="flex items-center gap-3 group">
+          <span className="text-white font-black text-2xl tracking-tighter uppercase italic">
+            STREAMX<span className="text-red-500">.</span>
+          </span>
+        </Link>
       </div>
 
-      <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto scrollbar-hide">
-        <div className="text-[10px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-6 px-4">Menu</div>
+      <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto scrollbar-hide">
+        <div className="text-[10px] font-black text-neutral-600 uppercase tracking-[0.3em] mb-8 px-4">Navigation</div>
         {navItems.map((item) => {
           const isActive = location.pathname === item.path || (item.path !== "/" && location.pathname.startsWith(item.path));
           return (
@@ -31,27 +36,58 @@ export function Sidebar() {
               key={item.name}
               to={item.path}
               className={cn(
-                "flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group text-sm font-medium",
+                "flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-500 group relative overflow-hidden",
                 isActive 
-                  ? "bg-white/10 text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]" 
-                  : "text-neutral-400 hover:text-white hover:bg-white/5"
+                  ? "text-white bg-white/5 border border-white/10 shadow-[0_4px_20px_rgba(255,255,255,0.05)]" 
+                  : "text-neutral-500 hover:text-neutral-300 hover:bg-white/[0.02]"
               )}
             >
-              <item.icon size={18} className={cn("transition-colors", isActive ? "text-white" : "group-hover:text-white")} />
-              {item.name}
+              {isActive && (
+                <motion.div 
+                  layoutId="sidebarActive"
+                  className="absolute left-0 w-1 h-5 bg-white rounded-full"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+              <item.icon size={18} className={cn("transition-all duration-500 group-hover:scale-110", isActive ? "text-white" : "text-neutral-500")} />
+              <span className="text-sm font-bold tracking-tight">{item.name}</span>
             </Link>
           );
         })}
       </nav>
 
-      <div className="p-6 shrink-0 border-t border-white/5">
-        <Link to="/profile" className="flex items-center gap-3 text-neutral-400 hover:text-white transition-colors w-full p-2 rounded-xl hover:bg-white/5">
-          <div className="w-9 h-9 rounded-full overflow-hidden bg-neutral-800 shrink-0 border border-white/10">
-            <img src="https://picsum.photos/seed/avatar/100/100" alt="User" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
+      <div className="p-6 shrink-0">
+        <AnimatePresence>
+          {showPremiumBanner && (
+            <motion.div 
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="p-5 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-3xl relative overflow-hidden group mb-6"
+            >
+              <button 
+                onClick={() => setShowPremiumBanner(false)}
+                className="absolute top-3 right-3 p-1 rounded-full hover:bg-white/10 text-neutral-500 hover:text-white transition-all z-10"
+              >
+                <X size={14} />
+              </button>
+              <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:bg-white/10 transition-colors" />
+              <h4 className="text-[10px] font-black uppercase tracking-widest mb-2 text-white">Premium Plan</h4>
+              <p className="text-[10px] text-neutral-500 mb-4 leading-relaxed">Experience 4K HDR and spatial audio.</p>
+              <button className="w-full py-2.5 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-neutral-200 transition-all shadow-lg">
+                Upgrade Now
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <Link to="/profile" className="flex items-center gap-3 text-neutral-400 hover:text-white transition-all duration-500 w-full p-2.5 rounded-2xl hover:bg-white/5 group">
+          <div className="w-10 h-10 rounded-2xl overflow-hidden bg-neutral-900 shrink-0 border border-white/10 group-hover:border-white/20 transition-all duration-500">
+            <img src="https://picsum.photos/seed/avatar/100/100" alt="User" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" referrerPolicy="no-referrer" />
           </div>
           <div className="flex flex-col items-start overflow-hidden">
-            <span className="text-sm font-medium text-white truncate w-full text-left">Fourtua𝕏</span>
-            <span className="text-[10px] text-neutral-500 uppercase tracking-wider font-semibold">Premium</span>
+            <span className="text-sm font-bold text-white truncate w-full text-left tracking-tight">Fourtua𝕏</span>
+            <span className="text-[10px] text-neutral-500 uppercase tracking-widest font-black">Pro Member</span>
           </div>
         </Link>
       </div>

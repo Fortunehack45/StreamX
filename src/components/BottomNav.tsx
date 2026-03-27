@@ -16,8 +16,8 @@ export function BottomNav() {
   const location = useLocation();
 
   return (
-    <div className="md:hidden fixed bottom-6 left-4 right-4 z-50">
-      <div className="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full px-2 py-2 flex items-center justify-between shadow-[0_20px_40px_rgba(0,0,0,0.8)] overflow-x-auto scrollbar-hide">
+    <div className="md:hidden fixed bottom-8 left-6 right-6 z-50">
+      <div className="bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[32px] px-3 py-3 flex items-center justify-between shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-x-auto scrollbar-hide">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path || (item.path !== "/" && location.pathname.startsWith(item.path));
           const Icon = item.icon;
@@ -26,32 +26,32 @@ export function BottomNav() {
               key={item.path}
               to={item.path}
               className={cn(
-                "relative p-3 flex items-center justify-center h-12 rounded-full flex-shrink-0 transition-all duration-300",
-                isActive ? "px-5 bg-white/10" : "w-12"
+                "relative flex items-center justify-center h-12 rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
+                isActive ? "px-6 bg-white/10 shadow-[0_8px_20px_rgba(255,255,255,0.05)]" : "w-12 hover:bg-white/5"
               )}
             >
               {isActive && (
                 <motion.div
                   layoutId="bottomNavIndicator"
-                  className="absolute inset-0 bg-white/10 rounded-full border border-white/20"
+                  className="absolute inset-0 bg-white/5 rounded-2xl border border-white/10"
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
               )}
-              <div className="flex items-center gap-2 relative z-10">
+              <div className="flex items-center gap-3 relative z-10">
                 <Icon 
                   size={20} 
                   className={cn(
-                    "transition-all duration-300", 
-                    isActive ? "text-white" : "text-neutral-500 hover:text-neutral-300"
+                    "transition-all duration-500", 
+                    isActive ? "text-white scale-110" : "text-neutral-500 group-hover:text-neutral-300"
                   )} 
                 />
                 <AnimatePresence>
                   {isActive && (
                     <motion.span 
-                      initial={{ opacity: 0, width: 0 }}
-                      animate={{ opacity: 1, width: "auto" }}
-                      exit={{ opacity: 0, width: 0 }}
-                      className="text-xs font-bold text-white tracking-wide overflow-hidden whitespace-nowrap"
+                      initial={{ opacity: 0, width: 0, x: -10 }}
+                      animate={{ opacity: 1, width: "auto", x: 0 }}
+                      exit={{ opacity: 0, width: 0, x: -10 }}
+                      className="text-[11px] font-black uppercase tracking-widest text-white overflow-hidden whitespace-nowrap"
                     >
                       {item.label}
                     </motion.span>
