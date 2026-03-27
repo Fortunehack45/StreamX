@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Film, Tv, Music, Mic, Download, Search } from "lucide-react";
+import { Home, Film, Tv, Music, Mic, Download } from "lucide-react";
 import { cn } from "../lib/utils";
 
 const navItems = [
@@ -20,17 +20,6 @@ export function Sidebar() {
         <span className="text-white font-black text-2xl tracking-tighter">
           STREAMX<span className="text-red-500">.</span>
         </span>
-      </div>
-
-      <div className="px-6 mb-6">
-        <div className="relative group">
-          <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 group-focus-within:text-white transition-colors" />
-          <input 
-            type="text" 
-            placeholder="Search..." 
-            className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all"
-          />
-        </div>
       </div>
 
       <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto scrollbar-hide">

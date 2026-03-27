@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
-import { TopNav } from "./TopNav";
+import { TopBar } from "./TopBar";
 import { BottomNav } from "./BottomNav";
 import { AnimatePresence, motion } from "motion/react";
 
@@ -11,7 +11,8 @@ export function Layout() {
     <div className="min-h-screen bg-black text-white selection:bg-white/30 flex">
       <Sidebar />
       <div className="flex-1 flex flex-col min-w-0 md:ml-64 relative">
-        <main className="flex-1 relative pb-24 md:pb-0">
+        <TopBar />
+        <main className="flex-1 relative pb-24 md:pt-20">
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}

@@ -10,6 +10,7 @@ import { Movies } from "./pages/Movies";
 import { Series } from "./pages/Series";
 import { Audio } from "./pages/Audio";
 import { Podcasts } from "./pages/Podcasts";
+import { SearchPage } from "./pages/Search";
 import { Downloader } from "./pages/Downloader";
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="series" element={<Series />} />
           <Route path="audio" element={<Audio />} />
           <Route path="podcasts" element={<Podcasts />} />
+          <Route path="search" element={<SearchPage />} />
           <Route path="downloader" element={<Downloader />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
