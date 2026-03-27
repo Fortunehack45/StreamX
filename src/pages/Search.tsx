@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 
 export function SearchPage() {
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-6 pt-28 font-sans">
+    <div className="min-h-screen bg-[#050505] text-white p-6 pt-8 font-sans">
       <div className="relative group max-w-2xl mx-auto">
         <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500" />
         <input 

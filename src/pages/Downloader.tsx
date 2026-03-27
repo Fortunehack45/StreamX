@@ -28,7 +28,7 @@ export function Downloader() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-neutral-900/30 blur-[150px] rounded-full pointer-events-none" />
 
       {/* Header */}
-      <div className="border-b border-white/10 pt-24 pb-12 px-6 md:px-12 relative z-10">
+      <div className="border-b border-white/10 pt-4 pb-12 px-6 md:px-12 relative z-10">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-4 uppercase">
           Downloader
         </h1>

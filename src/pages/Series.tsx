@@ -42,7 +42,7 @@ export function Series() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/40 to-transparent" />
         
-        <div className="absolute bottom-0 left-0 w-full p-6 md:p-16 flex flex-col justify-end z-10 pt-28">
+        <div className="absolute bottom-0 left-0 w-full p-6 md:p-16 flex flex-col justify-end z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}

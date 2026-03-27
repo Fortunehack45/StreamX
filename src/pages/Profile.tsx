@@ -3,7 +3,7 @@ import { User, Settings, Shield, CreditCard, LogOut } from "lucide-react";
 
 export function Profile() {
   return (
-    <div className="min-h-screen bg-black text-white p-6 md:p-12 pt-28 md:pt-12">
+    <div className="min-h-screen bg-black text-white p-6 md:p-12 pt-8 md:pt-12">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
