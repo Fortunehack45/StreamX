@@ -38,6 +38,39 @@ const podcastData = {
       { id: 1, title: "The Shadow in the Woods", duration: "60 min", date: "Mar 22, 2026", description: "Revisiting the 1994 disappearance that shocked a small town." }
     ]
   },
+  "103": { 
+    title: "Mindset Matters", 
+    desc: "A podcast about psychology, productivity, and personal growth. Learn how to master your mind and achieve your goals.", 
+    rating: "4.8", 
+    episodes: "85+", 
+    year: "2026",
+    language: "English",
+    category: "Self-Help",
+    hosts: [{ name: "Dr. Amy", role: "Psychologist", image: "https://picsum.photos/seed/amy-host/200/200" }],
+    recentEpisodes: [{ id: 1, title: "The Power of Habit", duration: "40 min", date: "Mar 25, 2026", description: "How small changes lead to big results." }]
+  },
+  "104": { 
+    title: "History Unveiled", 
+    desc: "Exploring the hidden stories of the past. From ancient civilizations to modern revolutions, we uncover the truth behind the history books.", 
+    rating: "4.6", 
+    episodes: "210+", 
+    year: "2024",
+    language: "English",
+    category: "History",
+    hosts: [{ name: "Prof. James", role: "Historian", image: "https://picsum.photos/seed/james-host/200/200" }],
+    recentEpisodes: [{ id: 1, title: "The Fall of Rome", duration: "55 min", date: "Mar 21, 2026", description: "What really happened in 476 AD?" }]
+  },
+  "105": { 
+    title: "The Future Economy", 
+    desc: "Analyzing the trends that are shaping the global economy. From crypto to climate change, we look at what's next for the world of finance.", 
+    rating: "4.5", 
+    episodes: "60+", 
+    year: "2026",
+    language: "English",
+    category: "Business",
+    hosts: [{ name: "Lisa Wong", role: "Economist", image: "https://picsum.photos/seed/lisa-host/200/200" }],
+    recentEpisodes: [{ id: 1, title: "The Post-Dollar World", duration: "48 min", date: "Mar 18, 2026", description: "Is the era of dollar dominance ending?" }]
+  },
 };
 
 const similarPodcasts = [
@@ -63,24 +96,26 @@ export function PodcastDetails() {
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans pb-32">
       {/* Hero Section */}
-      <div className="relative h-[70vh] w-full overflow-hidden">
-        <motion.img 
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.5 }}
-          src={`https://picsum.photos/seed/${podcast.title}/1920/1080`} 
-          alt={podcast.title} 
-          className="w-full h-full object-cover opacity-60" 
-          referrerPolicy="no-referrer" 
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
+      <div className="relative min-h-[75vh] md:min-h-[85vh] w-full flex flex-col justify-end overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <motion.img 
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5 }}
+            src={`https://picsum.photos/seed/${podcast.title}/1920/1080`} 
+            alt={podcast.title} 
+            className="w-full h-full object-cover opacity-60" 
+            referrerPolicy="no-referrer" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
+        </div>
         
-        <Link to="/" className="absolute top-24 left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
+        <Link to="/podcasts" className="absolute top-24 left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
           <ChevronLeft size={24} />
         </Link>
 
-        <div className="absolute inset-0 p-8 md:p-20 pt-32 md:pt-48 flex flex-col justify-start z-10">
+        <div className="relative p-8 md:p-20 pt-48 md:pt-64 pb-24 md:pb-32 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -93,9 +128,9 @@ export function PodcastDetails() {
               <span className="text-white/60 font-black text-sm uppercase tracking-widest">{podcast.category}</span>
             </div>
 
-            <h1 className="text-6xl md:text-[8rem] font-black tracking-tighter mb-10 leading-[0.8] uppercase">{podcast.title}</h1>
+            <h1 className="text-5xl md:text-[8rem] font-black tracking-tighter mb-10 leading-[0.8] uppercase max-w-6xl">{podcast.title}</h1>
             
-            <div className="flex flex-wrap items-center gap-6 mb-12">
+            <div className="flex flex-wrap items-center gap-6">
               <button className="flex items-center gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
                 <Play size={24} className="fill-black" /> Listen Latest
               </button>

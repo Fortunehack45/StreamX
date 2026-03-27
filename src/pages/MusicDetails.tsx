@@ -45,6 +45,42 @@ const musicData = {
       image: "https://picsum.photos/seed/chill-artist/200/200"
     }
   },
+  "203": { 
+    title: "Celestial Harmonies", 
+    artist: "Star Dust",
+    desc: "Ambient soundscapes from the edge of the universe. Deeply immersive and meditative.", 
+    rating: "4.8", 
+    tracksCount: "8", 
+    year: "2026",
+    genre: "Ambient",
+    label: "Cosmic Records",
+    tracks: [{ id: 1, title: "Void", duration: "10:00", plays: "100K" }],
+    artistInfo: { name: "Star Dust", bio: "Exploring the silence between stars.", image: "https://picsum.photos/seed/celestial/200/200" }
+  },
+  "204": { 
+    title: "Electric Soul", 
+    artist: "Volt",
+    desc: "High-energy electronic soul with heavy bass and soulful vocals.", 
+    rating: "4.6", 
+    tracksCount: "10", 
+    year: "2026",
+    genre: "Electro-Soul",
+    label: "Volt Records",
+    tracks: [{ id: 1, title: "Spark", duration: "3:30", plays: "500K" }],
+    artistInfo: { name: "Volt", bio: "Electrifying the dancefloor.", image: "https://picsum.photos/seed/soul/200/200" }
+  },
+  "205": { 
+    title: "Synth Waves", 
+    artist: "Wave Runner",
+    desc: "Classic 80s inspired synthpop with a modern twist.", 
+    rating: "4.5", 
+    tracksCount: "11", 
+    year: "2024",
+    genre: "Synthpop",
+    label: "Retro Records",
+    tracks: [{ id: 1, title: "Ocean Drive", duration: "4:00", plays: "300K" }],
+    artistInfo: { name: "Wave Runner", bio: "Chasing the neon sunset.", image: "https://picsum.photos/seed/waves/200/200" }
+  },
 };
 
 const similarMusic = [
@@ -71,24 +107,26 @@ export function MusicDetails() {
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans pb-32">
       {/* Hero Section */}
-      <div className="relative h-[70vh] w-full overflow-hidden">
-        <motion.img 
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.5 }}
-          src={`https://picsum.photos/seed/${music.title}/1920/1080`} 
-          alt={music.title} 
-          className="w-full h-full object-cover opacity-60" 
-          referrerPolicy="no-referrer" 
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
+      <div className="relative min-h-[75vh] md:min-h-[85vh] w-full flex flex-col justify-end overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <motion.img 
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5 }}
+            src={`https://picsum.photos/seed/${music.title}/1920/1080`} 
+            alt={music.title} 
+            className="w-full h-full object-cover opacity-60" 
+            referrerPolicy="no-referrer" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
+        </div>
         
-        <Link to="/" className="absolute top-24 left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
+        <Link to="/audio" className="absolute top-24 left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
           <ChevronLeft size={24} />
         </Link>
 
-        <div className="absolute inset-0 p-8 md:p-20 pt-32 md:pt-48 flex flex-col justify-start z-10">
+        <div className="relative p-8 md:p-20 pt-48 md:pt-64 pb-24 md:pb-32 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -101,10 +139,10 @@ export function MusicDetails() {
               <span className="text-white/60 font-black text-sm uppercase tracking-widest">{music.genre}</span>
             </div>
 
-            <h1 className="text-6xl md:text-[8rem] font-black tracking-tighter mb-4 leading-[0.8] uppercase">{music.title}</h1>
+            <h1 className="text-5xl md:text-[8rem] font-black tracking-tighter mb-4 leading-[0.8] uppercase max-w-6xl">{music.title}</h1>
             <h2 className="text-2xl md:text-4xl font-bold text-white/50 uppercase tracking-widest mb-10 italic">{music.artist}</h2>
             
-            <div className="flex flex-wrap items-center gap-6 mb-12">
+            <div className="flex flex-wrap items-center gap-6">
               <button className="flex items-center gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
                 <Play size={24} className="fill-black" /> Play Album
               </button>

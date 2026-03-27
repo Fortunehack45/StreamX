@@ -1,20 +1,21 @@
 import { motion } from "motion/react";
 import { Headphones, PlayCircle, Clock, Star, ChevronRight, Play, Heart, MoreHorizontal, Share2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const topPodcasts = [
-  { id: 1, title: "The Daily Stoic", host: "Ryan Holiday", image: "https://picsum.photos/seed/pod1/400/400", duration: "15m", rating: "4.9", category: "Philosophy" },
-  { id: 2, title: "Design Matters", host: "Debbie Millman", image: "https://picsum.photos/seed/pod2/400/400", duration: "45m", rating: "4.8", category: "Design" },
-  { id: 3, title: "Hidden Brain", host: "Shankar Vedantam", image: "https://picsum.photos/seed/pod3/400/400", duration: "52m", rating: "4.7", category: "Science" },
-  { id: 4, title: "How I Built This", host: "Guy Raz", image: "https://picsum.photos/seed/pod4/400/400", duration: "60m", rating: "4.9", category: "Business" },
-  { id: 5, title: "Syntax", host: "Wes Bos & Scott Tolinski", image: "https://picsum.photos/seed/pod5/400/400", duration: "55m", rating: "4.8", category: "Tech" },
-  { id: 6, title: "Lex Fridman", host: "Lex Fridman", image: "https://picsum.photos/seed/pod6/400/400", duration: "2h 30m", rating: "4.9", category: "Interviews" },
+  { id: 101, title: "The Daily Stoic", host: "Ryan Holiday", image: "https://picsum.photos/seed/pod1/400/400", duration: "15m", rating: "4.9", category: "Philosophy" },
+  { id: 102, title: "Design Matters", host: "Debbie Millman", image: "https://picsum.photos/seed/pod2/400/400", duration: "45m", rating: "4.8", category: "Design" },
+  { id: 103, title: "Hidden Brain", host: "Shankar Vedantam", image: "https://picsum.photos/seed/pod3/400/400", duration: "52m", rating: "4.7", category: "Science" },
+  { id: 104, title: "How I Built This", host: "Guy Raz", image: "https://picsum.photos/seed/pod4/400/400", duration: "60m", rating: "4.9", category: "Business" },
+  { id: 105, title: "Syntax", host: "Wes Bos & Scott Tolinski", image: "https://picsum.photos/seed/pod5/400/400", duration: "55m", rating: "4.8", category: "Tech" },
+  { id: 106, title: "Lex Fridman", host: "Lex Fridman", image: "https://picsum.photos/seed/pod6/400/400", duration: "2h 30m", rating: "4.9", category: "Interviews" },
 ];
 
 const trendingEpisodes = [
-  { id: 11, title: "The Future of AI", podcast: "Tech Today", duration: "45m", date: "Oct 24", image: "https://picsum.photos/seed/ep1/200/200" },
-  { id: 12, title: "Building a Billion Dollar Brand", podcast: "Startup Stories", duration: "1h 15m", date: "Oct 22", image: "https://picsum.photos/seed/ep2/200/200" },
-  { id: 13, title: "The Science of Sleep", podcast: "Health & Wellness", duration: "50m", date: "Oct 20", image: "https://picsum.photos/seed/ep3/200/200" },
-  { id: 14, title: "Unsolved Mysteries: The Disappearance", podcast: "True Crime Daily", duration: "1h 30m", date: "Oct 18", image: "https://picsum.photos/seed/ep4/200/200" },
+  { id: 101, title: "The Future of AI", podcast: "Tech Today", duration: "45m", date: "Oct 24", image: "https://picsum.photos/seed/ep1/200/200" },
+  { id: 102, title: "Building a Billion Dollar Brand", podcast: "Startup Stories", duration: "1h 15m", date: "Oct 22", image: "https://picsum.photos/seed/ep2/200/200" },
+  { id: 103, title: "The Science of Sleep", podcast: "Health & Wellness", duration: "50m", date: "Oct 20", image: "https://picsum.photos/seed/ep3/200/200" },
+  { id: 104, title: "Unsolved Mysteries: The Disappearance", podcast: "True Crime Daily", duration: "1h 30m", date: "Oct 18", image: "https://picsum.photos/seed/ep4/200/200" },
 ];
 
 const categories = [
@@ -102,35 +103,36 @@ export function Podcasts() {
           
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
             {topPodcasts.map((pod, i) => (
-              <motion.div 
-                key={pod.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1, ease: "easeOut" }}
-                className="group cursor-pointer flex flex-col"
-              >
-                <div className="relative aspect-square rounded-2xl overflow-hidden mb-4 bg-neutral-900 shadow-xl">
-                  <img src={pod.image} alt={pod.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110" referrerPolicy="no-referrer" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform mb-auto self-end shadow-lg">
-                      <Play size={20} className="text-white fill-white ml-1" />
+              <Link key={pod.id} to={`/podcasts/${pod.id}`} className="flex flex-col">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1, ease: "easeOut" }}
+                  className="group cursor-pointer flex flex-col h-full"
+                >
+                  <div className="relative aspect-square rounded-2xl overflow-hidden mb-4 bg-neutral-900 shadow-xl">
+                    <img src={pod.image} alt={pod.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110" referrerPolicy="no-referrer" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform mb-auto self-end shadow-lg">
+                        <Play size={20} className="text-white fill-white ml-1" />
+                      </div>
+                    </div>
+                    <div className="absolute top-2 left-2 px-2 py-1 bg-black/60 backdrop-blur-md rounded text-[9px] font-bold uppercase tracking-wider text-white/90">
+                      {pod.category}
                     </div>
                   </div>
-                  <div className="absolute top-2 left-2 px-2 py-1 bg-black/60 backdrop-blur-md rounded text-[9px] font-bold uppercase tracking-wider text-white/90">
-                    {pod.category}
+                  <h3 className="text-white font-bold text-sm md:text-base mb-1 leading-tight group-hover:text-indigo-400 transition-colors truncate">{pod.title}</h3>
+                  <p className="text-neutral-400 text-xs font-medium mb-2 truncate">{pod.host}</p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <div className="flex items-center gap-1 text-[10px] md:text-xs text-yellow-500 font-bold">
+                      <Star size={12} className="fill-yellow-500" /> {pod.rating}
+                    </div>
+                    <div className="flex items-center gap-1 text-[10px] md:text-xs text-neutral-500 font-bold uppercase">
+                      <Clock size={12} /> {pod.duration}
+                    </div>
                   </div>
-                </div>
-                <h3 className="text-white font-bold text-sm md:text-base mb-1 leading-tight group-hover:text-indigo-400 transition-colors truncate">{pod.title}</h3>
-                <p className="text-neutral-400 text-xs font-medium mb-2 truncate">{pod.host}</p>
-                <div className="flex items-center justify-between mt-auto">
-                  <div className="flex items-center gap-1 text-[10px] md:text-xs text-yellow-500 font-bold">
-                    <Star size={12} className="fill-yellow-500" /> {pod.rating}
-                  </div>
-                  <div className="flex items-center gap-1 text-[10px] md:text-xs text-neutral-500 font-bold uppercase">
-                    <Clock size={12} /> {pod.duration}
-                  </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </section>
@@ -149,39 +151,40 @@ export function Podcasts() {
             
             <div className="flex flex-col gap-3 md:gap-4">
               {trendingEpisodes.map((ep, i) => (
-                <motion.div 
-                  key={ep.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-4 md:gap-6 p-3 md:p-4 rounded-2xl hover:bg-white/5 transition-colors group cursor-pointer border border-transparent hover:border-white/10"
-                >
-                  <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden shrink-0 shadow-lg">
-                    <img src={ep.image} alt={ep.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" referrerPolicy="no-referrer" />
-                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Play size={20} className="text-white fill-white" />
+                <Link key={ep.id} to={`/podcasts/${ep.id}`}>
+                  <motion.div 
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="flex items-center gap-4 md:gap-6 p-3 md:p-4 rounded-2xl hover:bg-white/5 transition-colors group cursor-pointer border border-transparent hover:border-white/10"
+                  >
+                    <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden shrink-0 shadow-lg">
+                      <img src={ep.image} alt={ep.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" referrerPolicy="no-referrer" />
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Play size={20} className="text-white fill-white" />
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="flex-1 min-w-0">
-                    <div className="text-[10px] md:text-xs font-bold text-indigo-400 uppercase tracking-widest mb-1 md:mb-1.5">{ep.podcast}</div>
-                    <h3 className="text-white font-bold text-sm md:text-lg leading-tight mb-1 md:mb-2 truncate group-hover:text-white/90 transition-colors">{ep.title}</h3>
-                    <div className="flex items-center gap-3 text-[10px] md:text-xs text-neutral-500 font-medium">
-                      <span>{ep.date}</span>
-                      <span className="w-1 h-1 rounded-full bg-neutral-700"></span>
-                      <span className="flex items-center gap-1"><Clock size={12} /> {ep.duration}</span>
+                    
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[10px] md:text-xs font-bold text-indigo-400 uppercase tracking-widest mb-1 md:mb-1.5">{ep.podcast}</div>
+                      <h3 className="text-white font-bold text-sm md:text-lg leading-tight mb-1 md:mb-2 truncate group-hover:text-white/90 transition-colors">{ep.title}</h3>
+                      <div className="flex items-center gap-3 text-[10px] md:text-xs text-neutral-500 font-medium">
+                        <span>{ep.date}</span>
+                        <span className="w-1 h-1 rounded-full bg-neutral-700"></span>
+                        <span className="flex items-center gap-1"><Clock size={12} /> {ep.duration}</span>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="hidden sm:flex items-center gap-3">
-                    <button className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all">
-                      <Heart size={16} />
-                    </button>
-                    <button className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all">
-                      <MoreHorizontal size={16} />
-                    </button>
-                  </div>
-                </motion.div>
+                    
+                    <div className="hidden sm:flex items-center gap-3">
+                      <button className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all">
+                        <Heart size={16} />
+                      </button>
+                      <button className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all">
+                        <MoreHorizontal size={16} />
+                      </button>
+                    </div>
+                  </motion.div>
+                </Link>
               ))}
             </div>
           </section>

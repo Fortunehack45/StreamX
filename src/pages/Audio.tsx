@@ -1,26 +1,27 @@
 import { motion } from "motion/react";
 import { Play, Heart, MoreHorizontal, Shuffle, SkipBack, SkipForward, Repeat, Disc3, ListMusic, Mic2, Radio, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const topTracks = [
-  { id: 1, title: "Starboy", artist: "The Weeknd, Daft Punk", duration: "3:50", plays: "2.4B", image: "https://picsum.photos/seed/starboy/100/100" },
-  { id: 2, title: "Blinding Lights", artist: "The Weeknd", duration: "3:20", plays: "3.8B", image: "https://picsum.photos/seed/blinding/100/100" },
-  { id: 3, title: "Midnight City", artist: "M83", duration: "4:03", plays: "1.1B", image: "https://picsum.photos/seed/midnight/100/100" },
-  { id: 4, title: "Nightcall", artist: "Kavinsky", duration: "4:19", plays: "850M", image: "https://picsum.photos/seed/nightcall/100/100" },
-  { id: 5, title: "Genesis", artist: "Grimes", duration: "4:15", plays: "420M", image: "https://picsum.photos/seed/genesis/100/100" },
+  { id: 201, title: "Starboy", artist: "The Weeknd, Daft Punk", duration: "3:50", plays: "2.4B", image: "https://picsum.photos/seed/starboy/100/100" },
+  { id: 202, title: "Blinding Lights", artist: "The Weeknd", duration: "3:20", plays: "3.8B", image: "https://picsum.photos/seed/blinding/100/100" },
+  { id: 203, title: "Midnight City", artist: "M83", duration: "4:03", plays: "1.1B", image: "https://picsum.photos/seed/midnight/100/100" },
+  { id: 204, title: "Nightcall", artist: "Kavinsky", duration: "4:19", plays: "850M", image: "https://picsum.photos/seed/nightcall/100/100" },
+  { id: 205, title: "Genesis", artist: "Grimes", duration: "4:15", plays: "420M", image: "https://picsum.photos/seed/genesis/100/100" },
 ];
 
 const madeForYou = [
-  { id: 11, title: "Synthwave Mix", desc: "Neon lights and late night drives.", image: "https://picsum.photos/seed/synth/400/400" },
-  { id: 12, title: "Deep Focus", desc: "Ambient sounds for deep work.", image: "https://picsum.photos/seed/focus2/400/400" },
-  { id: 13, title: "Indie Pop", desc: "The best new indie pop tracks.", image: "https://picsum.photos/seed/indie/400/400" },
-  { id: 14, title: "Late Night", desc: "Slow jams for the midnight hour.", image: "https://picsum.photos/seed/late/400/400" },
+  { id: 201, title: "Synthwave Mix", desc: "Neon lights and late night drives.", image: "https://picsum.photos/seed/synth/400/400" },
+  { id: 202, title: "Deep Focus", desc: "Ambient sounds for deep work.", image: "https://picsum.photos/seed/focus2/400/400" },
+  { id: 203, title: "Indie Pop", desc: "The best new indie pop tracks.", image: "https://picsum.photos/seed/indie/400/400" },
+  { id: 204, title: "Late Night", desc: "Slow jams for the midnight hour.", image: "https://picsum.photos/seed/late/400/400" },
 ];
 
 const newReleases = [
-  { id: 21, title: "Dawn FM", artist: "The Weeknd", type: "Album", image: "https://picsum.photos/seed/dawnfm/400/400" },
-  { id: 22, title: "Currents", artist: "Tame Impala", type: "Album", image: "https://picsum.photos/seed/currents/400/400" },
-  { id: 23, title: "Random Access Memories", artist: "Daft Punk", type: "Album", image: "https://picsum.photos/seed/ram/400/400" },
-  { id: 24, title: "After Hours", artist: "The Weeknd", type: "Album", image: "https://picsum.photos/seed/afterhours/400/400" },
+  { id: 201, title: "Dawn FM", artist: "The Weeknd", type: "Album", image: "https://picsum.photos/seed/dawnfm/400/400" },
+  { id: 202, title: "Currents", artist: "Tame Impala", type: "Album", image: "https://picsum.photos/seed/currents/400/400" },
+  { id: 203, title: "Random Access Memories", artist: "Daft Punk", type: "Album", image: "https://picsum.photos/seed/ram/400/400" },
+  { id: 204, title: "After Hours", artist: "The Weeknd", type: "Album", image: "https://picsum.photos/seed/afterhours/400/400" },
 ];
 
 const trendingArtists = [
@@ -110,37 +111,38 @@ export function Audio() {
               
               <div className="flex flex-col gap-2">
                 {topTracks.map((track, i) => (
-                  <motion.div 
-                    key={track.id}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    className="flex items-center gap-3 md:gap-4 p-2 md:p-3 rounded-xl hover:bg-white/5 transition-colors group cursor-pointer"
-                  >
-                    <div className="w-6 md:w-8 text-center text-neutral-500 font-mono text-xs md:text-sm group-hover:hidden">
-                      {i + 1}
-                    </div>
-                    <div className="w-6 md:w-8 flex justify-center hidden group-hover:flex">
-                      <Play size={14} className="text-white fill-white md:w-4 md:h-4" />
-                    </div>
-                    <img src={track.image} alt={track.title} className="w-10 h-10 md:w-12 md:h-12 rounded-md object-cover" referrerPolicy="no-referrer" />
-                    <div className="flex-1 min-w-0">
-                      <div className="text-white font-bold text-sm md:text-base leading-tight mb-0.5 truncate group-hover:text-indigo-400 transition-colors">{track.title}</div>
-                      <div className="text-neutral-400 text-[10px] md:text-xs truncate">{track.artist}</div>
-                    </div>
-                    <div className="text-neutral-500 text-[10px] md:text-xs font-mono hidden sm:block w-20 md:w-24 text-right">
-                      {track.plays}
-                    </div>
-                    <div className="text-neutral-500 text-[10px] md:text-xs font-mono w-10 md:w-12 text-right">
-                      {track.duration}
-                    </div>
-                    <button className="opacity-0 group-hover:opacity-100 transition-opacity text-neutral-400 hover:text-white hidden md:block">
-                      <Heart size={16} />
-                    </button>
-                    <button className="opacity-0 group-hover:opacity-100 transition-opacity text-neutral-400 hover:text-white hidden md:block">
-                      <MoreHorizontal size={16} />
-                    </button>
-                  </motion.div>
+                  <Link key={track.id} to={`/audio/${track.id}`}>
+                    <motion.div 
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                      className="flex items-center gap-3 md:gap-4 p-2 md:p-3 rounded-xl hover:bg-white/5 transition-colors group cursor-pointer"
+                    >
+                      <div className="w-6 md:w-8 text-center text-neutral-500 font-mono text-xs md:text-sm group-hover:hidden">
+                        {i + 1}
+                      </div>
+                      <div className="w-6 md:w-8 flex justify-center hidden group-hover:flex">
+                        <Play size={14} className="text-white fill-white md:w-4 md:h-4" />
+                      </div>
+                      <img src={track.image} alt={track.title} className="w-10 h-10 md:w-12 md:h-12 rounded-md object-cover" referrerPolicy="no-referrer" />
+                      <div className="flex-1 min-w-0">
+                        <div className="text-white font-bold text-sm md:text-base leading-tight mb-0.5 truncate group-hover:text-indigo-400 transition-colors">{track.title}</div>
+                        <div className="text-neutral-400 text-[10px] md:text-xs truncate">{track.artist}</div>
+                      </div>
+                      <div className="text-neutral-500 text-[10px] md:text-xs font-mono hidden sm:block w-20 md:w-24 text-right">
+                        {track.plays}
+                      </div>
+                      <div className="text-neutral-500 text-[10px] md:text-xs font-mono w-10 md:w-12 text-right">
+                        {track.duration}
+                      </div>
+                      <button className="opacity-0 group-hover:opacity-100 transition-opacity text-neutral-400 hover:text-white hidden md:block">
+                        <Heart size={16} />
+                      </button>
+                      <button className="opacity-0 group-hover:opacity-100 transition-opacity text-neutral-400 hover:text-white hidden md:block">
+                        <MoreHorizontal size={16} />
+                      </button>
+                    </motion.div>
+                  </Link>
                 ))}
               </div>
             </section>
@@ -155,24 +157,25 @@ export function Audio() {
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
                 {newReleases.map((item, i) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="group cursor-pointer"
-                  >
-                    <div className="relative aspect-square rounded-xl md:rounded-2xl overflow-hidden mb-3 md:mb-4 bg-neutral-900 shadow-lg">
-                      <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" referrerPolicy="no-referrer" />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform shadow-xl">
-                          <Play size={20} className="text-white fill-white ml-1 md:w-6 md:h-6" />
+                  <Link key={item.id} to={`/audio/${item.id}`}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="group cursor-pointer"
+                    >
+                      <div className="relative aspect-square rounded-xl md:rounded-2xl overflow-hidden mb-3 md:mb-4 bg-neutral-900 shadow-lg">
+                        <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" referrerPolicy="no-referrer" />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform shadow-xl">
+                            <Play size={20} className="text-white fill-white ml-1 md:w-6 md:h-6" />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <h3 className="text-white font-bold text-xs md:text-sm mb-0.5 md:mb-1 truncate group-hover:text-indigo-400 transition-colors">{item.title}</h3>
-                    <p className="text-neutral-500 text-[10px] md:text-xs truncate">{item.type} • {item.artist}</p>
-                  </motion.div>
+                      <h3 className="text-white font-bold text-xs md:text-sm mb-0.5 md:mb-1 truncate group-hover:text-indigo-400 transition-colors">{item.title}</h3>
+                      <p className="text-neutral-500 text-[10px] md:text-xs truncate">{item.type} • {item.artist}</p>
+                    </motion.div>
+                  </Link>
                 ))}
               </div>
             </section>
@@ -216,24 +219,25 @@ export function Audio() {
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
                 {madeForYou.map((item, i) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="group cursor-pointer"
-                  >
-                    <div className="relative aspect-square rounded-xl md:rounded-2xl overflow-hidden mb-3 md:mb-4 bg-neutral-900 shadow-lg">
-                      <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" referrerPolicy="no-referrer" />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform shadow-xl">
-                          <Play size={20} className="text-white fill-white ml-1 md:w-6 md:h-6" />
+                  <Link key={item.id} to={`/audio/${item.id}`}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="group cursor-pointer"
+                    >
+                      <div className="relative aspect-square rounded-xl md:rounded-2xl overflow-hidden mb-3 md:mb-4 bg-neutral-900 shadow-lg">
+                        <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" referrerPolicy="no-referrer" />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform shadow-xl">
+                            <Play size={20} className="text-white fill-white ml-1 md:w-6 md:h-6" />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <h3 className="text-white font-bold text-xs md:text-sm mb-0.5 md:mb-1 truncate group-hover:text-indigo-400 transition-colors">{item.title}</h3>
-                    <p className="text-neutral-500 text-[10px] md:text-xs line-clamp-2 leading-snug">{item.desc}</p>
-                  </motion.div>
+                      <h3 className="text-white font-bold text-xs md:text-sm mb-0.5 md:mb-1 truncate group-hover:text-indigo-400 transition-colors">{item.title}</h3>
+                      <p className="text-neutral-500 text-[10px] md:text-xs line-clamp-2 leading-snug">{item.desc}</p>
+                    </motion.div>
+                  </Link>
                 ))}
               </div>
             </section>
