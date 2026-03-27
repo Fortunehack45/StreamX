@@ -83,7 +83,7 @@ export function Series() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {trendingSeries.map((series, i) => (
-              <MediaCard key={series.id} {...series} delay={i * 0.1} />
+              <MediaCard key={series.id} {...series} linkTo={`/series/${series.id}`} delay={i * 0.1} />
             ))}
           </div>
         </section>
@@ -98,7 +98,7 @@ export function Series() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {sciFiSeries.map((series, i) => (
-              <MediaCard key={series.id} {...series} delay={i * 0.1} />
+              <MediaCard key={series.id} {...series} linkTo={`/series/${series.id}`} delay={i * 0.1} />
             ))}
           </div>
         </section>
@@ -113,7 +113,7 @@ export function Series() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {crimeSeries.map((series, i) => (
-              <MediaCard key={series.id} {...series} delay={i * 0.1} />
+              <MediaCard key={series.id} {...series} linkTo={`/series/${series.id}`} delay={i * 0.1} />
             ))}
           </div>
         </section>

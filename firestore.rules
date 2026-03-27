@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: ratings
+    // Document ID: auto-generated
+    // Fields:
+    //   - contentId: string (required) - The ID of the content being rated.
+    //   - contentType: string (required) - The type of content (movie, series, podcast).
+    //   - userId: string (required) - The ID of the user who gave the rating.
+    //   - rating: number (required) - The rating value (1-5).
+    //   - createdAt: string (required) - When the rating was created (ISO 8601).
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() { return request.auth != null; }
+    function isOwner(userId) { return isAuthenticated() && request.auth.uid == userId; }
+    function hasRequiredFields(fields) { return request.resource.data.keys().hasAll(fields); }
+    function hasOnlyAllowedFields(fields) { return request.resource.data.keys().hasOnly(fields); }
+
+    match /ratings/{ratingId} {
+      allow read: if true;
+      allow create: if isAuthenticated() &&
+        hasRequiredFields(['contentId', 'contentType', 'userId', 'rating', 'createdAt']) &&
+        hasOnlyAllowedFields(['contentId', 'contentType', 'userId', 'rating', 'createdAt']) &&
+        isOwner(request.resource.data.userId) &&
+        request.resource.data.rating is number &&
+        request.resource.data.rating >= 1 && request.resource.data.rating <= 5;
+      allow update: if isAuthenticated() &&
+        isOwner(resource.data.userId) &&
+        hasOnlyAllowedFields(['contentId', 'contentType', 'userId', 'rating', 'createdAt']) &&
+        request.resource.data.userId == resource.data.userId &&
+        request.resource.data.rating is number &&
+        request.resource.data.rating >= 1 && request.resource.data.rating <= 5;
+      allow delete: if isAuthenticated() && isOwner(resource.data.userId);
+    }
+  }
+}

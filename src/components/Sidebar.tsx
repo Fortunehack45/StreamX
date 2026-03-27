@@ -45,7 +45,7 @@ export function Sidebar() {
       </nav>
 
       <div className="p-6 shrink-0 border-t border-white/5">
-        <button className="flex items-center gap-3 text-neutral-400 hover:text-white transition-colors w-full p-2 rounded-xl hover:bg-white/5">
+        <Link to="/profile" className="flex items-center gap-3 text-neutral-400 hover:text-white transition-colors w-full p-2 rounded-xl hover:bg-white/5">
           <div className="w-9 h-9 rounded-full overflow-hidden bg-neutral-800 shrink-0 border border-white/10">
             <img src="https://picsum.photos/seed/avatar/100/100" alt="User" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
           </div>
@@ -53,7 +53,7 @@ export function Sidebar() {
             <span className="text-sm font-medium text-white truncate w-full text-left">Fourtua𝕏</span>
             <span className="text-[10px] text-neutral-500 uppercase tracking-wider font-semibold">Premium</span>
           </div>
-        </button>
+        </Link>
       </div>
     </aside>
   );

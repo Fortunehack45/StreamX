@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
 import { BottomNav } from "./BottomNav";
+import { MusicBar } from "./MusicBar";
 import { AnimatePresence, motion } from "motion/react";
 
 export function Layout() {
@@ -27,6 +28,7 @@ export function Layout() {
           </AnimatePresence>
         </main>
       </div>
+      <MusicBar />
       <BottomNav />
     </div>
   );

@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "Rating": {
+      "title": "Rating",
+      "description": "A user rating for a movie, series, or podcast.",
+      "type": "object",
+      "properties": {
+        "contentId": { "type": "string", "description": "The ID of the content being rated." },
+        "contentType": { "type": "string", "description": "The type of content (movie, series, podcast)." },
+        "userId": { "type": "string", "description": "The ID of the user who gave the rating." },
+        "rating": { "type": "number", "description": "The rating value (1-5)." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the rating was created." }
+      },
+      "required": ["contentId", "contentType", "userId", "rating", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/ratings/{ratingId}": {
+      "schema": "Rating",
+      "description": "Collection of user ratings."
+    }
+  }
+}
