@@ -90,26 +90,28 @@ export function SeriesDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans pb-32">
+    <div className="min-h-screen bg-[#050505] text-white font-sans pb-48 md:pb-32">
       {/* Hero Section */}
-      <div className="relative h-[85vh] w-full overflow-hidden">
-        <motion.img 
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.5 }}
-          src={`https://picsum.photos/seed/${series.title}/1920/1080`} 
-          alt={series.title} 
-          className="w-full h-full object-cover opacity-60" 
-          referrerPolicy="no-referrer" 
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
+      <div className="relative min-h-[85vh] w-full overflow-hidden flex flex-col justify-end">
+        <div className="absolute inset-0 -z-10">
+          <motion.img 
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5 }}
+            src={`https://picsum.photos/seed/${series.title}/1920/1080`} 
+            alt={series.title} 
+            className="w-full h-full object-cover opacity-60" 
+            referrerPolicy="no-referrer" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
+        </div>
         
         <Link to="/series" className="absolute top-24 left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
           <ChevronLeft size={24} />
         </Link>
 
-        <div className="absolute inset-0 p-8 md:p-20 pt-32 md:pt-48 flex flex-col justify-start z-10">
+        <div className="relative p-8 md:p-20 pb-24 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -313,7 +315,7 @@ export function SeriesDetails() {
                   className="group cursor-pointer"
                 >
                   <div className="aspect-square rounded-3xl overflow-hidden mb-4 border border-white/5 group-hover:border-white/20 transition-all">
-                    <img src={actor.image} alt={actor.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                    <img src={actor.image} alt={actor.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
                   </div>
                   <h3 className="font-black text-sm uppercase tracking-widest mb-1">{actor.name}</h3>
                   <p className="text-neutral-500 text-[10px] font-bold uppercase tracking-widest">{actor.role}</p>
@@ -376,7 +378,7 @@ export function SeriesDetails() {
               {similarSeries.map((s) => (
                 <Link key={s.id} to={`/series/${s.id}`} className="group">
                   <div className="aspect-[2/3] rounded-2xl overflow-hidden mb-3 border border-white/5 group-hover:border-white/20 transition-all">
-                    <img src={s.image} alt={s.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <img src={s.image} alt={s.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" referrerPolicy="no-referrer" />
                   </div>
                   <h4 className="font-black text-[10px] uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">{s.title}</h4>
                 </Link>

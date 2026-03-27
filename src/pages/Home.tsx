@@ -48,24 +48,26 @@ export function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white pb-32 font-sans">
+    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 font-sans">
       
       {/* Featured Hero Banner */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="relative w-full h-[70vh] md:h-[90vh] overflow-hidden mb-12 md:mb-20 group"
+        className="relative w-full min-h-[75vh] md:min-h-[90vh] flex flex-col justify-end overflow-hidden mb-12 md:mb-20 group"
       >
-        <img 
-          src="https://picsum.photos/seed/hero-movie/1920/1080" 
-          alt="Hero Background" 
-          className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
+        <div className="absolute inset-0 -z-10">
+          <img 
+            src="https://picsum.photos/seed/hero-movie/1920/1080" 
+            alt="Hero Background" 
+            className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
+        </div>
         
-        <div className="absolute inset-0 p-6 md:p-20 pt-32 md:pt-48 flex flex-col justify-start z-10">
+        <div className="relative p-6 md:p-20 pt-32 md:pt-48 pb-20 md:pb-32 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -82,7 +84,7 @@ export function Home() {
               When humanity's last hope rests on a crew of misfits, they must navigate the treacherous outer rim to find a new home. A visually stunning sci-fi epic that redefines the genre.
             </p>
             
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center gap-6">
               <Link to="/movies/1" className="flex items-center justify-center gap-4 px-10 md:px-14 py-4 md:py-5 bg-white text-black rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] hover:bg-neutral-200 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)] hover:scale-105 transform duration-300">
                 <Play size={20} className="fill-black" /> Play Now
               </Link>

@@ -33,7 +33,7 @@ const trendingArtists = [
 
 export function Audio() {
   return (
-    <div className="min-h-screen bg-[#050505] text-white pb-32 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 relative overflow-hidden font-sans">
       {/* Atmospheric Background Orbs */}
       <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-indigo-900/20 to-transparent pointer-events-none" />
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-fuchsia-900/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
@@ -72,7 +72,7 @@ export function Audio() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="sticky top-28"
+              className="lg:sticky lg:top-28"
             >
               <div className="aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-indigo-900/20 mb-6 md:mb-8 relative group">
                 <img src="https://picsum.photos/seed/featured-audio/800/800" alt="Featured" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
@@ -86,8 +86,8 @@ export function Audio() {
                 </div>
               </div>
               
-              <div className="flex items-center gap-3 md:gap-4">
-                <button className="flex-1 bg-white/10 backdrop-blur-md border border-white/20 text-white py-3 md:py-4 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-white/20 transition-colors flex items-center justify-center gap-2">
+              <div className="flex flex-wrap items-center gap-3 md:gap-4">
+                <button className="flex-1 min-w-[140px] bg-white/10 backdrop-blur-md border border-white/20 text-white py-3 md:py-4 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-white/20 transition-colors flex items-center justify-center gap-2">
                   <Shuffle size={16} /> Shuffle Play
                 </button>
                 <button className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors shrink-0">

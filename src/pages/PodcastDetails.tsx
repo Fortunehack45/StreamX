@@ -94,7 +94,7 @@ export function PodcastDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans pb-32">
+    <div className="min-h-screen bg-[#050505] text-white font-sans pb-48 md:pb-32">
       {/* Hero Section */}
       <div className="relative min-h-[75vh] md:min-h-[85vh] w-full flex flex-col justify-end overflow-hidden">
         <div className="absolute inset-0 -z-10">
@@ -285,7 +285,7 @@ export function PodcastDetails() {
             <div className="space-y-6">
               {podcast.hosts.map((host) => (
                 <div key={host.name} className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
-                  <img src={host.image} alt={host.name} className="w-12 h-12 rounded-xl object-cover" />
+                  <img src={host.image} alt={host.name} className="w-12 h-12 rounded-xl object-cover" referrerPolicy="no-referrer" />
                   <div>
                     <h4 className="text-sm font-black uppercase tracking-tight">{host.name}</h4>
                     <p className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest">{host.role}</p>
@@ -301,7 +301,7 @@ export function PodcastDetails() {
               {similarPodcasts.map((p) => (
                 <Link key={p.id} to={`/podcasts/${p.id}`} className="group flex items-center gap-4">
                   <div className="w-20 h-20 rounded-2xl overflow-hidden border border-white/5 group-hover:border-white/20 transition-all flex-shrink-0">
-                    <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" referrerPolicy="no-referrer" />
                   </div>
                   <div>
                     <h4 className="font-black text-xs uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors mb-1">{p.title}</h4>

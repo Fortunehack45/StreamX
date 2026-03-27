@@ -11,7 +11,7 @@ export function SearchPage() {
   const trending = ["Succession", "The Bear", "Last of Us", "Beef"];
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-6 pt-28 font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-[#050505] text-white p-6 pt-28 pb-48 md:pb-32 font-sans relative overflow-hidden">
       {/* Background Glows */}
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />

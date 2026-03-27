@@ -105,7 +105,7 @@ export function MusicDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans pb-32">
+    <div className="min-h-screen bg-[#050505] text-white font-sans pb-48 md:pb-32">
       {/* Hero Section */}
       <div className="relative min-h-[75vh] md:min-h-[85vh] w-full flex flex-col justify-end overflow-hidden">
         <div className="absolute inset-0 -z-10">
@@ -299,7 +299,7 @@ export function MusicDetails() {
             <h3 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500 mb-10">About Artist</h3>
             <div className="p-6 rounded-3xl bg-white/5 border border-white/5">
               <div className="flex items-center gap-4 mb-6">
-                <img src={music.artistInfo.image} alt={music.artistInfo.name} className="w-16 h-16 rounded-2xl object-cover" />
+                <img src={music.artistInfo.image} alt={music.artistInfo.name} className="w-16 h-16 rounded-2xl object-cover" referrerPolicy="no-referrer" />
                 <div>
                   <h4 className="text-lg font-black uppercase tracking-tight">{music.artistInfo.name}</h4>
                   <button className="text-[10px] font-black text-white bg-white/10 px-3 py-1 rounded-full uppercase tracking-widest hover:bg-white hover:text-black transition-all">Follow</button>
@@ -315,7 +315,7 @@ export function MusicDetails() {
               {similarMusic.map((m) => (
                 <Link key={m.id} to={`/audio/${m.id}`} className="group flex items-center gap-4">
                   <div className="w-20 h-20 rounded-2xl overflow-hidden border border-white/5 group-hover:border-white/20 transition-all flex-shrink-0">
-                    <img src={m.image} alt={m.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <img src={m.image} alt={m.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" referrerPolicy="no-referrer" />
                   </div>
                   <div>
                     <h4 className="font-black text-xs uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors mb-1">{m.title}</h4>

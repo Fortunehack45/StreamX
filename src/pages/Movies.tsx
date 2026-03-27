@@ -48,7 +48,7 @@ export function Movies() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-4 md:p-12 pt-24 md:pt-32 font-sans pb-24">
+    <div className="min-h-screen bg-[#050505] text-white p-4 md:p-12 pt-24 md:pt-32 font-sans pb-48 md:pb-24">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -63,28 +63,28 @@ export function Movies() {
       </motion.div>
       
       {/* Bento Grid Featured */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px] mb-12 md:mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 auto-rows-min md:auto-rows-[300px] mb-12 md:mb-16">
         
         {/* Featured Large */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
-          className="md:col-span-3 row-span-1 md:row-span-2 rounded-2xl md:rounded-3xl overflow-hidden relative group cursor-pointer"
+          className="md:col-span-3 row-span-1 md:row-span-2 rounded-2xl md:rounded-3xl overflow-hidden relative group cursor-pointer min-h-[400px] md:min-h-0"
         >
           <img src="https://picsum.photos/seed/movie1/1200/800" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-4 md:p-12 flex flex-col justify-end">
-            <div className="flex gap-2 mb-2 md:mb-4">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 md:p-12 flex flex-col justify-end">
+            <div className="flex gap-2 mb-3 md:mb-4">
               <span className="px-2 md:px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[9px] md:text-xs font-bold uppercase tracking-wider">Action</span>
               <span className="px-2 md:px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[9px] md:text-xs font-bold uppercase tracking-wider">2026</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl md:text-7xl font-black mb-3 md:mb-6 tracking-tighter leading-none">THE VANGUARD</h2>
-            <div className="flex items-center gap-3 md:gap-4">
-              <button className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.3)]">
-                <Play size={16} className="fill-black ml-1 md:w-6 md:h-6" />
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black mb-4 md:mb-6 tracking-tighter leading-none">THE VANGUARD</h2>
+            <div className="flex flex-wrap items-center gap-3 md:gap-4">
+              <button className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                <Play size={20} className="fill-black ml-1 md:w-6 md:h-6" />
               </button>
-              <button className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-colors">
-                <Plus size={16} className="md:w-6 md:h-6" />
+              <button className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-colors">
+                <Plus size={20} className="md:w-6 md:h-6" />
               </button>
             </div>
           </div>

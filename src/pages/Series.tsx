@@ -25,24 +25,26 @@ const crimeSeries = [
 
 export function Series() {
   return (
-    <div className="min-h-screen bg-[#050505] text-white pb-24 font-sans">
+    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 font-sans">
       
       {/* Featured Hero Banner */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="relative w-full h-[70vh] md:h-[85vh] overflow-hidden mb-12 md:mb-16 group"
+        className="relative w-full min-h-[75vh] md:min-h-[85vh] flex flex-col justify-end overflow-hidden mb-12 md:mb-16 group"
       >
-        <img 
-          src="https://picsum.photos/seed/series-hero/1920/1080" 
-          alt="Hero Background" 
-          className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/40 to-transparent" />
+        <div className="absolute inset-0 -z-10">
+          <img 
+            src="https://picsum.photos/seed/series-hero/1920/1080" 
+            alt="Hero Background" 
+            className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/40 to-transparent" />
+        </div>
         
-        <div className="absolute inset-0 p-6 md:p-16 pt-32 md:pt-48 flex flex-col justify-start z-10">
+        <div className="relative p-6 md:p-16 pt-32 md:pt-48 pb-20 md:pb-32 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -59,7 +61,7 @@ export function Series() {
               In a sprawling metropolis, a rogue AI begins to question its core directives, leading to a cascade of unforeseen events. The highly anticipated third season is finally here.
             </p>
             
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
               <button className="flex items-center justify-center gap-3 px-8 md:px-10 py-3.5 md:py-4 bg-white text-black rounded-full text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:scale-105 transform duration-300">
                 <Play size={18} className="fill-current" /> Play S3:E1
               </button>
