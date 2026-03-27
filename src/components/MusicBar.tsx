@@ -1,8 +1,18 @@
-import { Play, Heart, MoreHorizontal, Shuffle, SkipBack, SkipForward, Repeat, Disc3, ListMusic, Mic2 } from "lucide-react";
+import { Play, Heart, MoreHorizontal, Shuffle, SkipBack, SkipForward, Repeat, Disc3, ListMusic, Mic2, ChevronDown } from "lucide-react";
+import { motion } from "motion/react";
 
-export function MusicBar() {
+interface MusicBarProps {
+  onToggle: () => void;
+}
+
+export function MusicBar({ onToggle }: MusicBarProps) {
   return (
-    <div className="fixed bottom-24 md:bottom-6 left-2 right-2 md:left-[280px] md:right-6 h-16 md:h-20 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl px-3 md:px-6 flex items-center justify-between z-40 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+    <motion.div 
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 100 }}
+      className="fixed bottom-24 md:bottom-6 left-2 right-2 md:left-[280px] md:right-6 h-16 md:h-20 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl px-3 md:px-6 flex items-center justify-between z-40 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+    >
       <div className="flex items-center gap-2 md:gap-4 w-1/2 md:w-1/3 overflow-hidden">
         <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 shadow-lg relative overflow-hidden">
           <img src="https://picsum.photos/seed/midnight/100/100" className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay" referrerPolicy="no-referrer" />
@@ -41,10 +51,13 @@ export function MusicBar() {
         <button className="text-neutral-400 hover:text-white transition-colors"><Mic2 size={16} /></button>
         <button className="text-neutral-400 hover:text-white transition-colors"><ListMusic size={16} /></button>
         <button className="text-neutral-400 hover:text-white transition-colors"><MoreHorizontal size={18} /></button>
+        <button onClick={onToggle} className="text-neutral-400 hover:text-white transition-colors ml-2">
+          <ChevronDown size={18} />
+        </button>
         <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden group cursor-pointer ml-2">
           <div className="h-full bg-white/50 group-hover:bg-indigo-400 w-2/3 transition-colors"></div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

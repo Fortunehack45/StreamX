@@ -4,9 +4,12 @@ import { TopBar } from "./TopBar";
 import { BottomNav } from "./BottomNav";
 import { MusicBar } from "./MusicBar";
 import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
+import { ChevronUp } from "lucide-react";
 
 export function Layout() {
   const location = useLocation();
+  const [isMusicBarVisible, setIsMusicBarVisible] = useState(true);
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-white/30 flex">
@@ -28,7 +31,21 @@ export function Layout() {
           </AnimatePresence>
         </main>
       </div>
-      <MusicBar />
+      <AnimatePresence>
+        {isMusicBarVisible ? (
+          <MusicBar onToggle={() => setIsMusicBarVisible(false)} />
+        ) : (
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            onClick={() => setIsMusicBarVisible(true)}
+            className="fixed bottom-28 md:bottom-6 right-6 p-3 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-white z-50 hover:bg-white/20 transition-colors shadow-lg"
+          >
+            <ChevronUp size={20} />
+          </motion.button>
+        )}
+      </AnimatePresence>
       <BottomNav />
     </div>
   );
