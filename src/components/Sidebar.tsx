@@ -50,7 +50,7 @@ export function Sidebar() {
             <img src="https://picsum.photos/seed/avatar/100/100" alt="User" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
           </div>
           <div className="flex flex-col items-start overflow-hidden">
-            <span className="text-sm font-medium text-white truncate w-full text-left">Alex Doe</span>
+            <span className="text-sm font-medium text-white truncate w-full text-left">Fourtua𝕏</span>
             <span className="text-[10px] text-neutral-500 uppercase tracking-wider font-semibold">Premium</span>
           </div>
         </button>
