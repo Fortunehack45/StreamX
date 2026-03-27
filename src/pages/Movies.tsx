@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import { Play, Star, Plus, ChevronRight } from "lucide-react";
 import { MediaCard } from "../components/MediaCard";
+import { MediaCardSkeleton } from "../components/MediaCardSkeleton";
+import { useState, useEffect } from "react";
 
 const hollywoodMovies = [
   { id: 1, title: "The Quantum Protocol", image: "https://picsum.photos/seed/hollywood1/800/1200", rating: "4.8", year: "2026", genre: "Action", summary: "A rogue agent must stop a global conspiracy before a new quantum weapon is unleashed." },
@@ -38,6 +40,13 @@ const comedyMovies = [
 ];
 
 export function Movies() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#050505] text-white p-4 md:p-12 pt-24 md:pt-28 font-sans pb-24">
       <motion.div 
@@ -107,7 +116,7 @@ export function Movies() {
           ))}
         </div>
       </div>
-
+      
       <div className="space-y-12 md:space-y-16">
         
         {/* Hollywood Blockbusters */}
@@ -119,9 +128,12 @@ export function Movies() {
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {hollywoodMovies.map((movie, i) => (
-              <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
-            ))}
+            {isLoading 
+              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
+              : hollywoodMovies.map((movie, i) => (
+                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                ))
+            }
           </div>
         </section>
 
@@ -134,9 +146,12 @@ export function Movies() {
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {bollywoodMovies.map((movie, i) => (
-              <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
-            ))}
+            {isLoading 
+              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
+              : bollywoodMovies.map((movie, i) => (
+                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                ))
+            }
           </div>
         </section>
 
@@ -149,9 +164,12 @@ export function Movies() {
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {kDramas.map((movie, i) => (
-              <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
-            ))}
+            {isLoading 
+              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
+              : kDramas.map((movie, i) => (
+                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                ))
+            }
           </div>
         </section>
 
@@ -164,9 +182,12 @@ export function Movies() {
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {actionMovies.map((movie, i) => (
-              <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
-            ))}
+            {isLoading 
+              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
+              : actionMovies.map((movie, i) => (
+                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                ))
+            }
           </div>
         </section>
 
@@ -179,9 +200,12 @@ export function Movies() {
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {comedyMovies.map((movie, i) => (
-              <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
-            ))}
+            {isLoading 
+              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
+              : comedyMovies.map((movie, i) => (
+                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                ))
+            }
           </div>
         </section>
 

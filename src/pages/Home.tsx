@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import { Play, Plus, ChevronRight } from "lucide-react";
 import { MediaCard } from "../components/MediaCard";
+import { MediaCardSkeleton } from "../components/MediaCardSkeleton";
+import { useState, useEffect } from "react";
 
 const trendingMovies = [
   { id: 1, title: "Cyberpunk: Edgerunners", image: "https://picsum.photos/seed/cyber/800/1200", rating: "4.9", year: "2026", genre: "Sci-Fi", summary: "When humanity's last hope rests on a crew of misfits, they must navigate the treacherous outer rim to find a new home." },
@@ -25,6 +27,13 @@ const continueWatching = [
 ];
 
 export function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#050505] text-white pb-24 font-sans">
       
@@ -83,9 +92,22 @@ export function Home() {
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {trendingMovies.slice(0, 4).map((movie, i) => (
-              <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
-            ))}
+            {isLoading 
+              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
+              : trendingMovies.slice(0, 4).map((movie, i) => (
+                  <MediaCard 
+                    key={movie.id} 
+                    id={movie.id} 
+                    title={movie.title} 
+                    image={movie.image} 
+                    rating={movie.rating} 
+                    year={movie.year} 
+                    genre={movie.genre} 
+                    summary={movie.summary} 
+                    delay={i * 0.1} 
+                  />
+                ))
+            }
           </div>
         </section>
 
@@ -135,9 +157,12 @@ export function Home() {
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {topPicks.map((movie, i) => (
-              <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
-            ))}
+            {isLoading 
+              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
+              : topPicks.map((movie, i) => (
+                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                ))
+            }
           </div>
         </section>
 
@@ -150,9 +175,12 @@ export function Home() {
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {trendingMovies.slice(2, 6).map((movie, i) => (
-              <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
-            ))}
+            {isLoading 
+              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
+              : trendingMovies.slice(2, 6).map((movie, i) => (
+                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                ))
+            }
           </div>
         </section>
 

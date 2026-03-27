@@ -1,7 +1,10 @@
 import { motion } from "motion/react";
-import { Play, Star, Plus } from "lucide-react";
+import { Play, Star, Plus, Check } from "lucide-react";
+import { useState } from "react";
+import { cn } from "../lib/utils";
 
 interface MediaCardProps {
+  id: number;
   title: string;
   image: string;
   rating: string;
@@ -9,9 +12,12 @@ interface MediaCardProps {
   genre: string;
   summary: string;
   delay?: number;
+  key?: any;
 }
 
-export function MediaCard({ title, image, rating, year, genre, summary, delay = 0 }: MediaCardProps) {
+export function MediaCard({ id, title, image, rating, year, genre, summary, delay = 0 }: MediaCardProps) {
+  const [inWatchlist, setInWatchlist] = useState(false);
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -29,6 +35,15 @@ export function MediaCard({ title, image, rating, year, genre, summary, delay = 
         <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-2 py-1 rounded text-[10px] font-bold text-yellow-500 flex items-center gap-1">
           <Star size={10} className="fill-yellow-500" /> {rating}
         </div>
+        <button 
+          onClick={() => setInWatchlist(!inWatchlist)}
+          className={cn(
+            "absolute top-2 left-2 p-1.5 rounded-full backdrop-blur-md transition-all duration-300",
+            inWatchlist ? "bg-white text-black" : "bg-black/60 text-white hover:bg-white hover:text-black"
+          )}
+        >
+          {inWatchlist ? <Check size={14} /> : <Plus size={14} />}
+        </button>
       </div>
       <div className="p-3 md:p-4 flex flex-col flex-1 justify-between bg-gradient-to-b from-neutral-900/80 to-black">
         <div>
