@@ -1,4 +1,5 @@
-import { Search, Bell, Settings } from "lucide-react";
+import { Search, Bell, Settings, User } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function TopBar() {
   return (
@@ -13,6 +14,9 @@ export function TopBar() {
       </div>
       
       <div className="flex items-center gap-4">
+        <Link to="/profile" className="md:hidden p-2 text-neutral-400 hover:text-white transition-colors">
+          <User size={20} />
+        </Link>
         <button className="p-2 text-neutral-400 hover:text-white transition-colors">
           <Bell size={20} />
         </button>

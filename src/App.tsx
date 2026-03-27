@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { Home } from "./pages/Home";
 import { Movies } from "./pages/Movies";
+import { MovieDetails } from "./pages/MovieDetails";
 import { Series } from "./pages/Series";
 import { SeriesDetails } from "./pages/SeriesDetails";
 import { Audio } from "./pages/Audio";
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="movies" element={<Movies />} />
+          <Route path="movies/:id" element={<MovieDetails />} />
           <Route path="series" element={<Series />} />
           <Route path="series/:id" element={<SeriesDetails />} />
           <Route path="audio" element={<Audio />} />

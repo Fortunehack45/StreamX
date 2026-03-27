@@ -131,7 +131,7 @@ export function Movies() {
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : hollywoodMovies.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                  <MediaCard key={movie.id} {...movie} linkTo={`/movies/${movie.id}`} delay={i * 0.1} />
                 ))
             }
           </div>
@@ -149,7 +149,7 @@ export function Movies() {
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : bollywoodMovies.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                  <MediaCard key={movie.id} {...movie} linkTo={`/movies/${movie.id}`} delay={i * 0.1} />
                 ))
             }
           </div>
@@ -167,7 +167,7 @@ export function Movies() {
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : kDramas.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                  <MediaCard key={movie.id} {...movie} linkTo={`/movies/${movie.id}`} delay={i * 0.1} />
                 ))
             }
           </div>
@@ -185,7 +185,7 @@ export function Movies() {
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : actionMovies.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                  <MediaCard key={movie.id} {...movie} linkTo={`/movies/${movie.id}`} delay={i * 0.1} />
                 ))
             }
           </div>
@@ -203,7 +203,7 @@ export function Movies() {
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : comedyMovies.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                  <MediaCard key={movie.id} {...movie} linkTo={`/movies/${movie.id}`} delay={i * 0.1} />
                 ))
             }
           </div>
