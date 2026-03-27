@@ -40,14 +40,14 @@ export function TopBar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 md:top-4 md:right-4 md:left-[calc(16rem+1rem)] h-16 md:h-16 z-40 pointer-events-none">
-      <div className="flex items-center justify-between h-full gap-4 px-4 md:px-0 pointer-events-auto bg-black/40 backdrop-blur-3xl md:bg-transparent md:backdrop-blur-none border-b border-white/5 md:border-none">
+    <header className="fixed top-4 right-4 left-4 md:left-[calc(16rem+2rem)] h-16 z-40 pointer-events-none">
+      <div className="flex items-center justify-between h-full gap-4 pointer-events-auto">
         
         {/* Search Bar - Floating Glass */}
         <div 
           ref={searchRef}
           className={cn(
-            "relative flex-1 max-w-md h-10 md:h-full bg-white/5 backdrop-blur-2xl border border-white/10 rounded-xl md:rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
+            "relative flex-1 max-w-md h-full bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
             isSearchFocused ? "max-w-xl bg-white/10 border-white/20 shadow-[0_12px_48px_rgba(0,0,0,0.6)]" : ""
           )}
         >

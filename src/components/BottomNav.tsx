@@ -16,8 +16,8 @@ export function BottomNav() {
   const location = useLocation();
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
-      <div className="bg-black/60 backdrop-blur-3xl border-t border-white/10 px-6 py-4 pb-8 flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+    <div className="md:hidden fixed bottom-8 left-6 right-6 z-50">
+      <div className="bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[32px] px-3 py-3 flex items-center justify-between shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-x-auto scrollbar-hide">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path || (item.path !== "/" && location.pathname.startsWith(item.path));
           const Icon = item.icon;

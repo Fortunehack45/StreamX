@@ -11,7 +11,7 @@ export function MusicBar({ onToggle }: MusicBarProps) {
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 100 }}
-      className="fixed bottom-[96px] md:bottom-6 left-0 right-0 md:left-[280px] md:right-6 h-16 md:h-20 bg-black/80 backdrop-blur-3xl border-t border-white/10 md:border md:rounded-2xl px-3 md:px-6 flex items-center justify-between z-40 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
+      className="fixed bottom-[112px] md:bottom-8 left-6 right-6 md:left-[calc(16rem+2rem)] md:right-8 h-16 md:h-20 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[24px] px-3 md:px-6 flex items-center justify-between z-40 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
     >
       <div className="flex items-center gap-2 md:gap-4 w-1/2 md:w-1/3 overflow-hidden">
         <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 shadow-lg relative overflow-hidden">
@@ -51,8 +51,12 @@ export function MusicBar({ onToggle }: MusicBarProps) {
         <button className="hidden md:block text-neutral-400 hover:text-white transition-colors"><Mic2 size={16} /></button>
         <button className="hidden md:block text-neutral-400 hover:text-white transition-colors"><ListMusic size={16} /></button>
         <button className="hidden md:block text-neutral-400 hover:text-white transition-colors"><MoreHorizontal size={18} /></button>
-        <button onClick={onToggle} className="text-neutral-400 hover:text-white transition-colors md:ml-2">
-          <ChevronDown size={18} />
+        <button 
+          onClick={onToggle} 
+          className="p-2 text-neutral-400 hover:text-white hover:bg-white/10 rounded-full transition-all md:ml-2 group/hide"
+          title="Minimize Player"
+        >
+          <ChevronDown size={20} className="group-hover/hide:translate-y-0.5 transition-transform" />
         </button>
         <div className="hidden md:block w-24 h-1.5 bg-white/10 rounded-full overflow-hidden group cursor-pointer ml-2">
           <div className="h-full bg-white/50 group-hover:bg-indigo-400 w-2/3 transition-colors"></div>
