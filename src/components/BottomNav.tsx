@@ -1,11 +1,10 @@
-import { Home, Film, Tv, Music, Mic, Download, Search } from "lucide-react";
+import { Home, Film, Tv, Music, Mic, Download } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "../lib/utils";
 
 const navItems = [
   { icon: Home, path: "/", label: "Home" },
-  { icon: Search, path: "/search", label: "Search" },
   { icon: Film, path: "/movies", label: "Movies" },
   { icon: Tv, path: "/series", label: "Series" },
   { icon: Music, path: "/audio", label: "Audio" },
