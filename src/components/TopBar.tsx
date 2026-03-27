@@ -40,14 +40,14 @@ export function TopBar() {
   ];
 
   return (
-    <header className="fixed top-4 right-4 left-4 md:left-[calc(16rem+1rem)] h-16 z-40 pointer-events-none">
-      <div className="flex items-center justify-between h-full gap-4 pointer-events-auto">
+    <header className="fixed top-0 left-0 right-0 md:top-4 md:right-4 md:left-[calc(16rem+1rem)] h-16 md:h-16 z-40 pointer-events-none">
+      <div className="flex items-center justify-between h-full gap-4 px-4 md:px-0 pointer-events-auto bg-black/40 backdrop-blur-3xl md:bg-transparent md:backdrop-blur-none border-b border-white/5 md:border-none">
         
         {/* Search Bar - Floating Glass */}
         <div 
           ref={searchRef}
           className={cn(
-            "relative flex-1 max-w-md h-full bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
+            "relative flex-1 max-w-md h-10 md:h-full bg-white/5 backdrop-blur-2xl border border-white/10 rounded-xl md:rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
             isSearchFocused ? "max-w-xl bg-white/10 border-white/20 shadow-[0_12px_48px_rgba(0,0,0,0.6)]" : ""
           )}
         >
@@ -82,14 +82,14 @@ export function TopBar() {
         </div>
         
         {/* Actions - Floating Glass */}
-        <div className="flex items-center gap-2 h-full bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl px-2 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+        <div className="flex items-center gap-1 h-10 md:h-full bg-white/5 backdrop-blur-2xl border border-white/10 rounded-xl md:rounded-2xl px-1 md:px-2 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
           
           {/* Mobile Profile */}
           <Link 
             to="/profile" 
-            className="md:hidden p-2.5 text-neutral-400 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300"
+            className="md:hidden p-2 text-neutral-400 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300"
           >
-            <User size={20} />
+            <User size={18} />
           </Link>
 
           {/* Notifications */}
@@ -100,12 +100,12 @@ export function TopBar() {
                 setShowSettings(false);
               }}
               className={cn(
-                "p-2.5 rounded-xl transition-all duration-300 relative group",
+                "p-2 md:p-2.5 rounded-lg md:rounded-xl transition-all duration-300 relative group",
                 showNotifications ? "bg-white/15 text-white" : "text-neutral-400 hover:text-white hover:bg-white/10"
               )}
             >
-              <Bell size={20} />
-              <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-[#050505] group-hover:scale-110 transition-transform" />
+              <Bell size={18} className="md:w-5 md:h-5" />
+              <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-red-500 rounded-full border border-[#050505] group-hover:scale-110 transition-transform" />
             </button>
 
             <AnimatePresence>
@@ -155,11 +155,11 @@ export function TopBar() {
                 setShowNotifications(false);
               }}
               className={cn(
-                "p-2.5 rounded-xl transition-all duration-300",
+                "p-2 md:p-2.5 rounded-lg md:rounded-xl transition-all duration-300",
                 showSettings ? "bg-white/15 text-white" : "text-neutral-400 hover:text-white hover:bg-white/10"
               )}
             >
-              <Settings size={20} />
+              <Settings size={18} className="md:w-5 md:h-5" />
             </button>
 
             <AnimatePresence>

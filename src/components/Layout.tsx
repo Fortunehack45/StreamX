@@ -5,7 +5,7 @@ import { BottomNav } from "./BottomNav";
 import { MusicBar } from "./MusicBar";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import { ChevronUp } from "lucide-react";
+import { ChevronUp, Play, Disc3 } from "lucide-react";
 
 export function Layout() {
   const location = useLocation();
@@ -32,18 +32,36 @@ export function Layout() {
         </main>
       </div>
       <AnimatePresence>
-        {isMusicBarVisible ? (
-          <MusicBar onToggle={() => setIsMusicBarVisible(false)} />
-        ) : (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
+        {!isMusicBarVisible && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
             onClick={() => setIsMusicBarVisible(true)}
-            className="fixed bottom-24 md:bottom-6 right-4 md:right-6 p-2.5 md:p-3 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-white z-50 hover:bg-white/20 transition-all shadow-lg"
+            className="fixed bottom-[72px] left-0 right-0 md:hidden h-16 bg-white/5 backdrop-blur-3xl border-t border-white/10 px-4 flex items-center justify-between z-40 shadow-2xl cursor-pointer active:bg-white/10 transition-colors"
           >
-            <ChevronUp size={18} className="md:w-5 md:h-5" />
-          </motion.button>
+            <div className="flex items-center gap-3 overflow-hidden">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center animate-[spin_12s_linear_infinite] shrink-0 shadow-lg relative overflow-hidden">
+                <img src="https://picsum.photos/seed/midnight/100/100" className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" referrerPolicy="no-referrer" />
+                <Disc3 size={16} className="text-white relative z-10" />
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="text-white text-xs font-bold truncate">Midnight City</span>
+                <span className="text-neutral-400 text-[10px] truncate">M83</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-6">
+              <button className="p-2 hover:bg-white/10 rounded-full transition-colors">
+                <Play size={20} className="text-white fill-white" />
+              </button>
+              <div className="w-8 h-8 flex items-center justify-center">
+                <ChevronUp size={20} className="text-neutral-500 animate-bounce" />
+              </div>
+            </div>
+          </motion.div>
+        )}
+        {isMusicBarVisible && (
+          <MusicBar onToggle={() => setIsMusicBarVisible(false)} />
         )}
       </AnimatePresence>
       <BottomNav />
