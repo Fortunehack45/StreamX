@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
-import { motion } from "motion/react";
-import { ChevronLeft, Play, Clock, Star, Users, Info, Calendar, Globe, Award, MessageSquare, Share2, Plus } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { ChevronLeft, Play, Clock, Star, Users, Info, Calendar, Globe, Award, MessageSquare, Share2, Plus, Check, Download } from "lucide-react";
+import { useState } from "react";
 
 const movieData = {
   "1": { 
@@ -49,6 +50,15 @@ const similarMovies = [
 export function MovieDetails() {
   const { id } = useParams<{ id: string }>();
   const movie = movieData[id as keyof typeof movieData] || movieData["1"];
+  const [userRating, setUserRating] = useState<number>(0);
+  const [hoverRating, setHoverRating] = useState<number>(0);
+  const [isRated, setIsRated] = useState(false);
+
+  const handleRate = (rating: number) => {
+    setUserRating(rating);
+    setIsRated(true);
+    setTimeout(() => setIsRated(false), 2000);
+  };
 
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans pb-32">
@@ -89,6 +99,19 @@ export function MovieDetails() {
               <button className="flex items-center gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
                 <Play size={24} className="fill-black" /> Play Now
               </button>
+              <button 
+                onClick={() => {
+                  const btn = document.getElementById('download-btn-movie');
+                  if (btn) {
+                    btn.innerText = 'Downloading...';
+                    setTimeout(() => { btn.innerText = 'Downloaded'; }, 2000);
+                  }
+                }}
+                id="download-btn-movie"
+                className="flex items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all"
+              >
+                <Download size={20} /> Download
+              </button>
               <button className="p-5 bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
                 <Plus size={24} />
               </button>
@@ -111,6 +134,64 @@ export function MovieDetails() {
               <div className="h-px w-12 bg-white/10" />
             </div>
             <p className="text-neutral-300 text-2xl leading-relaxed font-medium max-w-4xl">{movie.desc}</p>
+          </section>
+
+          {/* User Rating Section */}
+          <section className="p-12 rounded-[3rem] bg-neutral-900/20 border border-white/5 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div>
+                <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">Rate this title</h3>
+                <p className="text-neutral-500 font-bold text-xs uppercase tracking-widest">Share your thoughts with the community</p>
+              </div>
+              
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <motion.button
+                      key={star}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
+                      onMouseEnter={() => setHoverRating(star)}
+                      onMouseLeave={() => setHoverRating(0)}
+                      onClick={() => handleRate(star)}
+                      className="relative p-2"
+                    >
+                      <Star 
+                        size={40} 
+                        className={`transition-all duration-300 ${
+                          (hoverRating || userRating) >= star 
+                            ? "fill-yellow-500 text-yellow-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.4)]" 
+                            : "text-neutral-700"
+                        }`} 
+                      />
+                    </motion.button>
+                  ))}
+                </div>
+                <AnimatePresence mode="wait">
+                  {isRated ? (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="flex items-center gap-2 text-green-500 font-black text-[10px] uppercase tracking-[0.2em]"
+                    >
+                      <Check size={14} /> Rating Saved
+                    </motion.div>
+                  ) : userRating > 0 ? (
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-neutral-400 font-black text-[10px] uppercase tracking-[0.2em]"
+                    >
+                      You rated this {userRating} stars
+                    </motion.div>
+                  ) : (
+                    <div className="h-4" />
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
           </section>
 
           <section>

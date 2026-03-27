@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronLeft, Play, Clock, Info, ListVideo, Star, Calendar, Globe } from "lucide-react";
+import { ChevronLeft, Play, Clock, Info, ListVideo, Star, Calendar, Globe, Download, Check } from "lucide-react";
 import { useState } from "react";
 
 const seriesData = {
@@ -24,11 +24,20 @@ export function SeriesDetails() {
   const { id } = useParams<{ id: string }>();
   const series = seriesData[id as keyof typeof seriesData] || seriesData["1"];
   const [activeEpisode, setActiveEpisode] = useState<number | null>(null);
+  const [downloadingId, setDownloadingId] = useState<number | string | null>(null);
+  const [downloadedIds, setDownloadedIds] = useState<Set<number | string>>(new Set());
 
   const handlePlayEpisode = (epId: number) => {
     setActiveEpisode(epId);
-    // In a real app, this would trigger the video player
     console.log(`Playing episode ${epId}`);
+  };
+
+  const handleDownload = (id: number | string) => {
+    setDownloadingId(id);
+    setTimeout(() => {
+      setDownloadingId(null);
+      setDownloadedIds(prev => new Set(prev).add(id));
+    }, 2000);
   };
 
   return (
@@ -54,12 +63,27 @@ export function SeriesDetails() {
               <span className="flex items-center gap-2"><Info size={18} /> {series.genre}</span>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
               <button 
                 onClick={() => handlePlayEpisode(series.episodes[0].id)}
                 className="flex items-center gap-3 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_50px_rgba(255,255,255,0.2)]"
               >
                 <Play size={20} className="fill-black" /> Start Watching
+              </button>
+              <button 
+                onClick={() => handleDownload('all')}
+                className="flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all"
+              >
+                {downloadingId === 'all' ? (
+                  <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
+                    <Download size={20} />
+                  </motion.div>
+                ) : downloadedIds.has('all') ? (
+                  <Check size={20} className="text-green-500" />
+                ) : (
+                  <Download size={20} />
+                )}
+                {downloadingId === 'all' ? 'Downloading...' : downloadedIds.has('all') ? 'Downloaded' : 'Download All'}
               </button>
             </div>
           </motion.div>
@@ -75,23 +99,25 @@ export function SeriesDetails() {
           
           <div className="space-y-6">
             {series.episodes.map((ep, i) => (
-              <motion.button 
+              <motion.div 
                 key={ep.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                onClick={() => handlePlayEpisode(ep.id)}
                 className={`w-full flex flex-col md:flex-row items-start md:items-center gap-8 p-8 rounded-[2rem] transition-all border text-left group relative overflow-hidden ${
                   activeEpisode === ep.id 
                     ? "bg-white text-black border-white" 
-                    : "bg-neutral-900/40 hover:bg-neutral-900/80 border-white/5 hover:border-white/20"
+                    : "bg-neutral-900/40 border-white/5 hover:border-white/20"
                 }`}
               >
-                <div className={`w-20 h-20 rounded-2xl flex items-center justify-center shrink-0 transition-colors ${
-                  activeEpisode === ep.id ? "bg-black text-white" : "bg-neutral-800 text-white group-hover:bg-neutral-700"
-                }`}>
+                <button 
+                  onClick={() => handlePlayEpisode(ep.id)}
+                  className={`w-20 h-20 rounded-2xl flex items-center justify-center shrink-0 transition-colors ${
+                    activeEpisode === ep.id ? "bg-black text-white" : "bg-neutral-800 text-white hover:bg-neutral-700"
+                  }`}
+                >
                   <Play size={32} className={activeEpisode === ep.id ? "fill-white" : "fill-transparent group-hover:fill-white transition-all"} />
-                </div>
+                </button>
                 
                 <div className="flex-1">
                   <div className="flex items-center gap-4 mb-2">
@@ -104,19 +130,40 @@ export function SeriesDetails() {
                   <p className={`text-sm leading-relaxed line-clamp-2 ${activeEpisode === ep.id ? "text-black/70" : "text-neutral-400"}`}>{ep.desc}</p>
                 </div>
 
+                <div className="flex items-center gap-4">
+                  <button 
+                    onClick={() => handleDownload(ep.id)}
+                    className={`p-4 rounded-full transition-all ${
+                      activeEpisode === ep.id 
+                        ? "bg-black/10 text-black hover:bg-black/20" 
+                        : "bg-white/5 text-white hover:bg-white/10"
+                    }`}
+                  >
+                    {downloadingId === ep.id ? (
+                      <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
+                        <Download size={20} />
+                      </motion.div>
+                    ) : downloadedIds.has(ep.id) ? (
+                      <Check size={20} className="text-green-500" />
+                    ) : (
+                      <Download size={20} />
+                    )}
+                  </button>
+                </div>
+
                 <AnimatePresence>
                   {activeEpisode === ep.id && (
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
-                      className="absolute right-8 top-1/2 -translate-y-1/2 hidden md:block"
+                      className="absolute right-24 top-1/2 -translate-y-1/2 hidden md:block"
                     >
                       <div className="px-4 py-2 bg-black text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full">Now Playing</div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.button>
+              </motion.div>
             ))}
           </div>
         </div>
