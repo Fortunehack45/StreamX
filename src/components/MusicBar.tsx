@@ -47,14 +47,14 @@ export function MusicBar({ onToggle }: MusicBarProps) {
         </div>
       </div>
       
-      <div className="hidden md:flex w-1/3 justify-end items-center gap-4">
-        <button className="text-neutral-400 hover:text-white transition-colors"><Mic2 size={16} /></button>
-        <button className="text-neutral-400 hover:text-white transition-colors"><ListMusic size={16} /></button>
-        <button className="text-neutral-400 hover:text-white transition-colors"><MoreHorizontal size={18} /></button>
-        <button onClick={onToggle} className="text-neutral-400 hover:text-white transition-colors ml-2">
+      <div className="flex w-1/3 justify-end items-center gap-2 md:gap-4">
+        <button className="hidden md:block text-neutral-400 hover:text-white transition-colors"><Mic2 size={16} /></button>
+        <button className="hidden md:block text-neutral-400 hover:text-white transition-colors"><ListMusic size={16} /></button>
+        <button className="hidden md:block text-neutral-400 hover:text-white transition-colors"><MoreHorizontal size={18} /></button>
+        <button onClick={onToggle} className="text-neutral-400 hover:text-white transition-colors md:ml-2">
           <ChevronDown size={18} />
         </button>
-        <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden group cursor-pointer ml-2">
+        <div className="hidden md:block w-24 h-1.5 bg-white/10 rounded-full overflow-hidden group cursor-pointer ml-2">
           <div className="h-full bg-white/50 group-hover:bg-indigo-400 w-2/3 transition-colors"></div>
         </div>
       </div>
