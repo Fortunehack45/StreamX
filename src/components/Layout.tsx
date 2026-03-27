@@ -36,13 +36,13 @@ export function Layout() {
           <MusicBar onToggle={() => setIsMusicBarVisible(false)} />
         ) : (
           <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => setIsMusicBarVisible(true)}
-            className="fixed bottom-28 md:bottom-6 right-6 p-3 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-white z-50 hover:bg-white/20 transition-colors shadow-lg"
+            className="fixed bottom-24 md:bottom-6 right-4 md:right-6 p-2.5 md:p-3 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-white z-50 hover:bg-white/20 transition-all shadow-lg"
           >
-            <ChevronUp size={20} />
+            <ChevronUp size={18} className="md:w-5 md:h-5" />
           </motion.button>
         )}
       </AnimatePresence>
