@@ -47,10 +47,11 @@ export function TopBar() {
         <div 
           ref={searchRef}
           className={cn(
-            "relative flex-1 max-w-md h-full bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
+            "relative flex-1 max-w-md h-full bg-[#0a0a0a]/90 backdrop-blur-3xl border border-white/10 rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden",
             isSearchFocused ? "max-w-xl bg-white/10 border-white/20 shadow-[0_12px_48px_rgba(0,0,0,0.6)]" : ""
           )}
         >
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           <Search 
             size={18} 
             className={cn(
@@ -63,7 +64,7 @@ export function TopBar() {
             placeholder="Search movies, series, music..." 
             onFocus={() => setIsSearchFocused(true)}
             onBlur={() => setIsSearchFocused(false)}
-            className="w-full h-full bg-transparent border-none rounded-2xl py-3 pl-12 pr-4 text-sm text-white placeholder:text-neutral-500 focus:outline-none transition-all"
+            className="w-full h-full bg-transparent border-none py-0 pl-12 pr-4 text-sm text-white placeholder:text-neutral-500 focus:outline-none transition-all"
           />
           {isSearchFocused && (
             <motion.div 
@@ -82,30 +83,31 @@ export function TopBar() {
         </div>
         
         {/* Actions - Floating Glass */}
-        <div className="flex items-center gap-1 h-10 md:h-full bg-white/5 backdrop-blur-2xl border border-white/10 rounded-xl md:rounded-2xl px-1 md:px-2 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+        <div className="flex items-center gap-1 h-full bg-[#0a0a0a]/90 backdrop-blur-3xl border border-white/10 rounded-2xl px-1 md:px-2 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           
           {/* Mobile Profile */}
           <Link 
             to="/profile" 
-            className="md:hidden p-2 text-neutral-400 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300"
+            className="md:hidden flex items-center justify-center px-4 h-full text-neutral-400 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300"
           >
-            <User size={18} />
+            <User size={20} />
           </Link>
 
           {/* Notifications */}
-          <div className="relative" ref={notificationsRef}>
+          <div className="relative h-full" ref={notificationsRef}>
             <button 
               onClick={() => {
                 setShowNotifications(!showNotifications);
                 setShowSettings(false);
               }}
               className={cn(
-                "p-2 md:p-2.5 rounded-lg md:rounded-xl transition-all duration-300 relative group",
+                "flex items-center justify-center px-4 h-full rounded-xl transition-all duration-300 relative group",
                 showNotifications ? "bg-white/15 text-white" : "text-neutral-400 hover:text-white hover:bg-white/10"
               )}
             >
-              <Bell size={18} className="md:w-5 md:h-5" />
-              <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-red-500 rounded-full border border-[#050505] group-hover:scale-110 transition-transform" />
+              <Bell size={20} className="md:w-5 md:h-5" />
+              <span className="absolute top-4 right-4 w-1.5 h-1.5 bg-red-500 rounded-full border border-[#050505] group-hover:scale-110 transition-transform" />
             </button>
 
             <AnimatePresence>
@@ -115,9 +117,10 @@ export function TopBar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
                   transition={{ type: "spring", bounce: 0.3, duration: 0.4 }}
-                  className="absolute right-0 mt-3 w-80 bg-black/60 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden z-50"
+                  className="absolute right-0 mt-3 w-80 bg-[#0a0a0a]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden z-50"
                 >
-                  <div className="p-4 border-b border-white/5 flex items-center justify-between bg-white/5">
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                  <div className="p-4 border-b border-white/5 flex items-center justify-between bg-white/10">
                     <h3 className="text-sm font-bold tracking-tight">Notifications</h3>
                     <button className="text-[10px] uppercase tracking-widest font-bold text-neutral-500 hover:text-white transition-colors">Mark all read</button>
                   </div>
@@ -148,18 +151,18 @@ export function TopBar() {
           </div>
 
           {/* Settings */}
-          <div className="relative" ref={settingsRef}>
+          <div className="relative h-full" ref={settingsRef}>
             <button 
               onClick={() => {
                 setShowSettings(!showSettings);
                 setShowNotifications(false);
               }}
               className={cn(
-                "p-2 md:p-2.5 rounded-lg md:rounded-xl transition-all duration-300",
+                "flex items-center justify-center px-4 h-full rounded-xl transition-all duration-300",
                 showSettings ? "bg-white/15 text-white" : "text-neutral-400 hover:text-white hover:bg-white/10"
               )}
             >
-              <Settings size={18} className="md:w-5 md:h-5" />
+              <Settings size={20} className="md:w-5 md:h-5" />
             </button>
 
             <AnimatePresence>
@@ -169,9 +172,10 @@ export function TopBar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
                   transition={{ type: "spring", bounce: 0.3, duration: 0.4 }}
-                  className="absolute right-0 mt-3 w-64 bg-black/60 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden z-50"
+                  className="absolute right-0 mt-3 w-64 bg-[#0a0a0a]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden z-50"
                 >
-                  <div className="p-4 border-b border-white/5 bg-white/5">
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                  <div className="p-4 border-b border-white/5 bg-white/10">
                     <h3 className="text-sm font-bold tracking-tight">Settings</h3>
                   </div>
                   <div className="p-2">

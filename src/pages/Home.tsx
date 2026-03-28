@@ -56,15 +56,15 @@ export function Home() {
         animate={{ opacity: 1 }}
         className="relative w-full min-h-[75vh] md:min-h-[90vh] flex flex-col justify-end overflow-hidden mb-12 md:mb-20 group"
       >
-        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 z-0">
           <img 
-            src="https://picsum.photos/seed/hero-movie/1920/1080" 
+            src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1920&auto=format&fit=crop" 
             alt="Hero Background" 
-            className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
+            className="w-full h-full object-cover opacity-100 group-hover:scale-105 transition-transform duration-1000"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/60 via-transparent to-transparent" />
         </div>
         
         <div className="relative p-6 md:p-20 pt-28 md:pt-40 pb-20 md:pb-32 z-10">

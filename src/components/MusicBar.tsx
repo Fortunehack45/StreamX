@@ -11,7 +11,7 @@ export function MusicBar({ onToggle }: MusicBarProps) {
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 100 }}
-      className="fixed bottom-[112px] md:bottom-8 left-6 right-6 md:left-[calc(16rem+2rem)] md:right-8 h-16 md:h-20 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[24px] px-3 md:px-6 flex items-center justify-between z-40 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+      className="fixed bottom-[112px] md:bottom-8 left-6 right-6 md:left-[calc(16rem+2rem)] md:right-8 h-16 md:h-20 bg-[#0a0a0a]/90 backdrop-blur-3xl border border-white/10 rounded-[24px] px-3 md:px-6 flex items-center justify-between z-40 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
     >
       <div className="flex items-center gap-2 md:gap-4 w-1/2 md:w-1/3 overflow-hidden">
         <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 shadow-lg relative overflow-hidden">

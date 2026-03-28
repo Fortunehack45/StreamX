@@ -18,7 +18,7 @@ export function Sidebar() {
   const location = useLocation();
 
   return (
-    <aside className="hidden md:flex flex-col w-64 h-[calc(100vh-2rem)] fixed left-4 top-4 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[32px] z-40 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+    <aside className="hidden md:flex flex-col w-64 h-[calc(100vh-2rem)] fixed left-4 top-4 bg-[#0a0a0a]/90 backdrop-blur-3xl border border-white/10 rounded-[32px] z-40 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
       <div className="h-20 flex items-center px-8 shrink-0">
         <Link to="/" className="flex items-center gap-3 group">
           <span className="text-white font-black text-2xl tracking-tighter uppercase italic">
