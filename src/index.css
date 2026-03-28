@@ -8,8 +8,11 @@
 }
 
 @layer base {
+  html, body {
+    @apply overflow-x-hidden max-w-[100vw];
+  }
   body {
-    @apply bg-black text-white antialiased selection:bg-white/30;
+    @apply bg-black text-white antialiased selection:bg-white/30 relative;
   }
 }
 
