@@ -8,12 +8,23 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   html, body {
     @apply overflow-x-hidden max-w-[100vw];
   }
   body {
     @apply bg-black text-white antialiased selection:bg-white/30 relative;
   }
+}
+
+@utility transition-soft {
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@utility transition-snappy {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Premium Scrollbar */

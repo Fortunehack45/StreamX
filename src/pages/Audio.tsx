@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Play, Heart, MoreHorizontal, Shuffle, SkipBack, SkipForward, Repeat, Disc3, ListMusic, Mic2, Radio, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 const topTracks = [
   { id: 201, title: "Starboy", artist: "The Weeknd, Daft Punk", duration: "3:50", plays: "2.4B", image: "https://picsum.photos/seed/starboy/100/100" },
@@ -33,221 +34,191 @@ const trendingArtists = [
 
 export function Audio() {
   return (
-    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 relative overflow-x-hidden font-sans">
       {/* Atmospheric Background Orbs */}
-      <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-indigo-900/20 to-transparent pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-fuchsia-900/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.2, 0.3, 0.2],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+        className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-indigo-900/20 rounded-full blur-[120px] pointer-events-none" 
+      />
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.3, 1],
+          opacity: [0.1, 0.2, 0.1],
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute top-[-5%] right-[-5%] w-[50%] h-[50%] bg-fuchsia-900/10 rounded-full blur-[120px] pointer-events-none" 
+      />
 
-      <div className="px-4 md:px-12 pt-28 md:pt-40 relative z-10">
+      <div className="px-6 md:px-20 pt-28 md:pt-40 relative z-10">
         
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 md:mb-12 flex items-end justify-between"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-12 md:mb-20 flex items-end justify-between border-b border-white/5 pb-8"
         >
           <div>
-            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-600">
-              Music
+            <h1 className="text-4xl md:text-8xl font-black tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-600 italic">
+              Acoustics
             </h1>
-            <p className="text-neutral-400 mt-1 md:mt-2 font-medium tracking-wide text-xs md:text-sm">Your personal soundtrack</p>
+            <p className="text-neutral-500 mt-2 font-black tracking-[0.3em] uppercase text-[10px] md:text-xs">Your personal sonic sanctuary</p>
           </div>
-          <div className="hidden md:flex gap-4">
-            <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
-              <ListMusic size={18} className="text-white" />
-            </button>
-            <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
-              <Mic2 size={18} className="text-white" />
-            </button>
-            <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
-              <Radio size={18} className="text-white" />
-            </button>
+          <div className="hidden md:flex gap-6">
+            {[ListMusic, Mic2, Radio].map((Icon, i) => (
+              <button key={i} className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-soft hover:scale-110 active:scale-90 shadow-lg">
+                <Icon size={20} />
+              </button>
+            ))}
           </div>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
           
           {/* Left Column: Featured Album/Playlist */}
-          <div className="lg:w-1/3 shrink-0">
+          <div className="lg:w-[40%] shrink-0">
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="lg:sticky lg:top-28"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:sticky lg:top-32"
             >
-              <div className="aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-indigo-900/20 mb-6 md:mb-8 relative group">
-                <img src="https://picsum.photos/seed/featured-audio/800/800" alt="Featured" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
-                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white text-black flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.3)] mb-4 md:mb-6 hover:scale-105 transition-transform cursor-pointer">
-                    <Play size={24} className="ml-1.5 md:w-8 md:h-8 fill-black" />
-                  </div>
-                  <h2 className="text-3xl md:text-5xl font-black text-white mb-1 md:mb-2 tracking-tighter leading-none">Neon Nights</h2>
-                  <p className="text-white/70 text-xs md:text-sm font-medium">Curated by StreamX • 50 songs, 3 hr 12 min</p>
+              <div className="aspect-square rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-[0_0_80px_rgba(79,70,229,0.15)] mb-10 relative group border border-white/5">
+                <img src="https://picsum.photos/seed/featured-audio/800/800" alt="Featured" className="w-full h-full object-cover transition-soft duration-[2000ms] group-hover:scale-110" referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent" />
+                <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+                  <motion.button 
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-white text-black flex items-center justify-center shadow-[0_0_60px_rgba(255,255,255,0.4)] mb-8 md:mb-12 cursor-pointer transition-soft"
+                  >
+                    <Play size={32} className="ml-2 md:w-10 md:h-10 fill-black" />
+                  </motion.button>
+                  <h2 className="text-4xl md:text-7xl font-black text-white mb-2 tracking-tighter leading-none uppercase italic">Neon Nights</h2>
+                  <p className="text-white/40 text-xs md:text-base font-black uppercase tracking-[0.2em]">Curated by StreamX • 50 songs • 3 hr 12 min</p>
                 </div>
               </div>
               
-              <div className="flex flex-wrap items-center gap-3 md:gap-4">
-                <button className="flex-1 min-w-[140px] bg-white/10 backdrop-blur-md border border-white/20 text-white py-3 md:py-4 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-white/20 transition-colors flex items-center justify-center gap-2">
-                  <Shuffle size={16} /> Shuffle Play
+              <div className="flex flex-wrap items-center gap-4 md:gap-6">
+                <button className="flex-1 min-w-[180px] bg-white text-black py-4 md:py-6 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.3em] hover:bg-neutral-200 transition-soft flex items-center justify-center gap-3 shadow-xl active:scale-95">
+                  <Shuffle size={18} /> Shuffle
                 </button>
-                <button className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors shrink-0">
-                  <Heart size={20} className="md:w-6 md:h-6" />
+                <button className="w-14 h-14 md:w-20 md:h-20 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-soft active:scale-95 shadow-lg">
+                  <Heart size={24} />
                 </button>
-                <button className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors shrink-0">
-                  <MoreHorizontal size={20} className="md:w-6 md:h-6" />
+                <button className="w-14 h-14 md:w-20 md:h-20 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-soft active:scale-95 shadow-lg">
+                  <MoreHorizontal size={24} />
                 </button>
               </div>
             </motion.div>
           </div>
 
           {/* Right Column: Tracklist & More */}
-          <div className="lg:w-2/3 flex-1 space-y-12 md:space-y-16">
+          <div className="lg:w-[60%] flex-1 space-y-20 md:space-y-32">
             
             {/* Top Tracks */}
             <section>
-              <div className="flex items-end justify-between mb-4 md:mb-6 border-b border-white/10 pb-4">
-                <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">Top <span className="italic text-white/50">Tracks</span></h2>
-              </div>
+              <motion.div 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className="flex items-end justify-between mb-8 md:mb-12 border-b border-white/5 pb-6"
+              >
+                <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">Top <span className="text-white/20">Tracks</span></h2>
+              </motion.div>
               
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-4">
                 {topTracks.map((track, i) => (
                   <Link key={track.id} to={`/audio/${track.id}`}>
                     <motion.div 
                       initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                      className="flex items-center gap-3 md:gap-4 p-2 md:p-3 rounded-xl hover:bg-white/5 transition-colors group cursor-pointer"
+                      whileInView={{ opacity: 1, x: 0 }}
+                      whileHover={{ x: 10, backgroundColor: "rgba(255,255,255,0.03)" }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.05, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                      className="flex items-center gap-4 md:gap-6 p-4 md:p-6 rounded-[1.5rem] border border-transparent hover:border-white/5 transition-soft group cursor-pointer"
                     >
-                      <div className="w-6 md:w-8 text-center text-neutral-500 font-mono text-xs md:text-sm group-hover:hidden">
-                        {i + 1}
+                      <div className="w-8 text-center text-neutral-600 font-black text-xs md:text-base group-hover:hidden">
+                        {(i + 1).toString().padStart(2, '0')}
                       </div>
-                      <div className="w-6 md:w-8 flex justify-center hidden group-hover:flex">
-                        <Play size={14} className="text-white fill-white md:w-4 md:h-4" />
+                      <div className="w-8 flex justify-center hidden group-hover:flex">
+                        <Play size={18} className="text-white fill-white" />
                       </div>
-                      <img src={track.image} alt={track.title} className="w-10 h-10 md:w-12 md:h-12 rounded-md object-cover" referrerPolicy="no-referrer" />
+                      <img src={track.image} alt={track.title} className="w-14 h-14 md:w-20 md:h-20 rounded-2xl object-cover shadow-lg" referrerPolicy="no-referrer" />
                       <div className="flex-1 min-w-0">
-                        <div className="text-white font-bold text-sm md:text-base leading-tight mb-0.5 truncate group-hover:text-indigo-400 transition-colors">{track.title}</div>
-                        <div className="text-neutral-400 text-[10px] md:text-xs truncate">{track.artist}</div>
+                        <div className="text-white font-black text-sm md:text-xl leading-tight mb-1 truncate uppercase tracking-tight group-hover:text-indigo-400 transition-soft">{track.title}</div>
+                        <div className="text-neutral-500 text-[10px] md:text-xs font-black uppercase tracking-widest">{track.artist}</div>
                       </div>
-                      <div className="text-neutral-500 text-[10px] md:text-xs font-mono hidden sm:block w-20 md:w-24 text-right">
+                      <div className="text-neutral-600 text-[10px] md:text-sm font-black hidden sm:block w-24 text-right">
                         {track.plays}
                       </div>
-                      <div className="text-neutral-500 text-[10px] md:text-xs font-mono w-10 md:w-12 text-right">
+                      <div className="text-neutral-600 text-[10px] md:text-sm font-black w-14 text-right">
                         {track.duration}
                       </div>
-                      <button className="opacity-0 group-hover:opacity-100 transition-opacity text-neutral-400 hover:text-white hidden md:block">
-                        <Heart size={16} />
-                      </button>
-                      <button className="opacity-0 group-hover:opacity-100 transition-opacity text-neutral-400 hover:text-white hidden md:block">
-                        <MoreHorizontal size={16} />
-                      </button>
                     </motion.div>
                   </Link>
                 ))}
               </div>
             </section>
 
-            {/* New Releases */}
-            <section>
-              <div className="flex items-end justify-between mb-4 md:mb-6 border-b border-white/10 pb-4">
-                <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">New <span className="italic text-white/50">Releases</span></h2>
-                <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-                  View All <ChevronRight size={14} />
-                </span>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
-                {newReleases.map((item, i) => (
-                  <Link key={item.id} to={`/audio/${item.id}`}>
+            {/* New Releases & Artists - Dynamic horizontal scrolling sections */}
+            {[
+              { title: "Fresh", sub: "Drops", data: newReleases, type: "album" },
+              { title: "Top", sub: "Artists", data: trendingArtists, type: "artist" }
+            ].map((section, idx) => (
+              <section key={section.title}>
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  className="flex items-end justify-between mb-10 md:mb-14 border-b border-white/5 pb-8"
+                >
+                  <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">{section.title} <span className="text-white/20 whitespace-pre">{section.sub}</span></h2>
+                  <span className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-snappy flex items-center gap-2 group">
+                    Explore <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </motion.div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                  {section.data.map((item: any, i) => (
                     <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1 }}
+                      key={item.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      whileHover={{ y: -8 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                       className="group cursor-pointer"
                     >
-                      <div className="relative aspect-square rounded-xl md:rounded-2xl overflow-hidden mb-3 md:mb-4 bg-neutral-900 shadow-lg">
-                        <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" referrerPolicy="no-referrer" />
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform shadow-xl">
-                            <Play size={20} className="text-white fill-white ml-1 md:w-6 md:h-6" />
+                      <div className={cn(
+                        "relative aspect-square overflow-hidden mb-4 bg-neutral-900 shadow-2xl transition-soft border border-white/5",
+                        section.type === "artist" ? "rounded-full" : "rounded-[1.5rem] md:rounded-[2rem]"
+                      )}>
+                        <img src={item.image} alt={item.title || item.name} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-soft duration-1000" referrerPolicy="no-referrer" />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-soft flex items-center justify-center">
+                          <div className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center scale-75 group-hover:scale-100 transition-soft shadow-2xl">
+                            <Play size={24} className="text-white fill-white ml-1.5 md:w-8 md:h-8" />
                           </div>
                         </div>
                       </div>
-                      <h3 className="text-white font-bold text-xs md:text-sm mb-0.5 md:mb-1 truncate group-hover:text-indigo-400 transition-colors">{item.title}</h3>
-                      <p className="text-neutral-500 text-[10px] md:text-xs truncate">{item.type} • {item.artist}</p>
+                      <h3 className="text-white font-black text-xs md:text-lg mb-1 truncate group-hover:text-indigo-400 transition-soft uppercase tracking-tight">{item.title || item.name}</h3>
+                      <p className="text-neutral-600 text-[10px] md:text-xs font-black uppercase tracking-widest truncate">
+                        {item.type ? `${item.type} • ${item.artist}` : `${item.followers} Followers`}
+                      </p>
                     </motion.div>
-                  </Link>
-                ))}
-              </div>
-            </section>
-
-            {/* Trending Artists */}
-            <section>
-              <div className="flex items-end justify-between mb-4 md:mb-6 border-b border-white/10 pb-4">
-                <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">Trending <span className="italic text-white/50">Artists</span></h2>
-                <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-                  View All <ChevronRight size={14} />
-                </span>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
-                {trendingArtists.map((artist, i) => (
-                  <motion.div
-                    key={artist.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="group cursor-pointer flex flex-col items-center text-center"
-                  >
-                    <div className="relative w-full aspect-square rounded-full overflow-hidden mb-3 md:mb-4 bg-neutral-900 shadow-lg border-2 border-transparent group-hover:border-indigo-500/50 transition-colors duration-300">
-                      <img src={artist.image} alt={artist.name} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" referrerPolicy="no-referrer" />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform shadow-xl">
-                          <Play size={20} className="text-white fill-white ml-1 md:w-6 md:h-6" />
-                        </div>
-                      </div>
-                    </div>
-                    <h3 className="text-white font-bold text-xs md:text-sm mb-0.5 md:mb-1 truncate group-hover:text-indigo-400 transition-colors">{artist.name}</h3>
-                    <p className="text-neutral-500 text-[10px] md:text-xs truncate">{artist.followers} Followers</p>
-                  </motion.div>
-                ))}
-              </div>
-            </section>
-
-            {/* Made For You */}
-            <section>
-              <div className="flex items-end justify-between mb-4 md:mb-6 border-b border-white/10 pb-4">
-                <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">Made For <span className="italic text-white/50">You</span></h2>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
-                {madeForYou.map((item, i) => (
-                  <Link key={item.id} to={`/audio/${item.id}`}>
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="group cursor-pointer"
-                    >
-                      <div className="relative aspect-square rounded-xl md:rounded-2xl overflow-hidden mb-3 md:mb-4 bg-neutral-900 shadow-lg">
-                        <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" referrerPolicy="no-referrer" />
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform shadow-xl">
-                            <Play size={20} className="text-white fill-white ml-1 md:w-6 md:h-6" />
-                          </div>
-                        </div>
-                      </div>
-                      <h3 className="text-white font-bold text-xs md:text-sm mb-0.5 md:mb-1 truncate group-hover:text-indigo-400 transition-colors">{item.title}</h3>
-                      <p className="text-neutral-500 text-[10px] md:text-xs line-clamp-2 leading-snug">{item.desc}</p>
-                    </motion.div>
-                  </Link>
-                ))}
-              </div>
-            </section>
+                  ))}
+                </div>
+              </section>
+            ))}
 
           </div>
 
         </div>
       </div>
-
-      {/* Floating Glass Player Bar */}
     </div>
   );
 }

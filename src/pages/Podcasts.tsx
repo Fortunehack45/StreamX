@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Headphones, PlayCircle, Clock, Star, ChevronRight, Play, Heart, MoreHorizontal, Share2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 const topPodcasts = [
   { id: 101, title: "The Daily Stoic", host: "Ryan Holiday", image: "https://picsum.photos/seed/pod1/400/400", duration: "15m", rating: "4.9", category: "Philosophy" },
@@ -31,104 +32,130 @@ const categories = [
 
 export function Podcasts() {
   return (
-    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 font-sans">
+    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 relative overflow-x-hidden font-sans">
+      
+      {/* Dynamic Background Orbs */}
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.15, 0.25, 0.15],
+        }}
+        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+        className="absolute top-[-20%] right-[-10%] w-[70%] h-[70%] bg-blue-900/20 rounded-full blur-[140px] pointer-events-none" 
+      />
       
       {/* Hero Section */}
-      <div className="relative min-h-[75vh] md:min-h-[85vh] w-full flex flex-col justify-end overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <img 
+      <div className="relative min-h-[85vh] md:min-h-[90vh] w-full flex flex-col justify-end overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-black">
+          <motion.img 
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 0.5 }}
+            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
             src="https://picsum.photos/seed/featured-pod/1920/1080" 
             alt="Featured Podcast" 
-            className="w-full h-full object-cover opacity-50 scale-105 animate-[pulse_20s_ease-in-out_infinite_alternate]"
+            className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/20 to-transparent" />
         </div>
         
-        <div className="relative p-6 md:p-16 pt-28 md:pt-40 pb-20 md:pb-32 z-10">
+        <div className="relative px-6 md:px-20 pt-28 md:pt-40 pb-20 md:pb-32 z-10">
           <motion.div 
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-5xl"
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-6xl"
           >
-            <div className="flex items-center gap-3 mb-4 md:mb-6">
-              <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-black bg-white px-3 py-1 rounded-sm">Exclusive</span>
-              <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-white/70 border border-white/20 px-3 py-1 rounded-sm">Mindfulness</span>
-            </div>
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5, duration: 1 }}
+              className="flex items-center gap-4 mb-8 md:mb-12"
+            >
+              <span className="text-[10px] md:text-xs font-black tracking-[0.4em] uppercase text-black bg-white px-5 py-2 rounded-full">Exclusive</span>
+              <span className="text-[10px] md:text-xs font-black tracking-[0.4em] uppercase text-white/50 border border-white/10 px-5 py-2 rounded-full backdrop-blur-xl">Mindfulness</span>
+            </motion.div>
             
-            <h1 className="text-5xl sm:text-6xl md:text-8xl font-serif font-light tracking-tighter mb-4 md:mb-6 leading-[0.9]">
-              The Art of <span className="italic font-normal">Stillness</span>
+            <h1 className="text-6xl sm:text-8xl md:text-[10rem] font-black tracking-tighter mb-8 md:mb-12 leading-[0.8] uppercase italic">
+              The Art of <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-700">Stillness</span>
             </h1>
             
-            <div className="flex flex-wrap items-center gap-3 md:gap-4 text-xs md:text-sm font-bold uppercase tracking-widest text-white/80 mb-6 md:mb-8">
+            <div className="flex flex-wrap items-center gap-6 md:gap-10 text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-white/40 mb-10 md:mb-16">
               <span className="text-white">Hosted by Elena Vance</span>
-              <span className="w-1 h-1 rounded-full bg-white/30 hidden sm:block"></span>
-              <span className="flex items-center gap-1.5"><Clock size={14} /> 1h 15m</span>
-              <span className="w-1 h-1 rounded-full bg-white/30 hidden sm:block"></span>
-              <span className="flex items-center gap-1.5 text-yellow-500"><Star size={14} className="fill-yellow-500" /> 4.9</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.5)]"></span>
+              <span className="flex items-center gap-3"><Clock size={16} /> 1h 15m</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.5)]"></span>
+              <span className="flex items-center gap-3 text-yellow-500"><Star size={16} className="fill-yellow-500" /> 4.9 Rating</span>
             </div>
 
-            <p className="text-white/70 text-sm md:text-lg mb-8 md:mb-10 line-clamp-3 md:line-clamp-none max-w-2xl font-medium leading-relaxed">
-              In this exclusive interview, we explore the profound impact of silence and how finding moments of stillness can dramatically improve creativity and mental clarity in an increasingly noisy world.
+            <p className="text-neutral-400 text-sm md:text-2xl mb-12 md:mb-20 line-clamp-3 md:line-clamp-none max-w-3xl font-medium leading-relaxed italic border-l-2 border-white/10 pl-8">
+              "In this exclusive interview, we explore the profound impact of silence and how finding moments of stillness can dramatically improve creativity and mental clarity."
             </p>
             
-            <div className="flex flex-wrap items-center gap-4">
-              <button className="flex items-center justify-center gap-3 px-8 md:px-10 py-3.5 md:py-4 bg-white text-black rounded-full text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:scale-105 transform duration-300">
-                <Play size={18} className="fill-current" /> Play Episode
+            <div className="flex flex-wrap items-center gap-6">
+              <button className="group flex items-center justify-center gap-4 px-10 md:px-14 py-5 md:py-7 bg-white text-black rounded-full text-xs md:text-sm font-black uppercase tracking-[0.4em] hover:bg-neutral-200 transition-soft shadow-2xl active:scale-95">
+                <Play size={20} className="fill-current group-hover:scale-110 transition-transform" /> Listen Now
               </button>
-              <button className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors shrink-0 backdrop-blur-md">
-                <Heart size={20} className="md:w-6 md:h-6" />
+              <button className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-soft active:scale-95 shadow-xl backdrop-blur-xl">
+                <Heart size={24} />
               </button>
-              <button className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors shrink-0 backdrop-blur-md">
-                <Share2 size={20} className="md:w-6 md:h-6" />
+              <button className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-soft active:scale-95 shadow-xl backdrop-blur-xl">
+                <Share2 size={24} />
               </button>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Content Rows */}
-      <div className="px-4 md:px-12 mt-12 md:mt-16 relative z-20 space-y-16 md:space-y-24">
+      {/* Main Content */}
+      <div className="px-6 md:px-20 mt-20 md:mt-32 relative z-20 space-y-32 md:space-y-48">
         
         {/* Top Podcasts */}
         <section>
-          <div className="flex items-end justify-between mb-6 md:mb-8 border-b border-white/10 pb-4">
-            <h2 className="text-2xl md:text-4xl font-serif font-light text-white tracking-tight">Top <span className="italic text-white/50">Podcasts</span></h2>
-            <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-              View All <ChevronRight size={14} />
-            </span>
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex items-end justify-between mb-12 md:mb-20 border-b border-white/5 pb-10"
+          >
+            <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter uppercase italic">Top <span className="text-white/20 underline decoration-indigo-500/30">Podcasts</span></h2>
+            <Link to="/podcasts" className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.4em] hover:text-white transition-soft flex items-center gap-3 group">
+              View All <ChevronRight size={20} className="group-hover:translate-x-2 transition-transform" />
+            </Link>
+          </motion.div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 md:gap-10">
             {topPodcasts.map((pod, i) => (
-              <Link key={pod.id} to={`/podcasts/${pod.id}`} className="flex flex-col">
+              <Link key={pod.id} to={`/podcasts/${pod.id}`}>
                 <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1, ease: "easeOut" }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -10 }}
+                  transition={{ delay: i * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                  viewport={{ once: true }}
                   className="group cursor-pointer flex flex-col h-full"
                 >
-                  <div className="relative aspect-square rounded-2xl overflow-hidden mb-4 bg-neutral-900 shadow-xl">
-                    <img src={pod.image} alt={pod.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110" referrerPolicy="no-referrer" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform mb-auto self-end shadow-lg">
-                        <Play size={20} className="text-white fill-white ml-1" />
+                  <div className="relative aspect-square rounded-[2rem] overflow-hidden mb-6 bg-neutral-900 shadow-2xl border border-white/5">
+                    <img src={pod.image} alt={pod.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-soft duration-1000 group-hover:scale-110" referrerPolicy="no-referrer" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-soft flex flex-col justify-end p-6">
+                      <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-2xl border border-white/20 flex items-center justify-center scale-75 group-hover:scale-100 transition-soft mb-auto self-end shadow-2xl">
+                        <Play size={24} className="text-white fill-white ml-1.5" />
                       </div>
                     </div>
-                    <div className="absolute top-2 left-2 px-2 py-1 bg-black/60 backdrop-blur-md rounded text-[9px] font-bold uppercase tracking-wider text-white/90">
+                    <div className="absolute top-4 left-4 px-3 py-1.5 bg-black/80 backdrop-blur-2xl rounded-full text-[8px] font-black uppercase tracking-[0.2em] text-white border border-white/10">
                       {pod.category}
                     </div>
                   </div>
-                  <h3 className="text-white font-bold text-sm md:text-base mb-1 leading-tight group-hover:text-indigo-400 transition-colors truncate">{pod.title}</h3>
-                  <p className="text-neutral-400 text-xs font-medium mb-2 truncate">{pod.host}</p>
-                  <div className="flex items-center justify-between mt-auto">
-                    <div className="flex items-center gap-1 text-[10px] md:text-xs text-yellow-500 font-bold">
-                      <Star size={12} className="fill-yellow-500" /> {pod.rating}
+                  <h3 className="text-white font-black text-sm md:text-xl mb-2 leading-none group-hover:text-indigo-400 transition-soft uppercase tracking-tight truncate">{pod.title}</h3>
+                  <p className="text-neutral-500 text-[10px] md:text-xs font-black uppercase tracking-widest truncate">{pod.host}</p>
+                  <div className="flex items-center justify-between mt-4">
+                    <div className="flex items-center gap-2 text-[10px] md:text-xs text-yellow-500 font-black tracking-widest uppercase">
+                      <Star size={14} className="fill-yellow-500" /> {pod.rating}
                     </div>
-                    <div className="flex items-center gap-1 text-[10px] md:text-xs text-neutral-500 font-bold uppercase">
-                      <Clock size={12} /> {pod.duration}
+                    <div className="flex items-center gap-2 text-[10px] md:text-xs text-neutral-600 font-black uppercase tracking-widest">
+                      <Clock size={14} /> {pod.duration}
                     </div>
                   </div>
                 </motion.div>
@@ -137,50 +164,54 @@ export function Podcasts() {
           </div>
         </section>
 
-        {/* Trending Episodes & Categories Split */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+        {/* Trending & Categories Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-24 lg:gap-32">
           
           {/* Trending Episodes */}
           <section className="lg:col-span-2">
-            <div className="flex items-end justify-between mb-6 md:mb-8 border-b border-white/10 pb-4">
-              <h2 className="text-2xl md:text-4xl font-serif font-light text-white tracking-tight">Trending <span className="italic text-white/50">Episodes</span></h2>
-              <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-                View All <ChevronRight size={14} />
-              </span>
-            </div>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="flex items-end justify-between mb-12 md:mb-16 border-b border-white/5 pb-8"
+            >
+              <h2 className="text-3xl md:text-6xl font-black text-white tracking-tighter uppercase italic">Trending <span className="text-white/20">Episodes</span></h2>
+            </motion.div>
             
-            <div className="flex flex-col gap-3 md:gap-4">
+            <div className="flex flex-col gap-6 md:gap-8">
               {trendingEpisodes.map((ep, i) => (
                 <Link key={ep.id} to={`/podcasts/${ep.id}`}>
                   <motion.div 
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center gap-4 md:gap-6 p-3 md:p-4 rounded-2xl hover:bg-white/5 transition-colors group cursor-pointer border border-transparent hover:border-white/10"
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    whileHover={{ x: 15, backgroundColor: "rgba(255,255,255,0.03)" }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex items-center gap-6 md:gap-10 p-6 md:p-8 rounded-[2.5rem] transition-soft border border-transparent hover:border-white/5 group bg-white/2 cursor-pointer"
                   >
-                    <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden shrink-0 shadow-lg">
-                      <img src={ep.image} alt={ep.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" referrerPolicy="no-referrer" />
-                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Play size={20} className="text-white fill-white" />
+                    <div className="relative w-20 h-20 md:w-32 md:h-32 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shrink-0 shadow-2xl">
+                      <img src={ep.image} alt={ep.title} className="w-full h-full object-cover group-hover:scale-110 transition-soft duration-1000" referrerPolicy="no-referrer" />
+                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-soft">
+                        <Play size={24} className="text-white fill-white" />
                       </div>
                     </div>
                     
                     <div className="flex-1 min-w-0">
-                      <div className="text-[10px] md:text-xs font-bold text-indigo-400 uppercase tracking-widest mb-1 md:mb-1.5">{ep.podcast}</div>
-                      <h3 className="text-white font-bold text-sm md:text-lg leading-tight mb-1 md:mb-2 truncate group-hover:text-white/90 transition-colors">{ep.title}</h3>
-                      <div className="flex items-center gap-3 text-[10px] md:text-xs text-neutral-500 font-medium">
+                      <div className="text-[10px] md:text-xs font-black text-indigo-500 uppercase tracking-[0.3em] mb-2 md:mb-4">{ep.podcast}</div>
+                      <h3 className="text-white font-black text-sm md:text-3xl leading-none mb-3 md:mb-5 truncate uppercase tracking-tighter group-hover:text-indigo-400 transition-soft">{ep.title}</h3>
+                      <div className="flex items-center gap-6 text-[10px] md:text-xs text-neutral-500 font-black uppercase tracking-widest">
                         <span>{ep.date}</span>
-                        <span className="w-1 h-1 rounded-full bg-neutral-700"></span>
-                        <span className="flex items-center gap-1"><Clock size={12} /> {ep.duration}</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/30"></span>
+                        <span className="flex items-center gap-2"><Clock size={16} /> {ep.duration}</span>
                       </div>
                     </div>
                     
-                    <div className="hidden sm:flex items-center gap-3">
-                      <button className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all">
-                        <Heart size={16} />
+                    <div className="hidden sm:flex items-center gap-4">
+                      <button className="w-14 h-14 rounded-full border border-white/5 flex items-center justify-center text-neutral-600 hover:text-white hover:bg-white/10 transition-soft active:scale-90">
+                        <Heart size={20} />
                       </button>
-                      <button className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all">
-                        <MoreHorizontal size={16} />
+                      <button className="w-14 h-14 rounded-full border border-white/5 flex items-center justify-center text-neutral-600 hover:text-white hover:bg-white/10 transition-soft active:scale-90">
+                        <MoreHorizontal size={20} />
                       </button>
                     </div>
                   </motion.div>
@@ -189,23 +220,33 @@ export function Podcasts() {
             </div>
           </section>
 
-          {/* Categories */}
+          {/* Categories Bento */}
           <section className="lg:col-span-1">
-            <div className="flex items-end justify-between mb-6 md:mb-8 border-b border-white/10 pb-4">
-              <h2 className="text-2xl md:text-4xl font-serif font-light text-white tracking-tight">Browse <span className="italic text-white/50">Categories</span></h2>
-            </div>
-            <div className="grid grid-cols-2 gap-3 md:gap-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="flex items-end justify-between mb-12 md:mb-16 border-b border-white/5 pb-8"
+            >
+              <h2 className="text-3xl md:text-6xl font-black text-white tracking-tighter uppercase italic">Moods</h2>
+            </motion.div>
+            <div className="grid grid-cols-2 gap-4 md:gap-6">
               {categories.map((cat, i) => (
                 <motion.div 
                   key={cat.name}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.05 }}
-                  className={`relative h-20 md:h-24 rounded-xl overflow-hidden group cursor-pointer bg-neutral-900 border border-white/5 ${cat.border} transition-all duration-300`}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className={cn(
+                    "relative h-24 md:h-40 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden group cursor-pointer bg-neutral-900 border border-white/5 transition-soft",
+                    cat.border
+                  )}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${cat.color} opacity-40 group-hover:opacity-100 transition-opacity duration-500`} />
-                  <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
-                    <span className="text-white text-xs md:text-sm font-bold tracking-widest uppercase group-hover:scale-105 transition-transform duration-300 drop-shadow-md">{cat.name}</span>
+                  <div className={cn("absolute inset-0 bg-gradient-to-br opacity-20 group-hover:opacity-100 transition-soft duration-1000", cat.color)} />
+                  <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+                    <span className="text-white text-[10px] md:text-sm font-black tracking-[0.3em] uppercase transition-soft group-hover:scale-110 drop-shadow-2xl">{cat.name}</span>
                   </div>
                 </motion.div>
               ))}

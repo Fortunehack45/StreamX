@@ -2,6 +2,8 @@ import { useParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, Play, Clock, Star, Users, Info, Calendar, Globe, Award, MessageSquare, Share2, Plus, Check, Download } from "lucide-react";
 import { useState } from "react";
+import { cn } from "../lib/utils";
+import { CinematicImage } from "../components/CinematicImage";
 
 const movieData = {
   "1": { 
@@ -61,64 +63,62 @@ export function MovieDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans pb-48 md:pb-32">
-      {/* Hero Section */}
-      <div className="relative h-[65vh] md:min-h-[85vh] w-full overflow-hidden flex flex-col justify-end">
+    <div className="min-h-screen bg-[#050505] text-white font-sans pb-48 md:pb-32 overflow-x-hidden">
+      {/* Cinematic Hero */}
+      <div className="relative h-[85vh] md:h-[95vh] w-full overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 -z-10">
-          <motion.img 
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.5 }}
+          <CinematicImage 
             src={`https://picsum.photos/seed/${movie.title}/1920/1080`} 
             alt={movie.title} 
-            className="w-full h-full object-cover opacity-60" 
+            className="w-full h-full object-cover" 
+            containerClassName="w-full h-full"
             referrerPolicy="no-referrer" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-transparent" />
         </div>
         
-        <Link to="/movies" className="absolute top-12 left-4 md:top-28 md:left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
-          <ChevronLeft size={24} />
+        <Link to="/movies" className="absolute top-12 left-6 md:top-32 md:left-12 p-5 bg-black/20 backdrop-blur-2xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-soft z-20 shadow-2xl active:scale-90">
+          <ChevronLeft size={28} />
         </Link>
 
-        <div className="relative p-6 md:p-20 pb-8 md:pb-24 z-10">
+        <div className="relative px-6 md:px-20 pb-16 md:pb-24 z-10">
           <motion.div 
-            initial={{ opacity: 0, y: 40 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, x: -60 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="flex items-center gap-4 mb-8">
-              <span className="px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-white">Movie</span>
-              <span className="flex items-center gap-1.5 text-yellow-500 font-black text-sm uppercase tracking-widest"><Star size={16} className="fill-current" /> {movie.rating}</span>
-              <span className="text-white/40 font-black text-sm uppercase tracking-widest">|</span>
-              <span className="text-white/60 font-black text-sm uppercase tracking-widest">{movie.year}</span>
+            <div className="flex items-center gap-6 mb-10 md:mb-14">
+              <span className="px-6 py-2 bg-indigo-600 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-white shadow-[0_0_30px_rgba(79,70,229,0.5)]">Movie</span>
+              <span className="flex items-center gap-3 text-yellow-500 font-black text-xs md:text-sm uppercase tracking-[0.3em]"><Star size={18} className="fill-current" /> {movie.rating} Rating</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+              <span className="text-white/50 font-black text-xs md:text-sm uppercase tracking-[0.3em]">{movie.year}</span>
+              <span className="hidden md:block w-1.5 h-1.5 rounded-full bg-white/20"></span>
+              <span className="hidden md:block text-white/50 font-black text-xs md:text-sm uppercase tracking-[0.3em]">{movie.duration}</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-[8rem] font-black tracking-tighter mb-6 md:mb-10 leading-[0.9] lg:leading-[0.8] uppercase">{movie.title}</h1>
+            <h1 className="text-6xl md:text-[12rem] font-black tracking-tighter mb-10 md:mb-16 leading-[0.8] uppercase italic drop-shadow-2xl">
+              {movie.title.split(' ').map((word, i) => (
+                <span key={i} className={cn("block", i % 2 === 1 && "text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-700")}>
+                  {word}
+                </span>
+              ))}
+            </h1>
             
-            <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-4 md:gap-6 mb-8 md:mb-12">
-              <button className="flex justify-center w-full md:w-auto items-center gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
-                <Play size={24} className="fill-black" /> Play Now
+            <div className="flex flex-col md:flex-row items-stretch md:items-center gap-6 mb-12 md:mb-20">
+              <button className="group relative flex justify-center flex-1 md:flex-none items-center gap-5 bg-white text-black px-14 py-6 md:py-8 rounded-full font-black text-xs md:text-sm uppercase tracking-[0.4em] transition-soft shadow-2xl hover:bg-neutral-200 active:scale-95 overflow-hidden">
+                <Play size={24} className="fill-black group-hover:scale-125 transition-transform" /> 
+                <span className="relative z-10">Start Feature</span>
               </button>
-              <button 
-                onClick={() => {
-                  const btn = document.getElementById('download-btn-movie');
-                  if (btn) {
-                    btn.innerText = 'Downloading...';
-                    setTimeout(() => { btn.innerText = 'Downloaded'; }, 2000);
-                  }
-                }}
-                id="download-btn-movie"
-                className="flex justify-center w-full md:w-auto items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all"
-              >
-                <Download size={20} /> Download
-              </button>
-              <div className="flex justify-center gap-4 w-full md:w-auto">
-                <button className="flex-1 md:flex-none p-5 flex justify-center bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
+              
+              <div className="flex gap-6">
+                <button className="flex-1 md:w-20 md:h-20 h-16 flex justify-center items-center bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full hover:bg-white hover:text-black transition-soft shadow-xl active:scale-95">
+                  <Download size={24} />
+                </button>
+                <button className="flex-1 md:w-20 md:h-20 h-16 flex justify-center items-center bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full hover:bg-white hover:text-black transition-soft shadow-xl active:scale-95">
                   <Plus size={24} />
                 </button>
-                <button className="flex-1 md:flex-none p-5 flex justify-center bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
+                <button className="flex-1 md:w-20 md:h-20 h-16 flex justify-center items-center bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full hover:bg-white hover:text-black transition-soft shadow-xl active:scale-95">
                   <Share2 size={24} />
                 </button>
               </div>
@@ -127,160 +127,153 @@ export function MovieDetails() {
         </div>
       </div>
 
-      {/* Content Grid */}
-      <div className="px-4 md:px-20 py-8 md:py-24 grid lg:grid-cols-12 gap-8 lg:gap-24 pb-32">
-        {/* Left Column: Info & Cast */}
-        <div className="lg:col-span-8 space-y-12 md:space-y-24">
-          <section>
-            <div className="flex items-center gap-4 mb-10">
-              <div className="h-px flex-1 bg-white/10" />
-              <h2 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500">Synopsis</h2>
-              <div className="h-px w-12 bg-white/10" />
+      {/* Narrative Section */}
+      <div className="px-6 md:px-20 py-20 md:py-32 grid lg:grid-cols-12 gap-16 md:gap-32 relative z-20">
+        
+        {/* Story & Metadata */}
+        <div className="lg:col-span-8 space-y-32">
+          
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+          >
+            <div className="flex items-center gap-6 mb-12">
+              <h2 className="text-[10px] md:text-xs font-black uppercase tracking-[0.5em] text-neutral-600">The Story</h2>
+              <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
             </div>
-            <p className="text-neutral-300 text-xl md:text-2xl leading-relaxed font-medium max-w-4xl">{movie.desc}</p>
-          </section>
+            <p className="text-neutral-300 text-2xl md:text-4xl leading-[1.2] font-medium max-w-5xl italic tracking-tight">
+              "{movie.desc}"
+            </p>
+          </motion.section>
 
-          {/* User Rating Section */}
-          <section className="p-6 md:p-12 rounded-[2rem] md:rounded-[3rem] bg-neutral-900/20 border border-white/5 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-              <div>
-                <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">Rate this title</h3>
-                <p className="text-neutral-500 font-bold text-xs uppercase tracking-widest">Share your thoughts with the community</p>
-              </div>
-              
-              <div className="flex flex-col items-center gap-4">
-                <div className="flex gap-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <motion.button
-                      key={star}
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                      onMouseEnter={() => setHoverRating(star)}
-                      onMouseLeave={() => setHoverRating(0)}
-                      onClick={() => handleRate(star)}
-                      className="relative p-2"
-                    >
-                      <Star 
-                        size={40} 
-                        className={`transition-all duration-300 ${
-                          (hoverRating || userRating) >= star 
-                            ? "fill-yellow-500 text-yellow-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.4)]" 
-                            : "text-neutral-700"
-                        }`} 
-                      />
-                    </motion.button>
-                  ))}
-                </div>
-                <AnimatePresence mode="wait">
-                  {isRated ? (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="flex items-center gap-2 text-green-500 font-black text-[10px] uppercase tracking-[0.2em]"
-                    >
-                      <Check size={14} /> Rating Saved
-                    </motion.div>
-                  ) : userRating > 0 ? (
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-neutral-400 font-black text-[10px] uppercase tracking-[0.2em]"
-                    >
-                      You rated this {userRating} stars
-                    </motion.div>
-                  ) : (
-                    <div className="h-4" />
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </section>
-
+          {/* Cast Cinematic Grid */}
           <section>
-            <div className="flex items-center gap-4 mb-8 md:mb-12">
-              <div className="h-px flex-1 bg-white/10" />
-              <h2 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500">The Cast</h2>
-              <div className="h-px w-12 bg-white/10" />
-            </div>
-            <div className="flex overflow-x-auto snap-x md:grid md:grid-cols-4 gap-4 md:gap-8 pb-4 scrollbar-hide px-4 md:px-0 -mx-4 md:mx-0">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-6 mb-16"
+            >
+              <h2 className="text-[10px] md:text-xs font-black uppercase tracking-[0.5em] text-neutral-600">The Ensemble</h2>
+              <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
+            </motion.div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
               {movie.cast.map((actor, i) => (
                 <motion.div 
                   key={actor.name}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group cursor-pointer flex-none w-[140px] md:w-auto snap-start"
+                  transition={{ delay: i * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                  className="group cursor-pointer"
                 >
-                  <div className="aspect-square rounded-3xl overflow-hidden mb-4 border border-white/5 group-hover:border-white/20 transition-all">
-                    <img src={actor.image} alt={actor.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
+                  <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden mb-8 border border-white/5 transition-soft shadow-2xl relative">
+                    <CinematicImage src={actor.image} alt={actor.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-soft duration-1000" referrerPolicy="no-referrer" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-soft flex flex-col justify-end p-8">
+                       <p className="text-white font-black text-xs uppercase tracking-widest">{actor.role}</p>
+                    </div>
                   </div>
-                  <h3 className="font-black text-sm uppercase tracking-widest mb-1">{actor.name}</h3>
-                  <p className="text-neutral-500 text-[10px] font-bold uppercase tracking-widest">{actor.role}</p>
+                  <h3 className="font-black text-xl md:text-2xl uppercase tracking-tighter mb-1 text-white group-hover:text-indigo-400 transition-soft">{actor.name}</h3>
+                  <div className="h-0.5 w-0 group-hover:w-full bg-indigo-500 transition-all duration-700" />
                 </motion.div>
               ))}
             </div>
           </section>
 
-          <section>
-            <div className="flex items-center gap-4 mb-12">
-              <div className="h-px flex-1 bg-white/10" />
-              <h2 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500">Reviews</h2>
-              <div className="h-px w-12 bg-white/10" />
+          {/* Rating Engine */}
+          <motion.section 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="p-10 md:p-20 rounded-[3rem] md:rounded-[5rem] bg-white/[0.02] border border-white/5 text-center relative overflow-hidden group shadow-2xl"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-4 italic">Public <span className="text-white/20">Consensus</span></h3>
+            <p className="text-neutral-500 font-black text-xs uppercase tracking-[0.3em] mb-12">Submit your evaluation to the network</p>
+            
+            <div className="flex flex-col items-center gap-8">
+              <div className="flex gap-4">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <motion.button
+                    key={star}
+                    whileHover={{ scale: 1.3, rotate: 12 }}
+                    whileTap={{ scale: 0.8 }}
+                    onMouseEnter={() => setHoverRating(star)}
+                    onMouseLeave={() => setHoverRating(0)}
+                    onClick={() => handleRate(star)}
+                    className="relative p-2"
+                  >
+                    <Star 
+                      size={54} 
+                      className={`transition-all duration-500 ${
+                        (hoverRating || userRating) >= star 
+                          ? "fill-white text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]" 
+                          : "text-neutral-900 border-white/10"
+                      }`} 
+                    />
+                  </motion.button>
+                ))}
+              </div>
+              <AnimatePresence mode="wait">
+                {isRated && (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="bg-white text-black text-[10px] font-black uppercase tracking-[0.4em] px-8 py-3 rounded-full shadow-2xl"
+                  >
+                    Evaluation Stored
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <div className="space-y-6">
-              {movie.reviews.map((review, i) => (
-                <div key={i} className="p-8 rounded-[2rem] bg-neutral-900/30 border border-white/5">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-black text-sm uppercase tracking-widest">{review.user}</span>
-                    <div className="flex gap-1">
-                      {Array.from({ length: 5 }).map((_, j) => (
-                        <Star key={j} size={12} className={j < review.rating ? "fill-yellow-500 text-yellow-500" : "text-neutral-700"} />
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-neutral-400 leading-relaxed italic">"{review.comment}"</p>
+          </motion.section>
+        </div>
+
+        {/* Technical Specification & Discovery */}
+        <div className="lg:col-span-4 space-y-24">
+          
+          <motion.section 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="p-10 md:p-14 rounded-[3rem] md:rounded-[4rem] bg-white/[0.01] border border-white/5 backdrop-blur-3xl shadow-2xl sticky top-32"
+          >
+            <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-neutral-600 mb-14">Technical Spec</h3>
+            <div className="space-y-12">
+              {[
+                { label: "Temporal Span", val: movie.duration, icon: Clock },
+                { label: "Vernacular", val: movie.language, icon: Globe },
+                { label: "Resource Allocation", val: movie.budget, icon: Award },
+                { label: "Release Interval", val: movie.year, icon: Calendar }
+              ].map((item, i) => (
+                <div key={i} className="flex flex-col gap-4 group cursor-default">
+                  <span className="text-[10px] font-black text-neutral-700 uppercase tracking-[0.3em] group-hover:text-indigo-500 transition-soft">{item.label}</span>
+                  <span className="font-black text-2xl flex items-center gap-4 text-white group-hover:translate-x-2 transition-transform duration-500">
+                    <item.icon size={24} className="text-white/20" /> {item.val}
+                  </span>
                 </div>
               ))}
             </div>
-          </section>
-        </div>
 
-        {/* Right Column: Metadata & Similar */}
-        <div className="lg:col-span-4 space-y-24">
-          <section className="p-10 rounded-[3rem] bg-neutral-900/20 border border-white/5 backdrop-blur-sm">
-            <h3 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500 mb-10">Information</h3>
-            <div className="space-y-8">
-              <div className="flex flex-col gap-2">
-                <span className="text-[10px] font-black text-neutral-600 uppercase tracking-[0.2em]">Duration</span>
-                <span className="font-bold text-lg flex items-center gap-2"><Clock size={18} /> {movie.duration}</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-[10px] font-black text-neutral-600 uppercase tracking-[0.2em]">Language</span>
-                <span className="font-bold text-lg flex items-center gap-2"><Globe size={18} /> {movie.language}</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-[10px] font-black text-neutral-600 uppercase tracking-[0.2em]">Budget</span>
-                <span className="font-bold text-lg flex items-center gap-2"><Award size={18} /> {movie.budget}</span>
+            <div className="mt-20 pt-20 border-t border-white/5">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-neutral-600 mb-10">Network Discovery</h3>
+              <div className="grid grid-cols-2 gap-6">
+                {similarMovies.map((m) => (
+                  <Link key={m.id} to={`/movies/${m.id}`} className="group block">
+                    <div className="aspect-[2/3] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden mb-4 border border-white/5 transition-soft shadow-xl group-hover:border-white/20 relative">
+                      <CinematicImage src={m.image} alt={m.title} className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-soft duration-1000" referrerPolicy="no-referrer" />
+                    </div>
+                    <h4 className="font-black text-[10px] uppercase tracking-[0.2em] text-neutral-500 group-hover:text-white transition-soft truncate">{m.title}</h4>
+                  </Link>
+                ))}
               </div>
             </div>
-          </section>
+          </motion.section>
 
-          <section>
-            <h3 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500 mb-10">Similar Titles</h3>
-            <div className="grid grid-cols-2 gap-6">
-              {similarMovies.map((m) => (
-                <Link key={m.id} to={`/movies/${m.id}`} className="group">
-                  <div className="aspect-[2/3] rounded-2xl overflow-hidden mb-3 border border-white/5 group-hover:border-white/20 transition-all">
-                    <img src={m.image} alt={m.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" referrerPolicy="no-referrer" />
-                  </div>
-                  <h4 className="font-black text-[10px] uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">{m.title}</h4>
-                </Link>
-              ))}
-            </div>
-          </section>
         </div>
       </div>
     </div>

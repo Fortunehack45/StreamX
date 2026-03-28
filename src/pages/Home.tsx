@@ -3,6 +3,7 @@ import { Play, Plus, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MediaCard } from "../components/MediaCard";
 import { MediaCardSkeleton } from "../components/MediaCardSkeleton";
+import { CinematicImage } from "../components/CinematicImage";
 import { useState, useEffect } from "react";
 
 const trendingMovies = [
@@ -48,7 +49,12 @@ export function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 font-sans">
+    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 font-sans relative overflow-hidden">
+      {/* Cinematic Background Orbs */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-blue-600/5 rounded-full blur-[150px] animate-pulse" />
+        <div className="absolute bottom-0 left-1/4 w-[40%] h-[40%] bg-purple-600/5 rounded-full blur-[150px] animate-pulse delay-700" />
+      </div>
       
       {/* Featured Hero Banner */}
       <motion.div 
@@ -57,10 +63,11 @@ export function Home() {
         className="relative w-full min-h-[75vh] md:min-h-[90vh] flex flex-col justify-end overflow-hidden mb-12 md:mb-20 group"
       >
         <div className="absolute inset-0 z-0">
-          <img 
+          <CinematicImage 
             src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1920&auto=format&fit=crop" 
             alt="Hero Background" 
             className="w-full h-full object-cover opacity-100 group-hover:scale-105 transition-transform duration-1000"
+            containerClassName="w-full h-full"
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
@@ -100,17 +107,22 @@ export function Home() {
         
         {/* Trending Now */}
         <section>
-          <div className="flex items-end justify-between mb-10 border-b border-white/5 pb-6">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex items-end justify-between mb-10 border-b border-white/5 pb-6"
+          >
             <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">Trending <span className="text-white/20">Now</span></h2>
-            <Link to="/movies" className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-colors flex items-center gap-2">
-              Explore All <ChevronRight size={16} />
+            <Link to="/movies" className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-snappy flex items-center gap-2 group">
+              Explore All <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : trendingMovies.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                  <MediaCard key={movie.id} {...movie} delay={i * 0.05} />
                 ))
             }
           </div>
@@ -118,34 +130,48 @@ export function Home() {
 
         {/* Continue Watching */}
         <section>
-          <div className="flex items-end justify-between mb-10 border-b border-white/5 pb-6">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex items-end justify-between mb-10 border-b border-white/5 pb-6"
+          >
             <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">Continue <span className="text-white/20">Watching</span></h2>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             {continueWatching.map((item, i) => (
               <Link to={item.linkTo} key={item.id}>
                 <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1, ease: "easeOut" }}
-                  className="group relative cursor-pointer bg-white/5 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/5 hover:border-white/10 transition-all duration-500 shadow-lg hover:shadow-2xl"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="group relative cursor-pointer bg-white/5 backdrop-blur-2xl rounded-[2rem] overflow-hidden border border-white/5 hover:border-white/10 transition-soft shadow-lg hover:shadow-[0_0_50px_rgba(255,255,255,0.05)]"
                 >
                   <div className="aspect-video bg-neutral-900 overflow-hidden relative">
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 ease-out group-hover:scale-105" referrerPolicy="no-referrer" />
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500 flex items-center justify-center">
-                      <div className="w-14 h-14 rounded-full border border-white/30 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500 scale-100 md:scale-90 md:group-hover:scale-100 backdrop-blur-md bg-black/30 md:bg-transparent">
-                        <Play size={24} className="text-white fill-white ml-1" />
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-soft duration-1000 ease-out group-hover:scale-110" referrerPolicy="no-referrer" />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-soft flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-soft scale-100 md:scale-75 md:group-hover:scale-100 backdrop-blur-xl bg-black/40">
+                        <Play size={28} className="text-white fill-white ml-1.5" />
                       </div>
                     </div>
                   </div>
                   
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-white font-black text-sm md:text-base uppercase tracking-tight">{item.title}</h3>
-                      <span className="text-neutral-500 text-[10px] font-black uppercase tracking-widest">{item.ep}</span>
+                  <div className="p-8">
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="text-white font-black text-sm md:text-xl uppercase tracking-tight">{item.title}</h3>
+                      <span className="text-neutral-500 text-[10px] font-black uppercase tracking-[0.3em]">{item.ep}</span>
                     </div>
-                    <div className="w-full h-1.5 bg-white/5 relative rounded-full overflow-hidden">
-                      <div className="absolute top-0 left-0 h-full bg-white transition-all duration-1000 ease-out" style={{ width: `${item.progress}%` }}></div>
+                    <div className="w-full h-2 bg-white/5 relative rounded-full overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${item.progress}%` }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.5 + i * 0.1, duration: 1.5, ease: "circOut" }}
+                        className="absolute top-0 left-0 h-full bg-white"
+                      ></motion.div>
                     </div>
                   </div>
                 </motion.div>
@@ -154,55 +180,70 @@ export function Home() {
           </div>
         </section>
 
-        {/* Trending Podcasts */}
+        {/* Top Podcasts */}
         <section>
-          <div className="flex items-end justify-between mb-10 border-b border-white/5 pb-6">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex items-end justify-between mb-10 border-b border-white/5 pb-6"
+          >
             <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">Top <span className="text-white/20">Podcasts</span></h2>
-            <Link to="/podcasts" className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-colors flex items-center gap-2">
-              Listen Now <ChevronRight size={16} />
+            <Link to="/podcasts" className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-snappy flex items-center gap-2 group">
+              Listen Now <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : trendingPodcasts.map((podcast, i) => (
-                  <MediaCard key={podcast.id} {...podcast} delay={i * 0.1} />
+                  <MediaCard key={podcast.id} {...podcast} delay={i * 0.05} />
                 ))
             }
           </div>
         </section>
 
-        {/* Top Music */}
+        {/* Top Music Charts */}
         <section>
-          <div className="flex items-end justify-between mb-10 border-b border-white/5 pb-6">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex items-end justify-between mb-10 border-b border-white/5 pb-6"
+          >
             <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">Music <span className="text-white/20">Charts</span></h2>
-            <Link to="/audio" className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-colors flex items-center gap-2">
-              Play All <ChevronRight size={16} />
+            <Link to="/audio" className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-snappy flex items-center gap-2 group">
+              Play All <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : topMusic.map((track, i) => (
-                  <MediaCard key={track.id} {...track} delay={i * 0.1} />
+                  <MediaCard key={track.id} {...track} delay={i * 0.05} />
                 ))
             }
           </div>
         </section>
 
-        {/* Top Picks */}
+        {/* Top Picks For You */}
         <section>
-          <div className="flex items-end justify-between mb-10 border-b border-white/5 pb-6">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex items-end justify-between mb-10 border-b border-white/5 pb-6"
+          >
             <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">Top Picks <span className="text-white/20">For You</span></h2>
-            <span className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-colors flex items-center gap-2">
-              View All <ChevronRight size={16} />
+            <span className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-snappy flex items-center gap-2 group">
+              View All <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </span>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : topPicks.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} delay={i * 0.1} />
+                  <MediaCard key={movie.id} {...movie} delay={i * 0.05} />
                 ))
             }
           </div>

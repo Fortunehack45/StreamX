@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, Play, Clock, Star, Users, Info, Calendar, Globe, Award, MessageSquare, Share2, Plus, Check, Download, Music, Disc, Heart, SkipBack, SkipForward, Repeat, Shuffle } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../lib/utils";
+import { CinematicImage } from "../components/CinematicImage";
 
 const musicData = {
   "201": { 
     title: "Midnight Echoes", 
     artist: "Neon Voyager",
-    desc: "A journey through neon-lit streets and retro-futuristic landscapes. This album blends classic synthwave elements with modern production, creating a soundscape that is both nostalgic and forward-looking. Perfect for late-night drives or focused work.", 
+    desc: "A journey through neon-lit streets and retro-futuristic landscapes. This album blends classic synthwave elements with modern production, creating a soundscape that is both nostalgic and forward-looking.", 
     rating: "4.9", 
     tracksCount: "12", 
     year: "2026",
@@ -45,42 +46,6 @@ const musicData = {
       image: "https://picsum.photos/seed/chill-artist/200/200"
     }
   },
-  "203": { 
-    title: "Celestial Harmonies", 
-    artist: "Star Dust",
-    desc: "Ambient soundscapes from the edge of the universe. Deeply immersive and meditative.", 
-    rating: "4.8", 
-    tracksCount: "8", 
-    year: "2026",
-    genre: "Ambient",
-    label: "Cosmic Records",
-    tracks: [{ id: 1, title: "Void", duration: "10:00", plays: "100K" }],
-    artistInfo: { name: "Star Dust", bio: "Exploring the silence between stars.", image: "https://picsum.photos/seed/celestial/200/200" }
-  },
-  "204": { 
-    title: "Electric Soul", 
-    artist: "Volt",
-    desc: "High-energy electronic soul with heavy bass and soulful vocals.", 
-    rating: "4.6", 
-    tracksCount: "10", 
-    year: "2026",
-    genre: "Electro-Soul",
-    label: "Volt Records",
-    tracks: [{ id: 1, title: "Spark", duration: "3:30", plays: "500K" }],
-    artistInfo: { name: "Volt", bio: "Electrifying the dancefloor.", image: "https://picsum.photos/seed/soul/200/200" }
-  },
-  "205": { 
-    title: "Synth Waves", 
-    artist: "Wave Runner",
-    desc: "Classic 80s inspired synthpop with a modern twist.", 
-    rating: "4.5", 
-    tracksCount: "11", 
-    year: "2024",
-    genre: "Synthpop",
-    label: "Retro Records",
-    tracks: [{ id: 1, title: "Ocean Drive", duration: "4:00", plays: "300K" }],
-    artistInfo: { name: "Wave Runner", bio: "Chasing the neon sunset.", image: "https://picsum.photos/seed/waves/200/200" }
-  },
 };
 
 const similarMusic = [
@@ -105,229 +70,218 @@ export function MusicDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans pb-48 md:pb-32">
-      {/* Hero Section */}
-      <div className="relative h-[65vh] md:min-h-[85vh] w-full flex flex-col justify-end overflow-hidden">
+    <div className="min-h-screen bg-[#050505] text-white font-sans pb-48 md:pb-32 overflow-x-hidden">
+      {/* Immersive Audio Hero */}
+      <div className="relative h-[85vh] md:h-[95vh] w-full flex flex-col justify-end overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <motion.img 
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.5 }}
+          <CinematicImage 
             src={`https://picsum.photos/seed/${music.title}/1920/1080`} 
             alt={music.title} 
-            className="w-full h-full object-cover opacity-60" 
+            className="w-full h-full object-cover blur-sm" 
+            containerClassName="w-full h-full"
             referrerPolicy="no-referrer" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
+          {/* Dynamic Background Orbs */}
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-sky-600/10 rounded-full blur-[100px] animate-pulse delay-1000" />
+          
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-transparent" />
         </div>
         
-        <Link to="/audio" className="absolute top-12 left-4 md:top-28 md:left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
-          <ChevronLeft size={24} />
+        <Link to="/audio" className="absolute top-12 left-6 md:top-32 md:left-12 p-5 bg-black/20 backdrop-blur-2xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-soft z-20 shadow-2xl active:scale-90">
+          <ChevronLeft size={28} />
         </Link>
 
-        <div className="relative p-6 md:p-20 pt-32 md:pt-64 pb-8 md:pb-32 z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="flex items-center gap-4 mb-8">
-              <span className="px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-white">Album</span>
-              <span className="flex items-center gap-1.5 text-yellow-500 font-black text-sm uppercase tracking-widest"><Star size={16} className="fill-current" /> {music.rating}</span>
-              <span className="text-white/40 font-black text-sm uppercase tracking-widest">|</span>
-              <span className="text-white/60 font-black text-sm uppercase tracking-widest">{music.genre}</span>
-            </div>
+        <div className="relative px-6 md:px-20 pt-32 md:pt-64 pb-16 md:pb-32 z-10">
+          <div className="flex flex-col md:flex-row items-center gap-12 md:gap-24 mb-16 md:mb-24">
+             {/* Large Album Art Reveal */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                className="w-64 h-64 md:w-[450px] md:h-[450px] rounded-[3rem] md:rounded-[5rem] overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.8)] border border-white/10 group cursor-pointer relative"
+              >
+                 <CinematicImage src={`https://picsum.photos/seed/${music.title}/800/800`} className="w-full h-full object-cover group-hover:scale-110 transition-soft duration-[2s]" />
+              </motion.div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-[8rem] font-black tracking-tighter mb-4 leading-[0.9] lg:leading-[0.8] uppercase max-w-6xl">{music.title}</h1>
-            <h2 className="text-xl md:text-4xl font-bold text-white/50 uppercase tracking-widest mb-10 italic">{music.artist}</h2>
-            
-            <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-4 md:gap-6">
-              <button className="flex items-center justify-center w-full md:w-auto gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
-                <Play size={24} className="fill-black" /> Play Album
-              </button>
-              <div className="flex justify-center gap-4 w-full md:w-auto">
-                <button 
-                  onClick={() => setIsLiked(!isLiked)}
-                  className={cn(
-                    "flex-1 md:flex-none p-5 flex justify-center rounded-full transition-all border",
-                    isLiked 
-                      ? "bg-red-500 text-white border-red-500 shadow-[0_0_30px_rgba(239,68,68,0.4)]" 
-                      : "bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white hover:text-black"
-                  )}
-                >
-                  <Heart size={24} className={isLiked ? "fill-current" : ""} />
-                </button>
-                <button className="flex-1 md:flex-none p-5 flex justify-center bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
-                  <Plus size={24} />
-                </button>
-                <button className="flex-1 md:flex-none p-5 flex justify-center bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
-                  <Share2 size={24} />
-                </button>
-              </div>
-            </div>
-          </motion.div>
+             <motion.div 
+               initial={{ opacity: 0, x: 60 }} 
+               animate={{ opacity: 1, x: 0 }} 
+               transition={{ duration: 1.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+               className="text-center md:text-left flex-1"
+             >
+                <div className="flex items-center justify-center md:justify-start gap-5 mb-8 md:mb-12">
+                  <span className="px-5 py-2 bg-sky-600 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-white shadow-[0_0_30px_rgba(2,132,199,0.5)]">Album</span>
+                  <span className="flex items-center gap-2 text-yellow-500 font-black text-xs md:text-sm uppercase tracking-[0.3em]"><Star size={16} className="fill-current" /> {music.rating}</span>
+                </div>
+
+                <h1 className="text-5xl md:text-[8rem] font-black tracking-tighter mb-6 md:mb-10 leading-[0.8] uppercase italic drop-shadow-2xl">
+                   {music.title}
+                </h1>
+                <p className="text-2xl md:text-4xl font-bold text-white/40 uppercase tracking-[0.4em] mb-12 italic">{music.artist}</p>
+                
+                <div className="flex flex-col md:flex-row items-stretch md:items-center gap-6">
+                  <button className="group relative flex justify-center items-center gap-5 bg-white text-black px-12 py-6 md:py-8 rounded-full font-black text-xs md:text-sm uppercase tracking-[0.4em] transition-soft shadow-2xl hover:bg-neutral-200 active:scale-95 overflow-hidden">
+                    <Play size={24} className="fill-black group-hover:scale-125 transition-transform" /> 
+                    <span className="relative z-10">Initiate Playback</span>
+                  </button>
+                  
+                  <div className="flex gap-6 justify-center">
+                    <button 
+                      onClick={() => setIsLiked(!isLiked)}
+                      className={cn(
+                        "w-16 h-16 md:w-20 md:h-20 flex justify-center items-center rounded-full transition-soft border border-white/10 active:scale-75",
+                        isLiked ? "bg-red-500 text-white shadow-[0_0_40px_rgba(239,68,68,0.5)]" : "bg-white/5 backdrop-blur-2xl hover:bg-white hover:text-black"
+                      )}
+                    >
+                      <Heart size={24} className={isLiked ? "fill-current" : ""} />
+                    </button>
+                    <button className="w-16 h-16 md:w-20 md:h-20 flex justify-center items-center bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full hover:bg-white hover:text-black transition-soft active:scale-75">
+                      <Plus size={24} />
+                    </button>
+                  </div>
+                </div>
+             </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Content Grid */}
-      <div className="px-4 md:px-20 py-8 md:py-24 grid lg:grid-cols-12 gap-8 lg:gap-24 pb-32">
-        {/* Left Column: Tracklist & Info */}
-        <div className="lg:col-span-8 space-y-12 md:space-y-24">
-          <section>
-            <div className="flex items-center gap-4 mb-10">
-              <div className="h-px flex-1 bg-white/10" />
-              <h2 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500">About</h2>
-              <div className="h-px w-12 bg-white/10" />
+      {/* Content Narrative */}
+      <div className="px-6 md:px-20 py-20 md:py-32 grid lg:grid-cols-12 gap-16 md:gap-32 relative z-20">
+        
+        {/* Tracklist & Story */}
+        <div className="lg:col-span-8 space-y-32">
+          
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-center gap-6 mb-12">
+              <h2 className="text-[10px] md:text-xs font-black uppercase tracking-[0.5em] text-neutral-600">The Narrative</h2>
+              <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
             </div>
-            <p className="text-neutral-300 text-2xl leading-relaxed font-medium max-w-4xl">{music.desc}</p>
-          </section>
+            <p className="text-neutral-400 text-xl md:text-3xl leading-[1.4] font-medium max-w-5xl italic tracking-tight">
+              "{music.desc}"
+            </p>
+          </motion.section>
 
+          {/* Precision Tracklist */}
           <section>
-            <div className="flex items-center gap-4 mb-12">
-              <div className="h-px flex-1 bg-white/10" />
-              <h2 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500">Tracklist</h2>
-              <div className="h-px w-12 bg-white/10" />
+            <div className="flex items-center justify-between mb-16">
+               <h2 className="text-[10px] md:text-xs font-black uppercase tracking-[0.5em] text-neutral-600">Audio Sequences</h2>
+               <div className="flex gap-8">
+                  <Shuffle size={18} className="text-neutral-700 hover:text-white cursor-pointer transition-colors" />
+                  <Repeat size={18} className="text-neutral-700 hover:text-white cursor-pointer transition-colors" />
+               </div>
             </div>
-            <div className="space-y-2">
+            
+            <div className="space-y-4">
               {music.tracks.map((track, i) => (
                 <motion.div 
                   key={track.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: i * 0.05, duration: 0.8 }}
                   onClick={() => setActiveTrack(track.id)}
                   className={cn(
-                    "group flex items-center gap-3 md:gap-6 p-3 md:p-4 rounded-2xl transition-all cursor-pointer",
-                    activeTrack === track.id ? "bg-white/10 border border-white/10" : "hover:bg-white/5 border border-transparent"
+                    "group relative overflow-hidden p-6 md:p-8 rounded-[2rem] md:rounded-[3rem] transition-soft flex items-center gap-6 md:gap-10 border cursor-pointer",
+                    activeTrack === track.id 
+                      ? "bg-white text-black border-white shadow-2xl scale-[1.02]" 
+                      : "bg-white/[0.01] border-white/5 hover:bg-white/[0.03] hover:border-white/10"
                   )}
                 >
-                  <span className="w-6 md:w-8 text-neutral-600 font-black text-xs md:text-sm group-hover:text-white transition-colors">{i + 1}</span>
-                  <div className="flex-1">
-                    <h3 className={cn("text-sm font-black uppercase tracking-tight transition-colors", activeTrack === track.id ? "text-white" : "text-neutral-400 group-hover:text-white")}>{track.title}</h3>
-                    <span className="text-[10px] font-bold text-neutral-600 uppercase tracking-widest">{music.artist}</span>
+                  <div className={cn(
+                    "w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center font-black text-xs md:text-sm",
+                    activeTrack === track.id ? "bg-black text-white" : "bg-white/5 text-neutral-600 group-hover:text-white"
+                  )}>
+                    {activeTrack === track.id ? <Play size={20} className="fill-white" /> : String(i + 1).padStart(2, '0')}
                   </div>
-                  <span className="text-[10px] font-black text-neutral-600 uppercase tracking-widest">{track.plays}</span>
-                  <span className="text-[10px] font-black text-neutral-600 uppercase tracking-widest">{track.duration}</span>
-                  <button className="p-2 text-neutral-600 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
-                    <Download size={14} />
-                  </button>
+                  
+                  <div className="flex-1">
+                    <h3 className="font-black text-lg md:text-xl uppercase tracking-tight mb-1">{track.title}</h3>
+                    <div className="flex items-center gap-4">
+                       <span className={cn("text-[10px] font-black uppercase tracking-widest", activeTrack === track.id ? "text-black/50" : "text-neutral-600")}>{music.artist}</span>
+                       <span className="w-1 h-1 rounded-full bg-neutral-800"></span>
+                       <span className={cn("text-[10px] font-black uppercase tracking-widest text-neutral-600", activeTrack === track.id && "text-black/40")}>{track.plays} STREAMS</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-8">
+                     <span className={cn("hidden md:block text-xs font-black tabular-nums", activeTrack === track.id ? "text-black/60" : "text-neutral-700")}>{track.duration}</span>
+                     <button className={cn("p-3 rounded-full transition-soft active:scale-75", activeTrack === track.id ? "bg-black/5 text-black hover:bg-black/10" : "text-neutral-600 hover:text-white bg-white/5")}>
+                        <Download size={18} />
+                     </button>
+                  </div>
                 </motion.div>
               ))}
             </div>
           </section>
-
-          {/* User Rating Section */}
-          <section className="p-8 md:p-12 rounded-[3rem] bg-neutral-900/20 border border-white/5 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-              <div>
-                <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">Rate this album</h3>
-                <p className="text-neutral-500 font-bold text-xs uppercase tracking-widest">Share your musical taste</p>
-              </div>
-              
-              <div className="flex flex-col items-center gap-4">
-                <div className="flex gap-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <motion.button
-                      key={star}
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                      onMouseEnter={() => setHoverRating(star)}
-                      onMouseLeave={() => setHoverRating(0)}
-                      onClick={() => handleRate(star)}
-                      className="relative p-2"
-                    >
-                      <Star 
-                        size={40} 
-                        className={`transition-all duration-300 ${
-                          (hoverRating || userRating) >= star 
-                            ? "fill-yellow-500 text-yellow-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.4)]" 
-                            : "text-neutral-700"
-                        }`} 
-                      />
-                    </motion.button>
-                  ))}
-                </div>
-                <AnimatePresence mode="wait">
-                  {isRated ? (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="flex items-center gap-2 text-green-500 font-black text-[10px] uppercase tracking-[0.2em]"
-                    >
-                      <Check size={14} /> Rating Saved
-                    </motion.div>
-                  ) : userRating > 0 ? (
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-neutral-400 font-black text-[10px] uppercase tracking-[0.2em]"
-                    >
-                      You rated this {userRating} stars
-                    </motion.div>
-                  ) : (
-                    <div className="h-4" />
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </section>
         </div>
 
-        {/* Right Column: Artist & Similar */}
+        {/* Artist Profile & Discovery */}
         <div className="lg:col-span-4 space-y-24">
-          <section className="p-10 rounded-[3rem] bg-neutral-900/20 border border-white/5 backdrop-blur-sm">
-            <h3 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500 mb-10">Information</h3>
-            <div className="space-y-8">
-              <div className="flex flex-col gap-2">
-                <span className="text-[10px] font-black text-neutral-600 uppercase tracking-[0.2em]">Tracks</span>
-                <span className="font-bold text-lg flex items-center gap-2"><Disc size={18} /> {music.tracksCount} Tracks</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-[10px] font-black text-neutral-600 uppercase tracking-[0.2em]">Genre</span>
-                <span className="font-bold text-lg flex items-center gap-2"><Music size={18} /> {music.genre}</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-[10px] font-black text-neutral-600 uppercase tracking-[0.2em]">Release Year</span>
-                <span className="font-bold text-lg flex items-center gap-2"><Calendar size={18} /> {music.year}</span>
-              </div>
-            </div>
-          </section>
-
-          <section>
-            <h3 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500 mb-10">About Artist</h3>
-            <div className="p-6 rounded-3xl bg-white/5 border border-white/5">
-              <div className="flex items-center gap-4 mb-6">
-                <img src={music.artistInfo.image} alt={music.artistInfo.name} className="w-16 h-16 rounded-2xl object-cover" referrerPolicy="no-referrer" />
-                <div>
-                  <h4 className="text-lg font-black uppercase tracking-tight">{music.artistInfo.name}</h4>
-                  <button className="text-[10px] font-black text-white bg-white/10 px-3 py-1 rounded-full uppercase tracking-widest hover:bg-white hover:text-black transition-all">Follow</button>
+          
+          <motion.section 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="p-10 md:p-14 rounded-[3rem] md:rounded-[4.5rem] bg-white/[0.01] border border-white/5 backdrop-blur-3xl shadow-2xl sticky top-32"
+          >
+            {/* Visual Artist Card */}
+            <div className="mb-16 text-center">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mx-auto mb-8 border-4 border-white/5 shadow-2xl p-1 relative">
+                   <CinematicImage src={music.artistInfo.image} className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-soft" />
                 </div>
-              </div>
-              <p className="text-neutral-400 text-xs leading-relaxed italic">"{music.artistInfo.bio}"</p>
+               <h3 className="text-2xl font-black uppercase tracking-tighter mb-4">{music.artistInfo.name}</h3>
+               <button className="px-8 py-3 bg-white text-black text-[10px] font-black uppercase tracking-[0.3em] rounded-full hover:bg-neutral-200 transition-soft shadow-xl">Transmission Active</button>
             </div>
-          </section>
 
-          <section>
-            <h3 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500 mb-10">Similar Music</h3>
-            <div className="grid grid-cols-1 gap-6">
-              {similarMusic.map((m) => (
-                <Link key={m.id} to={`/audio/${m.id}`} className="group flex items-center gap-4">
-                  <div className="w-20 h-20 rounded-2xl overflow-hidden border border-white/5 group-hover:border-white/20 transition-all flex-shrink-0">
-                    <img src={m.image} alt={m.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" referrerPolicy="no-referrer" />
+            <div className="space-y-12">
+              <div className="p-8 rounded-[2rem] bg-black/40 border border-white/5 italic text-neutral-500 text-xs leading-relaxed text-center">
+                 "{music.artistInfo.bio}"
+              </div>
+              
+              <div className="h-px bg-white/5" />
+
+              <div className="space-y-10">
+                {[
+                  { label: "Temporal Release", val: music.year, icon: Calendar },
+                  { label: "Sonic Classification", val: music.genre, icon: Music },
+                  { label: "Sequences", val: music.tracksCount, icon: Disc },
+                  { label: "Affiliation", val: music.label, icon: Award }
+                ].map((item, i) => (
+                  <div key={i} className="flex justify-between items-center group cursor-default">
+                    <div className="flex items-center gap-4">
+                       <item.icon size={18} className="text-neutral-700 group-hover:text-sky-500 transition-soft" />
+                       <span className="text-[10px] font-black text-neutral-600 uppercase tracking-[0.2em]">{item.label}</span>
+                    </div>
+                    <span className="font-black text-sm text-white">{item.val}</span>
                   </div>
-                  <div>
-                    <h4 className="font-black text-xs uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors mb-1">{m.title}</h4>
-                    <p className="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mb-1">{m.artist}</p>
-                    <span className="flex items-center gap-1 text-[10px] text-yellow-500 font-black"><Star size={10} className="fill-current" /> {m.rating}</span>
-                  </div>
-                </Link>
-              ))}
+                ))}
+              </div>
             </div>
-          </section>
+
+            <div className="mt-20 pt-20 border-t border-white/5">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-neutral-600 mb-12 text-center md:text-left">Related Transmissions</h3>
+              <div className="grid grid-cols-1 gap-6">
+                {similarMusic.map((m) => (
+                  <Link key={m.id} to={`/audio/${m.id}`} className="group flex items-center gap-6 p-4 rounded-3xl hover:bg-white/5 transition-soft">
+                    <div className="w-20 h-20 rounded-2xl overflow-hidden border border-white/5 flex-shrink-0 shadow-lg relative">
+                      <CinematicImage src={m.image} alt={m.title} className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-soft" referrerPolicy="no-referrer" />
+                    </div>
+                    <div>
+                      <h4 className="font-black text-xs uppercase tracking-[0.2em] text-neutral-500 group-hover:text-white transition-soft truncate mb-1">{m.title}</h4>
+                      <p className="text-[10px] font-bold text-neutral-700 uppercase tracking-widest">{m.artist}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </motion.section>
+
         </div>
       </div>
     </div>

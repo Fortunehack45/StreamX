@@ -50,15 +50,17 @@ export function Movies() {
   return (
     <div className="min-h-screen bg-[#050505] text-white p-4 md:p-12 pt-28 md:pt-40 font-sans pb-48 md:pb-24">
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="mb-8 md:mb-12 flex items-end justify-between"
       >
         <div>
           <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-600">
             Cinema
           </h1>
-          <p className="text-neutral-400 mt-1 md:mt-2 font-medium tracking-wide text-xs md:text-sm">Explore the best of global cinema</p>
+          <p className="text-neutral-400 mt-1 md:mt-2 font-black tracking-[0.2em] uppercase text-[10px] md:text-xs">Explore the best of global cinema</p>
         </div>
       </motion.div>
       
@@ -67,24 +69,25 @@ export function Movies() {
         
         {/* Featured Large */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1 }}
-          className="md:col-span-3 row-span-1 md:row-span-2 rounded-2xl md:rounded-3xl overflow-hidden relative group cursor-pointer min-h-[400px] md:min-h-0"
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="md:col-span-3 row-span-1 md:row-span-2 rounded-[2rem] md:rounded-[3rem] overflow-hidden relative group cursor-pointer min-h-[400px] md:min-h-0 border border-white/5 hover:border-white/10 transition-soft"
         >
-          <img src="https://picsum.photos/seed/movie1/1200/800" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 md:p-12 flex flex-col justify-end">
-            <div className="flex gap-2 mb-3 md:mb-4">
-              <span className="px-2 md:px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[9px] md:text-xs font-bold uppercase tracking-wider">Action</span>
-              <span className="px-2 md:px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[9px] md:text-xs font-bold uppercase tracking-wider">2026</span>
+          <img src="https://picsum.photos/seed/movie1/1200/800" className="w-full h-full object-cover transition-soft duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent p-6 md:p-16 flex flex-col justify-end">
+            <div className="flex gap-3 mb-4 md:mb-6">
+              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-xl text-[10px] font-black uppercase tracking-[0.2em] border border-white/5">Action</span>
+              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-xl text-[10px] font-black uppercase tracking-[0.2em] border border-white/5">2026</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black mb-4 md:mb-6 tracking-tighter leading-none">THE VANGUARD</h2>
-            <div className="flex flex-wrap items-center gap-3 md:gap-4">
-              <button className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.3)]">
-                <Play size={20} className="fill-black ml-1 md:w-6 md:h-6" />
+            <h2 className="text-4xl sm:text-5xl md:text-8xl font-black mb-6 md:mb-10 tracking-tighter leading-none uppercase">THE VANGUARD</h2>
+            <div className="flex flex-wrap items-center gap-4 md:gap-6">
+              <button className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-soft shadow-[0_0_60px_rgba(255,255,255,0.3)]">
+                <Play size={24} className="fill-black ml-1.5 md:w-8 md:h-8" />
               </button>
-              <button className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-colors">
-                <Plus size={20} className="md:w-6 md:h-6" />
+              <button className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-white/10 backdrop-blur-xl border border-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-soft hover:scale-110">
+                <Plus size={24} className="md:w-8 md:h-8" />
               </button>
             </div>
           </div>
@@ -95,20 +98,22 @@ export function Movies() {
           {[2, 3].map((i, index) => (
             <motion.div 
               key={i} 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 + index * 0.1 }}
-              className="rounded-2xl md:rounded-3xl overflow-hidden relative group cursor-pointer bg-neutral-900 h-full"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.02 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 + index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden relative group cursor-pointer bg-neutral-900 border border-white/5 h-full transition-soft"
             >
-              <img src={`https://picsum.photos/seed/movie${i}/400/600`} className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110" referrerPolicy="no-referrer" />
-              <div className="absolute inset-0 p-3 md:p-6 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-100 md:opacity-80 md:group-hover:opacity-100 transition-opacity duration-300">
-                <div className="translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="text-xs md:text-xl font-bold mb-1 md:mb-2 leading-tight truncate">Cinematic {i}</h3>
+              <img src={`https://picsum.photos/seed/movie${i}/400/600`} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-soft duration-1000 group-hover:scale-110" referrerPolicy="no-referrer" />
+              <div className="absolute inset-0 p-4 md:p-8 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/40 to-transparent">
+                <div className="group-hover:-translate-y-2 transition-transform duration-500">
+                  <h3 className="text-sm md:text-2xl font-black mb-1 md:mb-3 leading-tight uppercase tracking-tight">Cinematic {i}</h3>
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1 text-[9px] md:text-xs text-yellow-500 font-bold">
-                      <Star size={10} className="fill-yellow-500 md:w-3.5 md:h-3.5" /> 4.{i}
+                    <div className="flex items-center gap-2 text-[10px] md:text-sm text-yellow-500 font-black tracking-widest uppercase">
+                      <Star size={12} className="fill-yellow-500 md:w-4 md:h-4" /> 4.{i}
                     </div>
-                    <ChevronRight size={12} className="text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity md:w-4 md:h-4" />
+                    <ChevronRight size={16} className="text-white md:w-5 md:h-5 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500" />
                   </div>
                 </div>
               </div>
@@ -117,97 +122,38 @@ export function Movies() {
         </div>
       </div>
       
-      <div className="space-y-12 md:space-y-16">
+      <div className="space-y-16 md:space-y-32">
         
-        {/* Hollywood Blockbusters */}
-        <section>
-          <div className="flex items-end justify-between mb-6 border-b border-white/10 pb-4">
-            <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">Hollywood <span className="italic text-white/50">Blockbusters</span></h2>
-            <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-              View All <ChevronRight size={14} />
-            </span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {isLoading 
-              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
-              : hollywoodMovies.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} linkTo={`/movies/${movie.id}`} delay={i * 0.1} />
-                ))
-            }
-          </div>
-        </section>
-
-        {/* Bollywood Hits */}
-        <section>
-          <div className="flex items-end justify-between mb-6 border-b border-white/10 pb-4">
-            <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">Bollywood <span className="italic text-white/50">Hits</span></h2>
-            <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-              View All <ChevronRight size={14} />
-            </span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {isLoading 
-              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
-              : bollywoodMovies.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} linkTo={`/movies/${movie.id}`} delay={i * 0.1} />
-                ))
-            }
-          </div>
-        </section>
-
-        {/* K-Dramas */}
-        <section>
-          <div className="flex items-end justify-between mb-6 border-b border-white/10 pb-4">
-            <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">K-Drama <span className="italic text-white/50">Favorites</span></h2>
-            <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-              View All <ChevronRight size={14} />
-            </span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {isLoading 
-              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
-              : kDramas.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} linkTo={`/movies/${movie.id}`} delay={i * 0.1} />
-                ))
-            }
-          </div>
-        </section>
-
-        {/* Action & Adventure */}
-        <section>
-          <div className="flex items-end justify-between mb-6 border-b border-white/10 pb-4">
-            <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">Action & <span className="italic text-white/50">Adventure</span></h2>
-            <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-              View All <ChevronRight size={14} />
-            </span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {isLoading 
-              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
-              : actionMovies.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} linkTo={`/movies/${movie.id}`} delay={i * 0.1} />
-                ))
-            }
-          </div>
-        </section>
-
-        {/* Comedy */}
-        <section>
-          <div className="flex items-end justify-between mb-6 border-b border-white/10 pb-4">
-            <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">Laugh Out <span className="italic text-white/50">Loud</span></h2>
-            <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-              View All <ChevronRight size={14} />
-            </span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {isLoading 
-              ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
-              : comedyMovies.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} linkTo={`/movies/${movie.id}`} delay={i * 0.1} />
-                ))
-            }
-          </div>
-        </section>
+        {/* Sections: Hollywood, Bollywood, K-Drama, etc. */}
+        {[
+          { title: "Hollywood", sub: "Blockbusters", data: hollywoodMovies },
+          { title: "Bollywood", sub: "Hits", data: bollywoodMovies },
+          { title: "K-Drama", sub: "Favorites", data: kDramas },
+          { title: "Action &", sub: "Adventure", data: actionMovies },
+          { title: "Laugh Out", sub: "Loud", data: comedyMovies },
+        ].map((section, idx) => (
+          <section key={section.title}>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex items-end justify-between mb-8 md:mb-12 border-b border-white/5 pb-6"
+            >
+              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">{section.title} <span className="text-white/20 whitespace-pre">{section.sub}</span></h2>
+              <span className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-snappy flex items-center gap-2 group">
+                View All <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </span>
+            </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+              {isLoading 
+                ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
+                : section.data.map((movie, i) => (
+                    <MediaCard key={movie.id} {...movie} linkTo={`/movies/${movie.id}`} delay={i * 0.05} />
+                  ))
+              }
+            </div>
+          </section>
+        ))}
 
       </div>
     </div>

@@ -25,100 +25,83 @@ const crimeSeries = [
 
 export function Series() {
   return (
-    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 font-sans">
+    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 font-sans overflow-x-hidden">
       
       {/* Featured Hero Banner */}
       <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="relative w-full min-h-[75vh] md:min-h-[85vh] flex flex-col justify-end overflow-hidden mb-12 md:mb-16 group"
+        initial={{ opacity: 0, scale: 1.1 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full min-h-[80vh] md:min-h-[90vh] flex flex-col justify-end overflow-hidden mb-12 md:mb-20 group"
       >
         <div className="absolute inset-0 -z-10">
           <img 
             src="https://picsum.photos/seed/series-hero/1920/1080" 
             alt="Hero Background" 
-            className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
+            className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-soft duration-[2000ms]"
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/95 via-[#050505]/20 to-transparent" />
         </div>
         
-        <div className="relative p-6 md:p-16 pt-28 md:pt-40 pb-20 md:pb-32 z-10">
+        <div className="relative p-6 md:p-20 pt-28 md:pt-40 pb-20 md:pb-32 z-10">
           <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-5xl"
           >
-            <div className="flex items-center gap-3 mb-4 md:mb-6">
-              <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-black bg-white px-3 py-1 rounded-sm">New Season</span>
+            <div className="flex items-center gap-4 mb-6 md:mb-8">
+              <span className="text-[10px] md:text-sm font-black tracking-[0.3em] uppercase text-black bg-white px-4 py-1.5 rounded-sm">New Season</span>
+              <span className="text-[10px] md:text-sm font-black tracking-[0.3em] uppercase text-white/40 border border-white/10 px-4 py-1.5 rounded-sm">Original</span>
             </div>
-            <h1 className="text-5xl sm:text-6xl md:text-8xl font-serif font-light text-white mb-4 md:mb-6 tracking-tight leading-[0.9]">
-              Neon <span className="italic">Syndicate</span>
+            <h1 className="text-6xl sm:text-7xl md:text-9xl font-black text-white mb-6 md:mb-10 tracking-tighter leading-[0.85] uppercase">
+              Neon <span className="text-white/20 italic">Syndicate</span>
             </h1>
-            <p className="text-white/70 text-sm md:text-lg mb-8 md:mb-10 line-clamp-3 md:line-clamp-none max-w-2xl font-medium leading-relaxed">
-              In a sprawling metropolis, a rogue AI begins to question its core directives, leading to a cascade of unforeseen events. The highly anticipated third season is finally here.
+            <p className="text-white/50 text-base md:text-2xl mb-10 md:mb-14 line-clamp-3 md:line-clamp-none max-w-3xl font-black leading-tight tracking-tight uppercase italic">
+              In a sprawling metropolis, a rogue AI begins to question its core directives, leading to a cascade of unforeseen events.
             </p>
             
-            <div className="flex flex-wrap items-center gap-4">
-              <button className="flex items-center justify-center gap-3 px-8 md:px-10 py-3.5 md:py-4 bg-white text-black rounded-full text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:scale-105 transform duration-300">
-                <Play size={18} className="fill-current" /> Play S3:E1
+            <div className="flex flex-wrap items-center gap-6">
+              <button className="flex items-center justify-center gap-4 px-10 md:px-14 py-4 md:py-6 bg-white text-black rounded-full text-xs md:text-sm font-black uppercase tracking-[0.3em] hover:bg-neutral-200 transition-soft shadow-[0_0_60px_rgba(255,255,255,0.3)] hover:scale-110 active:scale-95">
+                <Play size={20} className="fill-current" /> Play S3:E1
               </button>
-              <button className="flex items-center justify-center gap-3 px-8 md:px-10 py-3.5 md:py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-white/20 transition-colors hover:scale-105 transform duration-300">
-                <Plus size={18} /> My List
+              <button className="w-14 h-14 md:w-20 md:h-20 flex items-center justify-center bg-white/5 backdrop-blur-2xl border border-white/10 text-white rounded-full hover:bg-white hover:text-black transition-soft hover:scale-110 active:scale-95">
+                <Plus size={24} />
               </button>
             </div>
           </motion.div>
         </div>
       </motion.div>
 
-      <div className="space-y-12 md:space-y-16 px-4 md:px-12">
+      <div className="space-y-20 md:space-y-40 px-6 md:px-20">
         
-        {/* Trending Series */}
-        <section>
-          <div className="flex items-end justify-between mb-6 border-b border-white/10 pb-4">
-            <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">Trending <span className="italic text-white/50">Series</span></h2>
-            <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-              View All <ChevronRight size={14} />
-            </span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {trendingSeries.map((series, i) => (
-              <MediaCard key={series.id} {...series} linkTo={`/series/${series.id}`} delay={i * 0.1} />
-            ))}
-          </div>
-        </section>
-
-        {/* Sci-Fi & Fantasy */}
-        <section>
-          <div className="flex items-end justify-between mb-6 border-b border-white/10 pb-4">
-            <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">Sci-Fi & <span className="italic text-white/50">Fantasy</span></h2>
-            <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-              View All <ChevronRight size={14} />
-            </span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {sciFiSeries.map((series, i) => (
-              <MediaCard key={series.id} {...series} linkTo={`/series/${series.id}`} delay={i * 0.1} />
-            ))}
-          </div>
-        </section>
-
-        {/* Crime & Thriller */}
-        <section>
-          <div className="flex items-end justify-between mb-6 border-b border-white/10 pb-4">
-            <h2 className="text-2xl md:text-3xl font-serif font-light text-white tracking-tight">Crime & <span className="italic text-white/50">Thriller</span></h2>
-            <span className="text-[10px] md:text-xs font-bold text-white/50 uppercase tracking-widest hover:text-white cursor-pointer transition-colors flex items-center gap-1">
-              View All <ChevronRight size={14} />
-            </span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {crimeSeries.map((series, i) => (
-              <MediaCard key={series.id} {...series} linkTo={`/series/${series.id}`} delay={i * 0.1} />
-            ))}
-          </div>
-        </section>
+        {/* Sections: Trending, Sci-Fi, Crime */}
+        {[
+          { title: "Trending", sub: "Series", data: trendingSeries },
+          { title: "Sci-Fi &", sub: "Fantasy", data: sciFiSeries },
+          { title: "Crime &", sub: "Thriller", data: crimeSeries },
+        ].map((section, idx) => (
+          <section key={section.title}>
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex items-end justify-between mb-10 md:mb-14 border-b border-white/5 pb-8"
+            >
+              <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase italic">{section.title} <span className="text-white/20 whitespace-pre">{section.sub}</span></h2>
+              <span className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-snappy flex items-center gap-2 group">
+                View All <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              </span>
+            </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
+              {section.data.map((series, i) => (
+                <MediaCard key={series.id} {...series} linkTo={`/series/${series.id}`} delay={i * 0.05} />
+              ))}
+            </div>
+          </section>
+        ))}
 
       </div>
     </div>
