@@ -1,24 +1,11 @@
 import { motion } from "motion/react";
 import { Play, Plus, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { MediaCard } from "../components/MediaCard";
 import { MediaCardSkeleton } from "../components/MediaCardSkeleton";
 import { CinematicImage } from "../components/CinematicImage";
-import { useState, useEffect } from "react";
-
-const trendingMovies = [
-  { id: 1, title: "Cyberpunk: Edgerunners", image: "https://picsum.photos/seed/cyber/800/1200", rating: "4.9", year: "2026", genre: "Sci-Fi", summary: "When humanity's last hope rests on a crew of misfits, they must navigate the treacherous outer rim to find a new home.", linkTo: "/movies/1" },
-  { id: 2, title: "The Last Horizon", image: "https://picsum.photos/seed/horizon/800/1200", rating: "4.7", year: "2025", genre: "Thriller", summary: "A deep space exploration vessel encounters an anomaly that challenges everything they know about physics and reality.", linkTo: "/movies/2" },
-  { id: 3, title: "Neon Dreams", image: "https://picsum.photos/seed/neon/800/1200", rating: "4.8", year: "2026", genre: "Cyberpunk", summary: "In a city where memories can be bought and sold, a detective must solve a murder that never happened.", linkTo: "/movies/3" },
-  { id: 4, title: "Quantum Paradox", image: "https://picsum.photos/seed/quantum/800/1200", rating: "4.6", year: "2024", genre: "Action", summary: "Time travel is real, but the cost is higher than anyone imagined. One man must fix the timeline before it collapses.", linkTo: "/movies/4" },
-];
-
-const topPicks = [
-  { id: 7, title: "Solar Flare", image: "https://picsum.photos/seed/solar/800/1200", rating: "4.8", year: "2026", genre: "Sci-Fi", summary: "A massive solar flare threatens Earth, and a team of scientists must find a way to shield the planet.", linkTo: "/movies/7" },
-  { id: 8, title: "The Silent Code", image: "https://picsum.photos/seed/code/800/1200", rating: "4.6", year: "2025", genre: "Thriller", summary: "A hacker discovers a hidden code in the global financial system that could bring down the world economy.", linkTo: "/movies/8" },
-  { id: 9, title: "Crimson Sky", image: "https://picsum.photos/seed/crimson/800/1200", rating: "4.7", year: "2026", genre: "Action", summary: "Fighter pilots must defend the last remaining human settlement from an unknown aerial threat.", linkTo: "/movies/9" },
-  { id: 10, title: "Lost in Translation", image: "https://picsum.photos/seed/lost/800/1200", rating: "4.9", year: "2024", genre: "Drama", summary: "Two strangers form an unlikely bond while navigating a foreign city and their own personal crises.", linkTo: "/movies/10" },
-];
+import { useMedia } from "../hooks/useMedia";
 
 const trendingPodcasts = [
   { id: 101, title: "The Daily Tech", image: "https://picsum.photos/seed/tech/800/1200", rating: "4.9", year: "2026", genre: "Technology", summary: "Stay ahead of the curve with the latest in tech, AI, and innovation.", linkTo: "/podcasts/101" },
@@ -41,12 +28,17 @@ const continueWatching = [
 ];
 
 export function Home() {
-  const [isLoading, setIsLoading] = useState(true);
+  const { data: trendingMovies, loading: trendingLoading } = useMedia({ limit: 4, sort: 'trending' });
+  const { data: topPicks, loading: picksLoading } = useMedia({ limit: 4, sort: 'rating' });
+  const [isDelayedLoading, setIsDelayedLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1500);
+    const timer = setTimeout(() => setIsDelayedLoading(false), 800);
     return () => clearTimeout(timer);
   }, []);
+
+  const isLoading = trendingLoading || picksLoading || isDelayedLoading;
+  const featured = trendingMovies[0];
 
   return (
     <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 font-sans relative overflow-hidden">
@@ -64,7 +56,7 @@ export function Home() {
       >
         <div className="absolute inset-0 z-0">
           <CinematicImage 
-            src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1920&auto=format&fit=crop" 
+            src={featured?.backdrop_url || featured?.poster_url || "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1920&auto=format&fit=crop"} 
             alt="Hero Background" 
             className="w-full h-full object-cover opacity-100 group-hover:scale-105 transition-transform duration-1000"
             containerClassName="w-full h-full"
@@ -82,17 +74,17 @@ export function Home() {
             className="max-w-5xl"
           >
             <div className="flex items-center gap-3 mb-6">
-              <span className="text-[10px] md:text-xs font-black tracking-[0.3em] uppercase text-black bg-white px-4 py-1.5 rounded-sm">Exclusive Premiere</span>
+              <span className="text-[10px] md:text-xs font-black tracking-[0.3em] uppercase text-black bg-white px-4 py-1.5 rounded-sm">Featured</span>
             </div>
             <h1 className="text-5xl sm:text-6xl md:text-[8rem] font-black tracking-tighter text-white mb-6 leading-[0.8] uppercase">
-              The Cosmic <span className="italic text-white/50">Frontier</span>
+              {featured?.title?.split(' ')[0] || "Stream"} <span className="italic text-white/50">{featured?.title?.split(' ').slice(1).join(' ') || "X"}</span>
             </h1>
             <p className="text-white/60 text-sm md:text-xl mb-10 line-clamp-3 md:line-clamp-none max-w-2xl font-bold leading-relaxed tracking-tight">
-              When humanity's last hope rests on a crew of misfits, they must navigate the treacherous outer rim to find a new home. A visually stunning sci-fi epic that redefines the genre.
+              {featured?.overview || "Experience the best of global cinema and television with StreamX."}
             </p>
             
             <div className="flex flex-wrap items-center gap-6">
-              <Link to="/movies/1" className="flex items-center justify-center gap-4 px-10 md:px-14 py-4 md:py-5 bg-white text-black rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] hover:bg-neutral-200 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)] hover:scale-105 transform duration-300">
+              <Link to={featured ? (featured.media_type === 'series' ? `/series/${featured.tmdb_id}` : `/movies/${featured.tmdb_id}`) : "/"} className="flex items-center justify-center gap-4 px-10 md:px-14 py-4 md:py-5 bg-white text-black rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] hover:bg-neutral-200 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)] hover:scale-105 transform duration-300">
                 <Play size={20} className="fill-black" /> Play Now
               </Link>
               <button className="flex items-center justify-center gap-4 px-10 md:px-14 py-4 md:py-5 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] hover:bg-white/20 transition-all hover:scale-105 transform duration-300">
@@ -114,15 +106,17 @@ export function Home() {
             className="flex items-end justify-between mb-10 border-b border-white/5 pb-6"
           >
             <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">Trending <span className="text-white/20">Now</span></h2>
-            <Link to="/movies" className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-snappy flex items-center gap-2 group">
-              Explore All <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
           </motion.div>
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : trendingMovies.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} delay={i * 0.05} />
+                  <MediaCard 
+                    key={movie.id} 
+                    media={movie}
+                    delay={i * 0.05} 
+                  />
                 ))
             }
           </div>
@@ -197,7 +191,18 @@ export function Home() {
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : trendingPodcasts.map((podcast, i) => (
-                  <MediaCard key={podcast.id} {...podcast} delay={i * 0.05} />
+                  <MediaCard 
+                    key={podcast.id} 
+                    id={podcast.id}
+                    title={podcast.title}
+                    image={podcast.image}
+                    rating={podcast.rating}
+                    year={podcast.year}
+                    genre={podcast.genre}
+                    summary={podcast.summary}
+                    linkTo={podcast.linkTo}
+                    delay={i * 0.05} 
+                  />
                 ))
             }
           </div>
@@ -220,7 +225,18 @@ export function Home() {
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : topMusic.map((track, i) => (
-                  <MediaCard key={track.id} {...track} delay={i * 0.05} />
+                  <MediaCard 
+                    key={track.id} 
+                    id={track.id}
+                    title={track.title}
+                    image={track.image}
+                    rating={track.rating}
+                    year={track.year}
+                    genre={track.genre}
+                    summary={track.summary}
+                    linkTo={track.linkTo}
+                    delay={i * 0.05} 
+                  />
                 ))
             }
           </div>
@@ -235,15 +251,20 @@ export function Home() {
             className="flex items-end justify-between mb-10 border-b border-white/5 pb-6"
           >
             <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">Top Picks <span className="text-white/20">For You</span></h2>
-            <span className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-snappy flex items-center gap-2 group">
+            <Link to="/movies" className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-snappy flex items-center gap-2 group">
               View All <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </span>
+            </Link>
           </motion.div>
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
             {isLoading 
               ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
               : topPicks.map((movie, i) => (
-                  <MediaCard key={movie.id} {...movie} delay={i * 0.05} />
+                  <MediaCard 
+                    key={movie.id} 
+                    media={movie}
+                    delay={i * 0.05} 
+                  />
                 ))
             }
           </div>

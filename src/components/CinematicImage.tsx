@@ -3,8 +3,12 @@ import { motion, AnimatePresence } from "motion/react";
 import { cn } from "../lib/utils";
 
 export interface CinematicImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+  src?: string;
+  alt?: string;
+  className?: string;
   containerClassName?: string;
   overlay?: React.ReactNode;
+  referrerPolicy?: React.HTMLAttributeReferrerPolicy;
 }
 
 export function CinematicImage(props: CinematicImageProps) {

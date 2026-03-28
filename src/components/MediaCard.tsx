@@ -1,62 +1,68 @@
 import { motion } from "motion/react";
-import { Play, Star, Plus, Check } from "lucide-react";
-import { useState } from "react";
+import { Play, Star } from "lucide-react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "../lib/utils";
 import { CinematicImage } from "./CinematicImage";
+import { Media } from "../hooks/useMedia";
 
 interface MediaCardProps {
-  id: number;
-  title: string;
-  image: string;
-  rating: string;
-  year: string;
-  genre: string;
-  summary: string;
+  media?: Media;
+  id?: number | string;
+  title?: string;
+  image?: string;
+  rating?: string | number;
+  year?: string;
+  genre?: string;
+  summary?: string;
   delay?: number;
   linkTo?: string;
-  key?: any;
+  media_type?: 'movie' | 'series';
 }
 
-export function MediaCard({ id, title, image, rating, year, genre, summary, delay = 0, linkTo }: MediaCardProps) {
-  const [inWatchlist, setInWatchlist] = useState(false);
+export function MediaCard({ media, id, title, image, rating, year, genre, summary, delay = 0, linkTo, media_type }: MediaCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const displayId = media?.tmdb_id || media?.id || id;
+  const displayTitle = media?.title || title || "";
+  const displayImage = media?.poster_url || image || "";
+  const displayRating = media?.rating || rating || "0.0";
+  const displayYear = media?.release_date?.split('-')[0] || year || "2026";
+  const displayGenre = media?.genres?.[0] || genre || "General";
+  const displaySummary = media?.overview || summary || "";
+  const displayMediaType = media?.media_type || media_type || "movie";
+
+  const finalLinkTo = linkTo || (displayMediaType === 'series' ? `/series/${displayId}` : `/movies/${displayId}`);
 
   const cardContent = (
-    <div className="group relative rounded-2xl overflow-hidden bg-neutral-900/50 border border-white/5 hover:border-white/20 transition-soft flex flex-col h-full cursor-pointer hover:shadow-[0_0_40px_rgba(255,255,255,0.05)]">
-      <div className="relative aspect-video sm:aspect-[2/3] overflow-hidden shrink-0">
-        <CinematicImage src={image} alt={title} className="w-full h-full object-cover group-hover:scale-110 transition-soft duration-1000" containerClassName="w-full h-full" referrerPolicy="no-referrer" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-soft flex items-center justify-center">
-          <button className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center hover:bg-white hover:text-black transition-snappy scale-75 group-hover:scale-100">
-            <Play size={24} className="fill-current ml-1" />
-          </button>
-        </div>
-        <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-xl px-3 py-1.5 rounded-full text-[10px] font-black text-yellow-500 flex items-center gap-1.5 border border-white/5">
-          <Star size={12} className="fill-yellow-500" /> {rating}
-        </div>
-        <button 
-          onClick={(e) => { e.preventDefault(); setInWatchlist(!inWatchlist); }}
-          className={cn(
-            "absolute top-3 left-3 p-2 rounded-full backdrop-blur-xl transition-soft",
-            inWatchlist ? "bg-white text-black" : "bg-black/40 text-white hover:bg-white hover:text-black border border-white/5"
-          )}
-        >
-          {inWatchlist ? <Check size={16} /> : <Plus size={16} />}
-        </button>
-      </div>
-      <div className="p-4 md:p-6 flex flex-col flex-1 justify-between bg-gradient-to-b from-neutral-900/60 to-black">
-        <div>
-          <h3 className="text-white font-black text-sm md:text-lg line-clamp-1 mb-1.5 uppercase tracking-tight">{title}</h3>
-          <div className="flex items-center gap-2.5 text-[10px] text-white/40 mb-3 font-black uppercase tracking-[0.2em]">
-            <span>{year}</span>
+    <div 
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative rounded-3xl overflow-hidden bg-neutral-900/50 border border-white/5 hover:border-white/20 transition-soft flex flex-col h-full cursor-pointer hover:shadow-[0_0_50px_rgba(255,255,255,0.05)]"
+    >
+      <div className="relative aspect-[2/3] overflow-hidden shrink-0">
+        <CinematicImage 
+          src={displayImage} 
+          alt={displayTitle} 
+          className="w-full h-full object-cover group-hover:scale-110 transition-soft duration-1000" 
+          containerClassName="w-full h-full"
+          referrerPolicy="no-referrer" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-soft flex flex-col justify-end p-6">
+          <div className="flex items-center gap-2 mb-3">
+            <Star size={12} className="fill-yellow-500 text-yellow-500" />
+            <span className="text-[10px] font-black text-white">{displayRating}</span>
             <span className="w-1 h-1 rounded-full bg-white/20"></span>
-            <span>{genre}</span>
-            <span className="w-1 h-1 rounded-full bg-white/20"></span>
-            <span className="border border-white/10 px-1.5 rounded-sm">4K</span>
+            <span className="text-[10px] font-black text-white/50">{displayYear}</span>
+          </div>
+          <h3 className="text-sm font-black text-white uppercase tracking-tight line-clamp-2 leading-tight mb-2">{displayTitle}</h3>
+          <p className="text-white/40 text-[9px] line-clamp-2 leading-normal tracking-tight font-medium uppercase italic">
+            {displaySummary || displayGenre}
+          </p>
+          <div className="mt-4 w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-soft shadow-xl">
+             <Play size={16} className="fill-current ml-0.5" />
           </div>
         </div>
-        <p className="text-white/50 text-[10px] md:text-xs line-clamp-2 md:line-clamp-3 leading-relaxed font-bold tracking-tight">
-          {summary}
-        </p>
       </div>
     </div>
   );
@@ -68,10 +74,12 @@ export function MediaCard({ id, title, image, rating, year, genre, summary, dela
       whileHover={{ y: -10 }}
       whileTap={{ scale: 0.98 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ delay, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="h-full"
     >
-      {linkTo ? <Link to={linkTo}>{cardContent}</Link> : cardContent}
+      <Link to={finalLinkTo} className="h-full block">
+        {cardContent}
+      </Link>
     </motion.div>
   );
 }

@@ -1,108 +1,129 @@
 import { motion } from "motion/react";
-import { Play, Plus, ChevronRight } from "lucide-react";
+import { Play, Star, ChevronRight } from "lucide-react";
 import { MediaCard } from "../components/MediaCard";
-
-const trendingSeries = [
-  { id: 1, title: "The Anomaly", image: "https://picsum.photos/seed/anomaly/800/1200", rating: "4.9", year: "2026", genre: "Sci-Fi", summary: "A mysterious signal from deep space triggers a global event that alters human DNA." },
-  { id: 2, title: "Deep Dive", image: "https://picsum.photos/seed/deep/800/1200", rating: "4.7", year: "2025", genre: "Thriller", summary: "An investigative journalist uncovers a massive conspiracy involving the world's largest tech company." },
-  { id: 3, title: "Echoes", image: "https://picsum.photos/seed/echoes2/800/1200", rating: "4.8", year: "2026", genre: "Mystery", summary: "A small town is rocked by a series of disappearances that seem to mirror a century-old legend." },
-  { id: 4, title: "Convergence", image: "https://picsum.photos/seed/convergence/800/1200", rating: "4.6", year: "2024", genre: "Action", summary: "Two rival factions must unite to survive when their planet is invaded by a superior force." },
-];
-
-const sciFiSeries = [
-  { id: 5, title: "Neon Syndicate", image: "https://picsum.photos/seed/series/1920/1080", rating: "4.8", year: "2026", genre: "Cyberpunk", summary: "In a sprawling metropolis, a rogue AI begins to question its core directives, leading to a cascade of unforeseen events." },
-  { id: 6, title: "Galactic Rim", image: "https://picsum.photos/seed/galactic/800/1200", rating: "4.5", year: "2025", genre: "Space Opera", summary: "A ragtag crew of smugglers gets caught in the middle of a galactic civil war." },
-  { id: 7, title: "The Upload", image: "https://picsum.photos/seed/upload/800/1200", rating: "4.7", year: "2026", genre: "Sci-Fi", summary: "People can now upload their consciousness to a digital utopia, but the system has a fatal flaw." },
-  { id: 8, title: "Mars Colony", image: "https://picsum.photos/seed/mars/800/1200", rating: "4.6", year: "2024", genre: "Drama", summary: "The first human settlers on Mars face harsh conditions and internal conflicts." },
-];
-
-const crimeSeries = [
-  { id: 9, title: "City of Shadows", image: "https://picsum.photos/seed/shadows/800/1200", rating: "4.9", year: "2026", genre: "Crime", summary: "A gritty look at the interconnected lives of police, criminals, and politicians in a corrupt city." },
-  { id: 10, title: "The Interrogation", image: "https://picsum.photos/seed/interrogation/800/1200", rating: "4.8", year: "2025", genre: "Thriller", summary: "A psychological game of cat and mouse between a brilliant detective and a cunning serial killer." },
-  { id: 11, title: "Undercover", image: "https://picsum.photos/seed/undercover/800/1200", rating: "4.6", year: "2026", genre: "Action", summary: "An agent infiltrates a dangerous cartel, but the lines between right and wrong begin to blur." },
-  { id: 12, title: "Cold Case", image: "https://picsum.photos/seed/coldcase/800/1200", rating: "4.7", year: "2024", genre: "Mystery", summary: "A dedicated team reopens unsolved murders, finding new clues in old evidence." },
-];
+import { MediaCardSkeleton } from "../components/MediaCardSkeleton";
+import { useMedia } from "../hooks/useMedia";
+import { Link } from "react-router-dom";
 
 export function Series() {
-  return (
-    <div className="min-h-screen bg-[#050505] text-white pb-48 md:pb-32 font-sans overflow-x-hidden">
-      
-      {/* Featured Hero Banner */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 1.1 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full min-h-[80vh] md:min-h-[90vh] flex flex-col justify-end overflow-hidden mb-12 md:mb-20 group"
-      >
-        <div className="absolute inset-0 -z-10">
-          <img 
-            src="https://picsum.photos/seed/series-hero/1920/1080" 
-            alt="Hero Background" 
-            className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-soft duration-[2000ms]"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/95 via-[#050505]/20 to-transparent" />
-        </div>
-        
-        <div className="relative p-6 md:p-20 pt-28 md:pt-40 pb-20 md:pb-32 z-10">
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-5xl"
-          >
-            <div className="flex items-center gap-4 mb-6 md:mb-8">
-              <span className="text-[10px] md:text-sm font-black tracking-[0.3em] uppercase text-black bg-white px-4 py-1.5 rounded-sm">New Season</span>
-              <span className="text-[10px] md:text-sm font-black tracking-[0.3em] uppercase text-white/40 border border-white/10 px-4 py-1.5 rounded-sm">Original</span>
-            </div>
-            <h1 className="text-6xl sm:text-7xl md:text-9xl font-black text-white mb-6 md:mb-10 tracking-tighter leading-[0.85] uppercase">
-              Neon <span className="text-white/20 italic">Syndicate</span>
-            </h1>
-            <p className="text-white/50 text-base md:text-2xl mb-10 md:mb-14 line-clamp-3 md:line-clamp-none max-w-3xl font-black leading-tight tracking-tight uppercase italic">
-              In a sprawling metropolis, a rogue AI begins to question its core directives, leading to a cascade of unforeseen events.
-            </p>
-            
-            <div className="flex flex-wrap items-center gap-6">
-              <button className="flex items-center justify-center gap-4 px-10 md:px-14 py-4 md:py-6 bg-white text-black rounded-full text-xs md:text-sm font-black uppercase tracking-[0.3em] hover:bg-neutral-200 transition-soft shadow-[0_0_60px_rgba(255,255,255,0.3)] hover:scale-110 active:scale-95">
-                <Play size={20} className="fill-current" /> Play S3:E1
-              </button>
-              <button className="w-14 h-14 md:w-20 md:h-20 flex items-center justify-center bg-white/5 backdrop-blur-2xl border border-white/10 text-white rounded-full hover:bg-white hover:text-black transition-soft hover:scale-110 active:scale-95">
-                <Plus size={24} />
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
+  const { data: allSeries, loading } = useMedia({ type: 'series', limit: 30 });
+  
+  const featuredSeries = allSeries[0];
+  const trendingSeries = allSeries.slice(0, 4);
+  const sciFiSeries = allSeries.filter(s => s.genres?.includes('Sci-Fi') || s.genres?.includes('Science Fiction')).slice(0, 4);
+  const dramaSeries = allSeries.filter(s => s.genres?.includes('Drama')).slice(0, 4);
+  const documentarySeries = allSeries.filter(s => s.genres?.includes('Documentary')).slice(0, 4);
 
-      <div className="space-y-20 md:space-y-40 px-6 md:px-20">
+  return (
+    <div className="min-h-screen bg-[#050505] text-white p-4 md:p-12 pt-28 md:pt-40 font-sans pb-48 md:pb-24">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-8 md:mb-12"
+      >
+        <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-600">
+          Television
+        </h1>
+        <p className="text-neutral-400 mt-1 md:mt-2 font-black tracking-[0.2em] uppercase text-[10px] md:text-xs">The next generation of storytelling</p>
+      </motion.div>
+      
+      {/* Bento Grid Featured */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 auto-rows-min md:auto-rows-[300px] mb-12 md:mb-16">
         
-        {/* Sections: Trending, Sci-Fi, Crime */}
+        {/* Featured Large */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="md:col-span-3 row-span-1 md:row-span-2 rounded-[2rem] md:rounded-[3rem] overflow-hidden relative group cursor-pointer min-h-[400px] md:min-h-0 border border-white/5 hover:border-white/10 transition-soft"
+        >
+          {loading ? (
+            <div className="w-full h-full bg-neutral-900 animate-pulse" />
+          ) : (
+            <>
+              <img src={featuredSeries?.backdrop_url || featuredSeries?.poster_url || "https://picsum.photos/seed/series1/1200/800"} className="w-full h-full object-cover transition-soft duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent p-6 md:p-16 flex flex-col justify-end">
+                <div className="flex gap-3 mb-4 md:mb-6">
+                  <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-xl text-[10px] font-black uppercase tracking-[0.2em] border border-white/5">{featuredSeries?.genres?.[0] || 'Series'}</span>
+                  <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-xl text-[10px] font-black uppercase tracking-[0.2em] border border-white/5">{featuredSeries?.release_date?.split('-')[0]}</span>
+                </div>
+                <h2 className="text-4xl sm:text-5xl md:text-8xl font-black mb-6 md:mb-10 tracking-tighter leading-none uppercase">{featuredSeries?.title}</h2>
+                <div className="flex flex-wrap items-center gap-4 md:gap-6">
+                  <Link to={`/series/${featuredSeries?.id}`} className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-soft shadow-[0_0_60px_rgba(255,255,255,0.3)]">
+                    <Play size={24} className="fill-black ml-1.5 md:w-8 md:h-8" />
+                  </Link>
+                </div>
+              </div>
+            </>
+          )}
+        </motion.div>
+        
+        {/* Small Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-1 gap-4 md:gap-6 md:col-span-1 md:row-span-2 h-full">
+          {loading ? (
+            [1, 2].map(i => <MediaCardSkeleton key={i} />)
+          ) : (
+            allSeries.slice(1, 3).map((m, index) => (
+              <motion.div 
+                key={m.id} 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                whileHover={{ scale: 1.02 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden relative group cursor-pointer bg-neutral-900 border border-white/5 h-full transition-soft"
+              >
+                <Link to={`/series/${m.id}`}>
+                  <img src={m.poster_url || ""} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-soft duration-1000 group-hover:scale-110" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 p-4 md:p-8 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/40 to-transparent">
+                    <div className="group-hover:-translate-y-2 transition-transform duration-500">
+                      <h3 className="text-sm md:text-xl font-black mb-1 md:mb-3 leading-tight uppercase tracking-tight line-clamp-2">{m.title}</h3>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-[10px] md:text-sm text-yellow-500 font-black tracking-widest uppercase">
+                          <Star size={12} className="fill-yellow-500 md:w-4 md:h-4" /> {m.rating}
+                        </div>
+                        <ChevronRight size={16} className="text-white md:w-5 md:h-5 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))
+          )}
+        </div>
+      </div>
+      
+      <div className="space-y-16 md:space-y-32">
         {[
           { title: "Trending", sub: "Series", data: trendingSeries },
           { title: "Sci-Fi &", sub: "Fantasy", data: sciFiSeries },
-          { title: "Crime &", sub: "Thriller", data: crimeSeries },
-        ].map((section, idx) => (
-          <section key={section.title}>
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="flex items-end justify-between mb-10 md:mb-14 border-b border-white/5 pb-8"
-            >
-              <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase italic">{section.title} <span className="text-white/20 whitespace-pre">{section.sub}</span></h2>
-              <span className="text-[10px] md:text-xs font-black text-neutral-500 uppercase tracking-[0.3em] hover:text-white cursor-pointer transition-snappy flex items-center gap-2 group">
-                View All <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </span>
-            </motion.div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
-              {section.data.map((series, i) => (
-                <MediaCard key={series.id} {...series} linkTo={`/series/${series.id}`} delay={i * 0.05} />
-              ))}
-            </div>
-          </section>
+          { title: "Intense", sub: "Drama", data: dramaSeries },
+          { title: "Reality &", sub: "Docu", data: documentarySeries },
+        ].map((section) => (
+          section.data.length > 0 && (
+            <section key={section.title}>
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="flex items-end justify-between mb-8 md:mb-12 border-b border-white/5 pb-6"
+              >
+                <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">{section.title} <span className="text-white/20 whitespace-pre">{section.sub}</span></h2>
+              </motion.div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                {loading 
+                  ? Array.from({ length: 4 }).map((_, i) => <MediaCardSkeleton key={i} />)
+                  : section.data.map((m, i) => (
+                      <MediaCard key={m.id} media={m} linkTo={`/series/${m.id}`} delay={i * 0.05} />
+                    ))
+                }
+              </div>
+            </section>
+          )
         ))}
-
       </div>
     </div>
   );

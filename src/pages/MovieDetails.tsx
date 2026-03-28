@@ -1,60 +1,30 @@
 import { useParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronLeft, Play, Clock, Star, Users, Info, Calendar, Globe, Award, MessageSquare, Share2, Plus, Check, Download } from "lucide-react";
+import { ChevronLeft, Play, Clock, Star, Info, Calendar, Globe, Award, Share2, Plus, Download, Check } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../lib/utils";
 import { CinematicImage } from "../components/CinematicImage";
-
-const movieData = {
-  "1": { 
-    title: "The Quantum Protocol", 
-    desc: "A rogue agent must stop a global conspiracy before a new quantum weapon is unleashed. As he delves deeper into the shadows, he discovers that the threat is closer to home than he ever imagined, forcing him to confront his own past to save the future.", 
-    rating: "4.8", 
-    duration: "120 min", 
-    year: "2026",
-    language: "English",
-    budget: "$150M",
-    cast: [
-      { name: "Alex Mercer", role: "Agent 7", image: "https://picsum.photos/seed/alex/200/200" },
-      { name: "Sarah Jenkins", role: "Dr. Aris Thorne", image: "https://picsum.photos/seed/sarah/200/200" },
-      { name: "Michael Chen", role: "The Director", image: "https://picsum.photos/seed/michael/200/200" }
-    ],
-    reviews: [
-      { user: "CinemaGuru", rating: 5, comment: "A masterpiece of modern sci-fi. The visuals are breathtaking." },
-      { user: "MovieBuff99", rating: 4, comment: "Solid action and a compelling plot. Highly recommended." }
-    ]
-  },
-  "2": { 
-    title: "Neon Nights", 
-    desc: "In a city that never sleeps, a detective uncovers a dark secret hidden in the neon lights. A high-stakes thriller that explores the underbelly of a futuristic metropolis where everything has a price.", 
-    rating: "4.5", 
-    duration: "115 min", 
-    year: "2025",
-    language: "English",
-    budget: "$85M",
-    cast: [
-      { name: "Detective Jax", role: "Lead", image: "https://picsum.photos/seed/jax/200/200" },
-      { name: "Luna Vane", role: "The Femme Fatale", image: "https://picsum.photos/seed/luna/200/200" }
-    ],
-    reviews: [
-      { user: "NoirFan", rating: 4, comment: "Great atmosphere and style. A bit slow at times but worth it." }
-    ]
-  },
-};
-
-const similarMovies = [
-  { id: 3, title: "Cyber Soul", image: "https://picsum.photos/seed/cyber/400/600", rating: "4.4" },
-  { id: 4, title: "The Glitch", image: "https://picsum.photos/seed/glitch/400/600", rating: "4.6" },
-  { id: 5, title: "Data Stream", image: "https://picsum.photos/seed/data/400/600", rating: "4.2" },
-  { id: 6, title: "Neural Link", image: "https://picsum.photos/seed/neural/400/600", rating: "4.7" },
-];
+import { useMediaDetails } from "../hooks/useMedia";
 
 export function MovieDetails() {
   const { id } = useParams<{ id: string }>();
-  const movie = movieData[id as keyof typeof movieData] || movieData["1"];
+  const { data: media, loading } = useMediaDetails(id || "");
+  
   const [userRating, setUserRating] = useState<number>(0);
   const [hoverRating, setHoverRating] = useState<number>(0);
   const [isRated, setIsRated] = useState(false);
+
+  const movie = {
+    title: media?.title || "Loading...",
+    desc: media?.overview || "",
+    rating: media?.rating || "0.0",
+    year: media?.release_date?.split('-')[0] || "2026",
+    duration: "120 min",
+    backdrop: media?.backdrop_url || media?.poster_url,
+    language: "English",
+    budget: "$150M",
+    cast: media?.cast_members?.map(name => ({ name, role: "Principal", image: `https://picsum.photos/seed/${name}/200/200` })) || [],
+  };
 
   const handleRate = (rating: number) => {
     setUserRating(rating);
@@ -62,13 +32,21 @@ export function MovieDetails() {
     setTimeout(() => setIsRated(false), 2000);
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#050505] flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-white/10 border-t-indigo-500 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans pb-48 md:pb-32 overflow-x-hidden">
       {/* Cinematic Hero */}
       <div className="relative h-[85vh] md:h-[95vh] w-full overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 -z-10">
           <CinematicImage 
-            src={`https://picsum.photos/seed/${movie.title}/1920/1080`} 
+            src={movie.backdrop || ""} 
             alt={movie.title} 
             className="w-full h-full object-cover" 
             containerClassName="w-full h-full"
@@ -93,8 +71,6 @@ export function MovieDetails() {
               <span className="flex items-center gap-3 text-yellow-500 font-black text-xs md:text-sm uppercase tracking-[0.3em]"><Star size={18} className="fill-current" /> {movie.rating} Rating</span>
               <span className="w-1.5 h-1.5 rounded-full bg-white/20"></span>
               <span className="text-white/50 font-black text-xs md:text-sm uppercase tracking-[0.3em]">{movie.year}</span>
-              <span className="hidden md:block w-1.5 h-1.5 rounded-full bg-white/20"></span>
-              <span className="hidden md:block text-white/50 font-black text-xs md:text-sm uppercase tracking-[0.3em]">{movie.duration}</span>
             </div>
 
             <h1 className="text-6xl md:text-[12rem] font-black tracking-tighter mb-10 md:mb-16 leading-[0.8] uppercase italic drop-shadow-2xl">
@@ -113,9 +89,6 @@ export function MovieDetails() {
               
               <div className="flex gap-6">
                 <button className="flex-1 md:w-20 md:h-20 h-16 flex justify-center items-center bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full hover:bg-white hover:text-black transition-soft shadow-xl active:scale-95">
-                  <Download size={24} />
-                </button>
-                <button className="flex-1 md:w-20 md:h-20 h-16 flex justify-center items-center bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full hover:bg-white hover:text-black transition-soft shadow-xl active:scale-95">
                   <Plus size={24} />
                 </button>
                 <button className="flex-1 md:w-20 md:h-20 h-16 flex justify-center items-center bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full hover:bg-white hover:text-black transition-soft shadow-xl active:scale-95">
@@ -127,10 +100,8 @@ export function MovieDetails() {
         </div>
       </div>
 
-      {/* Narrative Section */}
+      {/* Main Content */}
       <div className="px-6 md:px-20 py-20 md:py-32 grid lg:grid-cols-12 gap-16 md:gap-32 relative z-20">
-        
-        {/* Story & Metadata */}
         <div className="lg:col-span-8 space-y-32">
           
           <motion.section
@@ -140,102 +111,67 @@ export function MovieDetails() {
             transition={{ duration: 1 }}
           >
             <div className="flex items-center gap-6 mb-12">
-              <h2 className="text-[10px] md:text-xs font-black uppercase tracking-[0.5em] text-neutral-600">The Story</h2>
+              <h2 className="text-[10px] md:text-xs font-black uppercase tracking-[0.5em] text-neutral-600">Narrative</h2>
               <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
             </div>
-            <p className="text-neutral-300 text-2xl md:text-4xl leading-[1.2] font-medium max-w-5xl italic tracking-tight">
+            <p className="text-neutral-300 text-2xl md:text-4xl leading-[1.3] font-medium max-w-5xl italic tracking-tight">
               "{movie.desc}"
             </p>
           </motion.section>
 
-          {/* Cast Cinematic Grid */}
+          {/* Cast */}
           <section>
-            <motion.div 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="flex items-center gap-6 mb-16"
-            >
+            <div className="flex items-center gap-6 mb-16">
               <h2 className="text-[10px] md:text-xs font-black uppercase tracking-[0.5em] text-neutral-600">The Ensemble</h2>
               <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
-            </motion.div>
+            </div>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
               {movie.cast.map((actor, i) => (
                 <motion.div 
-                  key={actor.name}
+                  key={i}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ delay: i * 0.1, duration: 1 }}
                   className="group cursor-pointer"
                 >
                   <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden mb-8 border border-white/5 transition-soft shadow-2xl relative">
                     <CinematicImage src={actor.image} alt={actor.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-soft duration-1000" referrerPolicy="no-referrer" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-soft flex flex-col justify-end p-8">
-                       <p className="text-white font-black text-xs uppercase tracking-widest">{actor.role}</p>
-                    </div>
                   </div>
-                  <h3 className="font-black text-xl md:text-2xl uppercase tracking-tighter mb-1 text-white group-hover:text-indigo-400 transition-soft">{actor.name}</h3>
-                  <div className="h-0.5 w-0 group-hover:w-full bg-indigo-500 transition-all duration-700" />
+                  <h3 className="font-black text-xl md:text-2xl uppercase tracking-tighter text-white group-hover:text-indigo-400 transition-soft">{actor.name}</h3>
                 </motion.div>
               ))}
             </div>
           </section>
 
-          {/* Rating Engine */}
+          {/* Rating Section */}
           <motion.section 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="p-10 md:p-20 rounded-[3rem] md:rounded-[5rem] bg-white/[0.02] border border-white/5 text-center relative overflow-hidden group shadow-2xl"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-            <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-4 italic">Public <span className="text-white/20">Consensus</span></h3>
-            <p className="text-neutral-500 font-black text-xs uppercase tracking-[0.3em] mb-12">Submit your evaluation to the network</p>
-            
-            <div className="flex flex-col items-center gap-8">
-              <div className="flex gap-4">
+             <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-4 italic">Public <span className="text-white/20">Consensus</span></h3>
+             <div className="flex justify-center gap-4 mt-12">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <motion.button
+                  <button
                     key={star}
-                    whileHover={{ scale: 1.3, rotate: 12 }}
-                    whileTap={{ scale: 0.8 }}
                     onMouseEnter={() => setHoverRating(star)}
                     onMouseLeave={() => setHoverRating(0)}
                     onClick={() => handleRate(star)}
-                    className="relative p-2"
+                    className="transition-transform hover:scale-125"
                   >
-                    <Star 
-                      size={54} 
-                      className={`transition-all duration-500 ${
-                        (hoverRating || userRating) >= star 
-                          ? "fill-white text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]" 
-                          : "text-neutral-900 border-white/10"
-                      }`} 
-                    />
-                  </motion.button>
+                    <Star size={48} className={cn("transition-all duration-300", (hoverRating || userRating) >= star ? "fill-white text-white" : "text-white/10")} />
+                  </button>
                 ))}
-              </div>
-              <AnimatePresence mode="wait">
-                {isRated && (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="bg-white text-black text-[10px] font-black uppercase tracking-[0.4em] px-8 py-3 rounded-full shadow-2xl"
-                  >
-                    Evaluation Stored
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+             </div>
+             {isRated && <p className="mt-8 text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400">Evaluation Saved</p>}
           </motion.section>
         </div>
 
-        {/* Technical Specification & Discovery */}
-        <div className="lg:col-span-4 space-y-24">
-          
+        {/* Technical Specification */}
+        <div className="lg:col-span-4">
           <motion.section 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -245,10 +181,10 @@ export function MovieDetails() {
             <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-neutral-600 mb-14">Technical Spec</h3>
             <div className="space-y-12">
               {[
-                { label: "Temporal Span", val: movie.duration, icon: Clock },
-                { label: "Vernacular", val: movie.language, icon: Globe },
-                { label: "Resource Allocation", val: movie.budget, icon: Award },
-                { label: "Release Interval", val: movie.year, icon: Calendar }
+                { label: "Duration", val: movie.duration, icon: Clock },
+                { label: "Language", val: movie.language, icon: Globe },
+                { label: "Budget", val: movie.budget, icon: Award },
+                { label: "Release", val: movie.year, icon: Calendar }
               ].map((item, i) => (
                 <div key={i} className="flex flex-col gap-4 group cursor-default">
                   <span className="text-[10px] font-black text-neutral-700 uppercase tracking-[0.3em] group-hover:text-indigo-500 transition-soft">{item.label}</span>
@@ -258,22 +194,7 @@ export function MovieDetails() {
                 </div>
               ))}
             </div>
-
-            <div className="mt-20 pt-20 border-t border-white/5">
-              <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-neutral-600 mb-10">Network Discovery</h3>
-              <div className="grid grid-cols-2 gap-6">
-                {similarMovies.map((m) => (
-                  <Link key={m.id} to={`/movies/${m.id}`} className="group block">
-                    <div className="aspect-[2/3] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden mb-4 border border-white/5 transition-soft shadow-xl group-hover:border-white/20 relative">
-                      <CinematicImage src={m.image} alt={m.title} className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-soft duration-1000" referrerPolicy="no-referrer" />
-                    </div>
-                    <h4 className="font-black text-[10px] uppercase tracking-[0.2em] text-neutral-500 group-hover:text-white transition-soft truncate">{m.title}</h4>
-                  </Link>
-                ))}
-              </div>
-            </div>
           </motion.section>
-
         </div>
       </div>
     </div>
