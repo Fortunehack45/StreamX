@@ -47,8 +47,8 @@ export function TopBar() {
         <div 
           ref={searchRef}
           className={cn(
-            "relative flex-1 max-w-md h-full bg-[#0a0a0a]/90 backdrop-blur-3xl border border-white/10 rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden",
-            isSearchFocused ? "max-w-xl bg-white/10 border-white/20 shadow-[0_12px_48px_rgba(0,0,0,0.6)]" : ""
+            "relative flex-1 max-w-md h-full bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden",
+            isSearchFocused ? "max-w-xl bg-white/20 border-white/30 shadow-[0_12px_48px_rgba(0,0,0,0.6)]" : ""
           )}
         >
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
@@ -83,7 +83,7 @@ export function TopBar() {
         </div>
         
         {/* Actions - Floating Glass */}
-        <div className="flex items-center gap-1 h-full bg-[#0a0a0a]/90 backdrop-blur-3xl border border-white/10 rounded-2xl px-1 md:px-2 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative overflow-hidden">
+        <div className="flex items-center gap-1 h-full bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-1 md:px-2 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative overflow-hidden">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           
           {/* Mobile Profile */}
