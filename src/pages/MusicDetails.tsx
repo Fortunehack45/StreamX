@@ -122,11 +122,11 @@ export function MusicDetails() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
         </div>
         
-        <Link to="/audio" className="absolute top-28 left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
+        <Link to="/audio" className="absolute top-24 left-6 md:top-28 md:left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
           <ChevronLeft size={24} />
         </Link>
 
-        <div className="relative p-8 md:p-20 pt-48 md:pt-64 pb-24 md:pb-32 z-10">
+        <div className="relative p-6 md:p-20 pt-48 md:pt-64 pb-24 md:pb-32 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -139,39 +139,41 @@ export function MusicDetails() {
               <span className="text-white/60 font-black text-sm uppercase tracking-widest">{music.genre}</span>
             </div>
 
-            <h1 className="text-5xl md:text-[8rem] font-black tracking-tighter mb-4 leading-[0.8] uppercase max-w-6xl">{music.title}</h1>
-            <h2 className="text-2xl md:text-4xl font-bold text-white/50 uppercase tracking-widest mb-10 italic">{music.artist}</h2>
+            <h1 className="text-4xl md:text-5xl lg:text-[8rem] font-black tracking-tighter mb-4 leading-[0.9] lg:leading-[0.8] uppercase max-w-6xl">{music.title}</h1>
+            <h2 className="text-xl md:text-4xl font-bold text-white/50 uppercase tracking-widest mb-10 italic">{music.artist}</h2>
             
-            <div className="flex flex-wrap items-center gap-6">
-              <button className="flex items-center gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
+            <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-4 md:gap-6">
+              <button className="flex items-center justify-center w-full md:w-auto gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
                 <Play size={24} className="fill-black" /> Play Album
               </button>
-              <button 
-                onClick={() => setIsLiked(!isLiked)}
-                className={cn(
-                  "p-5 rounded-full transition-all border",
-                  isLiked 
-                    ? "bg-red-500 text-white border-red-500 shadow-[0_0_30px_rgba(239,68,68,0.4)]" 
-                    : "bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white hover:text-black"
-                )}
-              >
-                <Heart size={24} className={isLiked ? "fill-current" : ""} />
-              </button>
-              <button className="p-5 bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
-                <Plus size={24} />
-              </button>
-              <button className="p-5 bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
-                <Share2 size={24} />
-              </button>
+              <div className="flex justify-center gap-4 w-full md:w-auto">
+                <button 
+                  onClick={() => setIsLiked(!isLiked)}
+                  className={cn(
+                    "flex-1 md:flex-none p-5 flex justify-center rounded-full transition-all border",
+                    isLiked 
+                      ? "bg-red-500 text-white border-red-500 shadow-[0_0_30px_rgba(239,68,68,0.4)]" 
+                      : "bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white hover:text-black"
+                  )}
+                >
+                  <Heart size={24} className={isLiked ? "fill-current" : ""} />
+                </button>
+                <button className="flex-1 md:flex-none p-5 flex justify-center bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
+                  <Plus size={24} />
+                </button>
+                <button className="flex-1 md:flex-none p-5 flex justify-center bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
+                  <Share2 size={24} />
+                </button>
+              </div>
             </div>
           </motion.div>
         </div>
       </div>
 
       {/* Content Grid */}
-      <div className="px-8 md:px-20 py-24 grid lg:grid-cols-12 gap-24">
+      <div className="px-6 md:px-20 py-12 md:py-24 grid lg:grid-cols-12 gap-12 lg:gap-24">
         {/* Left Column: Tracklist & Info */}
-        <div className="lg:col-span-8 space-y-24">
+        <div className="lg:col-span-8 space-y-16 md:space-y-24">
           <section>
             <div className="flex items-center gap-4 mb-10">
               <div className="h-px flex-1 bg-white/10" />
@@ -197,11 +199,11 @@ export function MusicDetails() {
                   transition={{ delay: i * 0.05 }}
                   onClick={() => setActiveTrack(track.id)}
                   className={cn(
-                    "group flex items-center gap-6 p-4 rounded-2xl transition-all cursor-pointer",
+                    "group flex items-center gap-3 md:gap-6 p-3 md:p-4 rounded-2xl transition-all cursor-pointer",
                     activeTrack === track.id ? "bg-white/10 border border-white/10" : "hover:bg-white/5 border border-transparent"
                   )}
                 >
-                  <span className="w-8 text-neutral-600 font-black text-xs group-hover:text-white transition-colors">{i + 1}</span>
+                  <span className="w-6 md:w-8 text-neutral-600 font-black text-xs md:text-sm group-hover:text-white transition-colors">{i + 1}</span>
                   <div className="flex-1">
                     <h3 className={cn("text-sm font-black uppercase tracking-tight transition-colors", activeTrack === track.id ? "text-white" : "text-neutral-400 group-hover:text-white")}>{track.title}</h3>
                     <span className="text-[10px] font-bold text-neutral-600 uppercase tracking-widest">{music.artist}</span>
@@ -217,7 +219,7 @@ export function MusicDetails() {
           </section>
 
           {/* User Rating Section */}
-          <section className="p-12 rounded-[3rem] bg-neutral-900/20 border border-white/5 relative overflow-hidden group">
+          <section className="p-8 md:p-12 rounded-[3rem] bg-neutral-900/20 border border-white/5 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
               <div>

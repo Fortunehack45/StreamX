@@ -111,11 +111,11 @@ export function PodcastDetails() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
         </div>
         
-        <Link to="/podcasts" className="absolute top-28 left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
+        <Link to="/podcasts" className="absolute top-24 left-6 md:top-28 md:left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
           <ChevronLeft size={24} />
         </Link>
 
-        <div className="relative p-8 md:p-20 pt-48 md:pt-64 pb-24 md:pb-32 z-10">
+        <div className="relative p-6 md:p-20 pt-48 md:pt-64 pb-24 md:pb-32 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -128,16 +128,16 @@ export function PodcastDetails() {
               <span className="text-white/60 font-black text-sm uppercase tracking-widest">{podcast.category}</span>
             </div>
 
-            <h1 className="text-5xl md:text-[8rem] font-black tracking-tighter mb-10 leading-[0.8] uppercase max-w-6xl">{podcast.title}</h1>
+            <h1 className="text-4xl md:text-5xl lg:text-[8rem] font-black tracking-tighter mb-10 leading-[0.9] lg:leading-[0.8] uppercase max-w-6xl">{podcast.title}</h1>
             
-            <div className="flex flex-wrap items-center gap-6">
-              <button className="flex items-center gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
+            <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-4 md:gap-6">
+              <button className="flex items-center justify-center w-full md:w-auto gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
                 <Play size={24} className="fill-black" /> Listen Latest
               </button>
               <button 
                 onClick={() => setIsSubscribed(!isSubscribed)}
                 className={cn(
-                  "flex items-center gap-4 px-10 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] transition-all border",
+                  "flex items-center justify-center w-full md:w-auto gap-4 px-10 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] transition-all border",
                   isSubscribed 
                     ? "bg-white text-black border-white" 
                     : "bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white hover:text-black"
@@ -145,7 +145,7 @@ export function PodcastDetails() {
               >
                 {isSubscribed ? <Check size={20} /> : <Plus size={20} />} {isSubscribed ? "Subscribed" : "Subscribe"}
               </button>
-              <button className="p-5 bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
+              <button className="w-full md:w-auto p-5 flex justify-center bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
                 <Share2 size={24} />
               </button>
             </div>
@@ -154,9 +154,9 @@ export function PodcastDetails() {
       </div>
 
       {/* Content Grid */}
-      <div className="px-8 md:px-20 py-24 grid lg:grid-cols-12 gap-24">
+      <div className="px-6 md:px-20 py-12 md:py-24 grid lg:grid-cols-12 gap-12 lg:gap-24">
         {/* Left Column: Episodes & Info */}
-        <div className="lg:col-span-8 space-y-24">
+        <div className="lg:col-span-8 space-y-16 md:space-y-24">
           <section>
             <div className="flex items-center gap-4 mb-10">
               <div className="h-px flex-1 bg-white/10" />
@@ -180,9 +180,9 @@ export function PodcastDetails() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="group p-8 rounded-[2.5rem] bg-neutral-900/20 border border-white/5 hover:border-white/20 transition-all cursor-pointer flex items-center gap-8"
+                  className="group p-6 md:p-8 rounded-[2.5rem] bg-neutral-900/20 border border-white/5 hover:border-white/20 transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-8"
                 >
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-white group-hover:text-black transition-all">
                     <Play size={24} className="group-hover:fill-current" />
                   </div>
                   <div className="flex-1">
@@ -202,7 +202,7 @@ export function PodcastDetails() {
           </section>
 
           {/* User Rating Section */}
-          <section className="p-12 rounded-[3rem] bg-neutral-900/20 border border-white/5 relative overflow-hidden group">
+          <section className="p-8 md:p-12 rounded-[3rem] bg-neutral-900/20 border border-white/5 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
               <div>

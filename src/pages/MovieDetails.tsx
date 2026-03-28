@@ -78,11 +78,11 @@ export function MovieDetails() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
         </div>
         
-        <Link to="/movies" className="absolute top-28 left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
+        <Link to="/movies" className="absolute top-24 left-6 md:top-28 md:left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
           <ChevronLeft size={24} />
         </Link>
 
-        <div className="relative p-8 md:p-20 pb-24 z-10">
+        <div className="relative p-6 md:p-20 pb-24 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -95,10 +95,10 @@ export function MovieDetails() {
               <span className="text-white/60 font-black text-sm uppercase tracking-widest">{movie.year}</span>
             </div>
 
-            <h1 className="text-6xl md:text-[8rem] font-black tracking-tighter mb-10 leading-[0.8] uppercase">{movie.title}</h1>
+            <h1 className="text-4xl md:text-6xl lg:text-[8rem] font-black tracking-tighter mb-10 leading-[0.9] lg:leading-[0.8] uppercase">{movie.title}</h1>
             
-            <div className="flex flex-wrap items-center gap-6 mb-12">
-              <button className="flex items-center gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
+            <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-4 md:gap-6 mb-12">
+              <button className="flex justify-center w-full md:w-auto items-center gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
                 <Play size={24} className="fill-black" /> Play Now
               </button>
               <button 
@@ -110,36 +110,38 @@ export function MovieDetails() {
                   }
                 }}
                 id="download-btn-movie"
-                className="flex items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all"
+                className="flex justify-center w-full md:w-auto items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all"
               >
                 <Download size={20} /> Download
               </button>
-              <button className="p-5 bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
-                <Plus size={24} />
-              </button>
-              <button className="p-5 bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
-                <Share2 size={24} />
-              </button>
+              <div className="flex justify-center gap-4 w-full md:w-auto">
+                <button className="flex-1 md:flex-none p-5 flex justify-center bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
+                  <Plus size={24} />
+                </button>
+                <button className="flex-1 md:flex-none p-5 flex justify-center bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
+                  <Share2 size={24} />
+                </button>
+              </div>
             </div>
           </motion.div>
         </div>
       </div>
 
       {/* Content Grid */}
-      <div className="px-8 md:px-20 py-24 grid lg:grid-cols-12 gap-24">
+      <div className="px-6 md:px-20 py-12 md:py-24 grid lg:grid-cols-12 gap-12 lg:gap-24">
         {/* Left Column: Info & Cast */}
-        <div className="lg:col-span-8 space-y-24">
+        <div className="lg:col-span-8 space-y-16 md:space-y-24">
           <section>
             <div className="flex items-center gap-4 mb-10">
               <div className="h-px flex-1 bg-white/10" />
               <h2 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500">Synopsis</h2>
               <div className="h-px w-12 bg-white/10" />
             </div>
-            <p className="text-neutral-300 text-2xl leading-relaxed font-medium max-w-4xl">{movie.desc}</p>
+            <p className="text-neutral-300 text-xl md:text-2xl leading-relaxed font-medium max-w-4xl">{movie.desc}</p>
           </section>
 
           {/* User Rating Section */}
-          <section className="p-12 rounded-[3rem] bg-neutral-900/20 border border-white/5 relative overflow-hidden group">
+          <section className="p-8 md:p-12 rounded-[3rem] bg-neutral-900/20 border border-white/5 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
               <div>
@@ -202,7 +204,7 @@ export function MovieDetails() {
               <h2 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500">The Cast</h2>
               <div className="h-px w-12 bg-white/10" />
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+            <div className="flex overflow-x-auto snap-x md:grid md:grid-cols-4 gap-4 md:gap-8 pb-4 scrollbar-hide">
               {movie.cast.map((actor, i) => (
                 <motion.div 
                   key={actor.name}
@@ -210,7 +212,7 @@ export function MovieDetails() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="group cursor-pointer"
+                  className="group cursor-pointer flex-none w-[140px] md:w-auto snap-start"
                 >
                   <div className="aspect-square rounded-3xl overflow-hidden mb-4 border border-white/5 group-hover:border-white/20 transition-all">
                     <img src={actor.image} alt={actor.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
