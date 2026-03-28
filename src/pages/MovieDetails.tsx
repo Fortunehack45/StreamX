@@ -63,7 +63,7 @@ export function MovieDetails() {
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans pb-48 md:pb-32">
       {/* Hero Section */}
-      <div className="relative min-h-[85vh] w-full overflow-hidden flex flex-col justify-end">
+      <div className="relative h-[65vh] md:min-h-[85vh] w-full overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 -z-10">
           <motion.img 
             initial={{ scale: 1.1 }}
@@ -74,15 +74,15 @@ export function MovieDetails() {
             className="w-full h-full object-cover opacity-60" 
             referrerPolicy="no-referrer" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
         </div>
         
-        <Link to="/movies" className="absolute top-24 left-6 md:top-28 md:left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
+        <Link to="/movies" className="absolute top-12 left-4 md:top-28 md:left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
           <ChevronLeft size={24} />
         </Link>
 
-        <div className="relative p-6 md:p-20 pb-24 z-10">
+        <div className="relative p-6 md:p-20 pb-8 md:pb-24 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -95,9 +95,9 @@ export function MovieDetails() {
               <span className="text-white/60 font-black text-sm uppercase tracking-widest">{movie.year}</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-[8rem] font-black tracking-tighter mb-10 leading-[0.9] lg:leading-[0.8] uppercase">{movie.title}</h1>
+            <h1 className="text-4xl md:text-6xl lg:text-[8rem] font-black tracking-tighter mb-6 md:mb-10 leading-[0.9] lg:leading-[0.8] uppercase">{movie.title}</h1>
             
-            <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-4 md:gap-6 mb-12">
+            <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-4 md:gap-6 mb-8 md:mb-12">
               <button className="flex justify-center w-full md:w-auto items-center gap-4 bg-white text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_60px_rgba(255,255,255,0.3)]">
                 <Play size={24} className="fill-black" /> Play Now
               </button>
@@ -128,9 +128,9 @@ export function MovieDetails() {
       </div>
 
       {/* Content Grid */}
-      <div className="px-6 md:px-20 py-12 md:py-24 grid lg:grid-cols-12 gap-12 lg:gap-24">
+      <div className="px-4 md:px-20 py-8 md:py-24 grid lg:grid-cols-12 gap-8 lg:gap-24 pb-32">
         {/* Left Column: Info & Cast */}
-        <div className="lg:col-span-8 space-y-16 md:space-y-24">
+        <div className="lg:col-span-8 space-y-12 md:space-y-24">
           <section>
             <div className="flex items-center gap-4 mb-10">
               <div className="h-px flex-1 bg-white/10" />
@@ -141,9 +141,9 @@ export function MovieDetails() {
           </section>
 
           {/* User Rating Section */}
-          <section className="p-8 md:p-12 rounded-[3rem] bg-neutral-900/20 border border-white/5 relative overflow-hidden group">
+          <section className="p-6 md:p-12 rounded-[2rem] md:rounded-[3rem] bg-neutral-900/20 border border-white/5 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
               <div>
                 <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">Rate this title</h3>
                 <p className="text-neutral-500 font-bold text-xs uppercase tracking-widest">Share your thoughts with the community</p>
@@ -199,12 +199,12 @@ export function MovieDetails() {
           </section>
 
           <section>
-            <div className="flex items-center gap-4 mb-12">
+            <div className="flex items-center gap-4 mb-8 md:mb-12">
               <div className="h-px flex-1 bg-white/10" />
               <h2 className="text-xs font-black uppercase tracking-[0.4em] text-neutral-500">The Cast</h2>
               <div className="h-px w-12 bg-white/10" />
             </div>
-            <div className="flex overflow-x-auto snap-x md:grid md:grid-cols-4 gap-4 md:gap-8 pb-4 scrollbar-hide">
+            <div className="flex overflow-x-auto snap-x md:grid md:grid-cols-4 gap-4 md:gap-8 pb-4 scrollbar-hide px-4 md:px-0 -mx-4 md:mx-0">
               {movie.cast.map((actor, i) => (
                 <motion.div 
                   key={actor.name}

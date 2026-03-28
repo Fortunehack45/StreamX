@@ -107,7 +107,7 @@ export function MusicDetails() {
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans pb-48 md:pb-32">
       {/* Hero Section */}
-      <div className="relative min-h-[75vh] md:min-h-[85vh] w-full flex flex-col justify-end overflow-hidden">
+      <div className="relative h-[65vh] md:min-h-[85vh] w-full flex flex-col justify-end overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <motion.img 
             initial={{ scale: 1.1 }}
@@ -118,15 +118,15 @@ export function MusicDetails() {
             className="w-full h-full object-cover opacity-60" 
             referrerPolicy="no-referrer" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent" />
         </div>
         
-        <Link to="/audio" className="absolute top-24 left-6 md:top-28 md:left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
+        <Link to="/audio" className="absolute top-12 left-4 md:top-28 md:left-8 p-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all z-20">
           <ChevronLeft size={24} />
         </Link>
 
-        <div className="relative p-6 md:p-20 pt-48 md:pt-64 pb-24 md:pb-32 z-10">
+        <div className="relative p-6 md:p-20 pt-32 md:pt-64 pb-8 md:pb-32 z-10">
           <motion.div 
             initial={{ opacity: 0, y: 40 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -171,9 +171,9 @@ export function MusicDetails() {
       </div>
 
       {/* Content Grid */}
-      <div className="px-6 md:px-20 py-12 md:py-24 grid lg:grid-cols-12 gap-12 lg:gap-24">
+      <div className="px-4 md:px-20 py-8 md:py-24 grid lg:grid-cols-12 gap-8 lg:gap-24 pb-32">
         {/* Left Column: Tracklist & Info */}
-        <div className="lg:col-span-8 space-y-16 md:space-y-24">
+        <div className="lg:col-span-8 space-y-12 md:space-y-24">
           <section>
             <div className="flex items-center gap-4 mb-10">
               <div className="h-px flex-1 bg-white/10" />
