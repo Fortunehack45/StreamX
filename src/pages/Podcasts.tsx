@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { Headphones, PlayCircle, Clock, Star, ChevronRight, Play, Heart, MoreHorizontal, Share2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 
 const topPodcasts = [
   { id: 101, title: "The Daily Stoic", host: "Ryan Holiday", image: "https://picsum.photos/seed/pod1/400/400", duration: "15m", rating: "4.9", category: "Philosophy" },

@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { Play, Heart, MoreHorizontal, Shuffle, SkipBack, SkipForward, Repeat, Disc3, ListMusic, Mic2, Radio, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 
 const topTracks = [
   { id: 201, title: "Starboy", artist: "The Weeknd, Daft Punk", duration: "3:50", plays: "2.4B", image: "https://picsum.photos/seed/starboy/100/100" },
